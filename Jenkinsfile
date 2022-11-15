@@ -39,7 +39,6 @@ node {
        case 'uat':
             stage("Deploy") {
                 sh "echo ${env.BRANCH_NAME}"
-                sh "echo ${env.BRANCH_NAME}"
             }
             break;
 //        case 'main':
