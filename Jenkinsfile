@@ -48,7 +48,6 @@ node {
                         --header 'Authorization: Bearer ${env.RANCHER_API_TOKEN}'"""
             }
            break;
-
    }
  } catch (e) {
    currentBuild.result = "FAILED"
