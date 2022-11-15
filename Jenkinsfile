@@ -40,6 +40,7 @@ node {
                 sh "echo ${env.BRANCH_NAME}"
             }
             break;
+
        case 'main':
             stage("Deploy") {
                 sh "echo ${env.BRANCH_NAME}"
