@@ -36,9 +36,9 @@ public class AuthServiceImpl implements AuthService {
             if(!account.getIsActive()){
                 throw new HandlerException("Account non active!");
             }else {
-                userDTO = userRepository.getByAccountId(account.getAccountId());
+                userDTO = userRepository.getDetailUser(account.getAccountId());
                 if (userDTO == null) {
-                    partnerDTO = partnerRepository.getPartnerInfoByAccountId(account.getAccountId());
+                    partnerDTO = partnerRepository.getDetailPartner(account.getAccountId());
                     loginResponse.setInformation(partnerDTO);
                 } else {
                     loginResponse.setInformation(userDTO);

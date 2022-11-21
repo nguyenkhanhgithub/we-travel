@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 public interface UserService {
     Page<UserDTO> getListUser(Integer page , Integer size) throws HandlerException;
 
-    UserDTO getDetailUser(Long userId) throws HandlerException;
+    UserDTO getDetailUser(Long accountId) throws HandlerException;
 }

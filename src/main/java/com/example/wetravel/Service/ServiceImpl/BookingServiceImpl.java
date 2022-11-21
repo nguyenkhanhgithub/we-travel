@@ -10,6 +10,10 @@ import com.example.wetravel.Repository.TourRepository;
 import com.example.wetravel.Repository.UserBookingRepository;
 import com.example.wetravel.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -30,43 +34,46 @@ public class BookingServiceImpl implements BookingService {
     AccountRepository accountRepository;
 
     @Override
-    public List<UserBookingDTO> getListBookingByAccountId(Long accountId) throws HandlerException{
+    public Page<UserBookingDTO> getListBookingByAccountId(Long accountId , Integer page , Integer size) throws HandlerException{
         if(!userBookingRepository.existsByAccountId_AccountId(accountId)){
             throw new HandlerException("Booking not exist!");
         }
-        List<Object> objectList = userBookingRepository.getListBookingByAccountId(accountId);
+        Pageable pageable = PageRequest.of(page - 1 , size);
+        Page<UserBooking> userBookingPage = userBookingRepository.getListBookingByAccountId(accountId , pageable);
+        List<UserBooking> userBookingList = userBookingPage.getContent();
         List<UserBookingDTO> userBookingDTOList = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        for (Object o : objectList){
-            Object[] objects = (Object[]) o;
+        for (UserBooking u : userBookingList){
             UserBookingDTO userBookingDTO = new UserBookingDTO();
-            Long bookingId = (Long) objects[0];
-            userBookingDTO.setUserBookingId(bookingId);
-            Long tourId = (Long) objects[1];
-            userBookingDTO.setTourId(tourId);
-            String tourName = objects[2].toString();
-            userBookingDTO.setTourName(tourName);
-            LocalDate startDate = LocalDate.parse(objects[3].toString(),formatter);
-            userBookingDTO.setStartDate(startDate);
-            Integer numberOfAdult = (Integer) objects[4];
-            userBookingDTO.setNumberOfAdult(numberOfAdult);
-            Integer numberOfChildren = (Integer) objects[5];
-            userBookingDTO.setNumberOfChildren(numberOfChildren);
-            Integer tourType = (Integer) objects[6];
-            userBookingDTO.setTourType(tourType);
-            Integer status = (Integer) objects[7];
-            userBookingDTO.setStatus(status);
-            Boolean statusDeposit = (Boolean) objects[8];
-            userBookingDTO.setStatusDeposit(statusDeposit);
-            Float totalPrice = (Float) objects[9];
-            userBookingDTO.setTotalPrice(totalPrice);
-            Float deposit = (Float) objects[10];
-            userBookingDTO.setDeposit(deposit);
-
+            userBookingDTO.setUserBookingId(u.getUserBookingId());
+            userBookingDTO.setAccountId(u.getAccountId().getAccountId());
+            userBookingDTO.setTourId(u.getTourId().getTourId());
+            userBookingDTO.setTourName(u.getTourId().getTourName());
+            userBookingDTO.setTourType(u.getTourId().getTourType());
+            userBookingDTO.setFullName(u.getFullName());
+            userBookingDTO.setPhone(u.getPhone());
+            userBookingDTO.setEmail(u.getEmail());
+            userBookingDTO.setBookingDate(u.getBookingDate());
+            userBookingDTO.setStartDate(u.getStartDate());
+            userBookingDTO.setIdCard(u.getIdCard());
+            userBookingDTO.setDateOfIssue(u.getDateOfIssue());
+            userBookingDTO.setPlaceOfIssue(u.getPlaceOfIssue());
+            userBookingDTO.setRequest(u.getRequest());
+            userBookingDTO.setAdultPrice(u.getAdultPrice());
+            userBookingDTO.setChildrenPrice(u.getChildrenPrice());
+            userBookingDTO.setNumberOfAdult(u.getNumberOfAdult());
+            userBookingDTO.setNumberOfChildren(u.getNumberOfChildren());
+            userBookingDTO.setTotalPrice(u.getTotalPrice());
+            userBookingDTO.setOrderId(u.getOrderId());
+            userBookingDTO.setOrderTitle(u.getOrderTitle());
+            userBookingDTO.setPayType(u.getPayType());
+            userBookingDTO.setStatus(u.getStatus());
+            userBookingDTO.setStatusDeposit(u.getStatusDeposit());
             userBookingDTOList.add(userBookingDTO);
         }
-        return userBookingDTOList;
+        return new PageImpl<>(userBookingDTOList , pageable , userBookingDTOList.size());
     }
+
+
 
     @Override
     public UserBookingDTO createBooking(UserBookingDTO userBookingDTO) throws HandlerException {
@@ -80,7 +87,9 @@ public class BookingServiceImpl implements BookingService {
         userBooking.setEmail(userBookingDTO.getEmail());
         userBooking.setBookingDate(userBookingDTO.getBookingDate());
         userBooking.setStartDate(userBookingDTO.getStartDate());
-        userBooking.setPromoCode(userBookingDTO.getPromoCode());
+        userBooking.setIdCard(userBookingDTO.getIdCard());
+        userBooking.setDateOfIssue(userBookingDTO.getDateOfIssue());
+        userBooking.setPlaceOfIssue(userBookingDTO.getPlaceOfIssue());
         userBooking.setRequest(userBookingDTO.getRequest());
         userBooking.setNumberOfAdult(userBookingDTO.getNumberOfAdult());
         userBooking.setNumberOfChildren(userBookingDTO.getNumberOfChildren());
@@ -94,6 +103,8 @@ public class BookingServiceImpl implements BookingService {
         userBooking.setStatusDeposit(userBookingDTO.getStatusDeposit());
         userBookingRepository.save(userBooking);
         userBookingDTO.setUserBookingId(userBooking.getUserBookingId());
+        userBookingDTO.setTourName(tour.getTourName());
+        userBookingDTO.setTourType(tour.getTourType());
         return userBookingDTO;
     }
 

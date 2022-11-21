@@ -19,6 +19,10 @@ public interface PartnerDTO {
 
     String getPhone();
 
+    String getCityContact();
+
+    String getAddressContact();
+
     String getEmailContact();
 
     String getDepartment();

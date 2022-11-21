@@ -44,8 +44,14 @@ public class UserBooking implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "promo_code")
-    private String promoCode;
+    @Column(name = "id_card")
+    private String idCard;
+
+    @Column(name = "date_of_issue")
+    private LocalDate dateOfIssue;
+
+    @Column(name = "place_of_issue")
+    private String placeOfIssue;
 
     @Column(name = "request")
     private String request;

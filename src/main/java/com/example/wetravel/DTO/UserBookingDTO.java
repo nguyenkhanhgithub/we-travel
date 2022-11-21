@@ -32,7 +32,11 @@ public class UserBookingDTO {
 
     private LocalDate startDate;
 
-    private String promoCode;
+    private String idCard;
+
+    private LocalDate dateOfIssue;
+
+    private String placeOfIssue;
 
     private String request;
 
@@ -55,6 +59,4 @@ public class UserBookingDTO {
     private Integer status;
 
     private Boolean statusDeposit;
-
-    private Float deposit;
 }

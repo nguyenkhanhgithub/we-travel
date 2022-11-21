@@ -26,11 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getDetailUser(Long userId) throws HandlerException{
-        if(userRepository.existsById(userId)){
+    public UserDTO getDetailUser(Long accountId) throws HandlerException{
+        if(!userRepository.existsById(accountId)){
             throw new HandlerException("User not found!");
         }
-        UserDTO userDTO = userRepository.getDetailUser(userId);
+        UserDTO userDTO = userRepository.getDetailUser(accountId);
         return userDTO;
     }
 }

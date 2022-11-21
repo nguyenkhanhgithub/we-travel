@@ -27,10 +27,10 @@ public class PartnerServiceImpl implements PartnerService {
     }
 
     @Override
-    public PartnerDTO getDetailPartner(Long partnerId) throws HandlerException {
-        if(!partnerRepository.existsById(partnerId)){
+    public PartnerDTO getDetailPartner(Long accountId) throws HandlerException {
+        if(!partnerRepository.existsByAccountId_AccountId(accountId)){
             throw new HandlerException("Partner not found!");
         }
-        return partnerRepository.getDetailPartner(partnerId);
+        return partnerRepository.getDetailPartner(accountId);
     }
 }

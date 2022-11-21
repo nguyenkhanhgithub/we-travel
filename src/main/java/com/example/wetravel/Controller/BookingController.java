@@ -7,6 +7,7 @@ import com.example.wetravel.DTO.UserBookingDTO;
 import com.example.wetravel.Exception.HandlerException;
 import com.example.wetravel.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,9 @@ public class BookingController {
     BookingService bookingService;
 
     @GetMapping("get-list-booking/by-account")
-    public ResponseEntity<?> getListBookingByAccountId(@RequestParam Long accountId){
+    public ResponseEntity<?> getListBookingByAccountId(@RequestParam Long accountId , @RequestParam Integer page , @RequestParam Integer size){
         try{
-            List<UserBookingDTO> result = bookingService.getListBookingByAccountId(accountId);
+            Page<UserBookingDTO> result = bookingService.getListBookingByAccountId(accountId , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

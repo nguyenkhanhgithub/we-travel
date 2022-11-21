@@ -81,10 +81,10 @@ public class AccountController {
         }
     }
 
-    @GetMapping("get/detail/partner/{partnerId}")
-    public ResponseEntity<?> getDetailPartner(@PathVariable Long partnerId){
+    @GetMapping("get/detail/partner/{accountId}")
+    public ResponseEntity<?> getDetailPartner(@PathVariable Long accountId){
         try{
-            PartnerDTO result = partnerService.getDetailPartner(partnerId);
+            PartnerDTO result = partnerService.getDetailPartner(accountId);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
@@ -101,10 +101,10 @@ public class AccountController {
         }
     }
 
-    @GetMapping("get/detail/user/{userId}")
-    public ResponseEntity<?> getDetailUser(@PathVariable Long userId){
+    @GetMapping("get/detail/user/{accountId}")
+    public ResponseEntity<?> getDetailUser(@PathVariable Long accountId){
         try{
-            UserDTO result = userService.getDetailUser(userId);
+            UserDTO result = userService.getDetailUser(accountId);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
