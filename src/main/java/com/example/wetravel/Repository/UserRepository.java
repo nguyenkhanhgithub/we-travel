@@ -17,8 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
             " u.rankPoint as rankPoint , u.accountId.roleId.roleId as roleId FROM User u")
     Page<UserDTO> getListUser(Pageable pageable);
 
-    @Query(value = "SELECT u.accountId.accountId as accountId , u.accountId.isBlock as isBlock , u.accountId.email as email, u.firstName as firstName , u.lastName as lastName , u.gender as gender ," +
-            " u.address as address , u.city as city , u.birthDate as birthDate , u.phone as phone ," +
+    @Query(value = "SELECT u.accountId.accountId as accountId , u.accountId.isBlock as isBlock , u.accountId.email as email, u.firstName as firstName " +
+            ", u.lastName as lastName , u.gender as gender ,u.address as address , u.city as city , u.birthDate as birthDate , u.phone as phone ," +
             " u.rankPoint as rankPoint , u.accountId.roleId.roleId as roleId FROM User u WHERE u.accountId.accountId = :accountId")
     UserDTO getDetailUser(Long accountId);
 

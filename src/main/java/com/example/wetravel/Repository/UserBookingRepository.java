@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -20,6 +21,7 @@ public interface UserBookingRepository extends JpaRepository<UserBooking , Long>
 //            "ub.tourId.deposit as deposit FROM UserBooking ub where ub.accountId.accountId = :accountId")
 //    List<Object> getListBookingByAccountId(Long accountId);
 
-    @Query(value = "SELECT ub FROM UserBooking ub where ub.accountId.accountId = :accountId")
-    Page<UserBooking> getListBookingByAccountId(Long accountId , Pageable pageable);
+    @Query(value = "SELECT ub FROM UserBooking ub where (ub.accountId.accountId = -1 or ub.accountId.accountId = :accountId) " +
+            "and (ub.tourId.tourId = -1 or ub.tourId.tourId = :tourId) and (ub.startDate = :defaultDate or ub.startDate = :startDate)")
+    Page<UserBooking> getListBookingByAccountId(Long accountId , Long tourId , LocalDate startDate , LocalDate defaultDate , Pageable pageable);
 }

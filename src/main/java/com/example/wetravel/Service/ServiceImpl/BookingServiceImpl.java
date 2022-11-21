@@ -34,12 +34,13 @@ public class BookingServiceImpl implements BookingService {
     AccountRepository accountRepository;
 
     @Override
-    public Page<UserBookingDTO> getListBookingByAccountId(Long accountId , Integer page , Integer size) throws HandlerException{
+    public Page<UserBookingDTO> getListBookingByAccountId(Long accountId , Long tourId , LocalDate startDate , Integer page , Integer size) throws HandlerException{
         if(!userBookingRepository.existsByAccountId_AccountId(accountId)){
             throw new HandlerException("Booking not exist!");
         }
         Pageable pageable = PageRequest.of(page - 1 , size);
-        Page<UserBooking> userBookingPage = userBookingRepository.getListBookingByAccountId(accountId , pageable);
+        LocalDate defaultDate = LocalDate.parse("");
+        Page<UserBooking> userBookingPage = userBookingRepository.getListBookingByAccountId(accountId , tourId , startDate , defaultDate , pageable);
         List<UserBooking> userBookingList = userBookingPage.getContent();
         List<UserBookingDTO> userBookingDTOList = new ArrayList<>();
         for (UserBooking u : userBookingList){
@@ -117,7 +118,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Boolean updateStatusDeposit(Long userBookingId , Boolean statusDeposit) {
+    public Boolean updateStatusDeposit(Long userBookingId , Boolean statusDeposit) throws HandlerException{
         UserBooking userBooking = userBookingRepository.getById(userBookingId);
         userBooking.setStatusDeposit(statusDeposit);
         userBookingRepository.save(userBooking);
