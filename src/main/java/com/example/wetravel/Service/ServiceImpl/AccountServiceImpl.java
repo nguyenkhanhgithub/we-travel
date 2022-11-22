@@ -125,7 +125,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Boolean activeAccount(Long accountId) {
         Account account = accountRepository.getById(accountId);
-        account.setIsActive(true);
+        account.setIsBlock(false);
         accountRepository.save(account);
         return true;
     }
