@@ -34,12 +34,12 @@ public class BookingServiceImpl implements BookingService {
     AccountRepository accountRepository;
 
     @Override
-    public Page<UserBookingDTO> getListBookingByAccountId(Long accountId , Long tourId , String startDate , Integer page , Integer size) throws HandlerException{
-        if(!userBookingRepository.existsByAccountId_AccountId(accountId)){
+    public Page<UserBookingDTO> getListBooking(Long accountId , Long tourId , String startDate , Integer page , Integer size) throws HandlerException{
+        if(!userBookingRepository.existsByAccountId_AccountId(accountId) && accountId != -1){
             throw new HandlerException("Booking not exist!");
         }
         Pageable pageable = PageRequest.of(page - 1 , size);
-        Page<UserBooking> userBookingPage = userBookingRepository.getListBookingByAccountId(accountId , tourId , startDate , pageable);
+        Page<UserBooking> userBookingPage = userBookingRepository.getListBooking(accountId , tourId , startDate , pageable);
         List<UserBooking> userBookingList = userBookingPage.getContent();
         List<UserBookingDTO> userBookingDTOList = new ArrayList<>();
         for (UserBooking u : userBookingList){

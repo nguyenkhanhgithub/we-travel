@@ -4,6 +4,7 @@ import com.example.wetravel.DTO.CustomerRegisterDTO;
 import com.example.wetravel.DTO.Login;
 import com.example.wetravel.DTO.PartnerRegisterDTO;
 import com.example.wetravel.Entity.*;
+import com.example.wetravel.Exception.HandlerException;
 import com.example.wetravel.Repository.*;
 import com.example.wetravel.Service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     ServiceRepository serviceRepository;
 
     @Override
-    public Boolean registerCustomerAccount(CustomerRegisterDTO customerRegisterDTO) {
+    public Boolean registerCustomerAccount(CustomerRegisterDTO customerRegisterDTO) throws HandlerException{
         if(accountRepository.findByEmail(customerRegisterDTO.getEmail()) == null){
             Role role = roleRepository.getOne(customerRegisterDTO.getRoleId());
             Account account = new Account();
@@ -56,12 +57,12 @@ public class AccountServiceImpl implements AccountService {
             userRepository.save(user);
             return true;
         }else{
-            throw new BadRequestException("Email exist");
+            throw new HandlerException("Email exist");
         }
     }
 
     @Override
-    public Boolean registerPartnerAccount(PartnerRegisterDTO partnerRegisterDTO) {
+    public Boolean registerPartnerAccount(PartnerRegisterDTO partnerRegisterDTO) throws HandlerException{
         if(accountRepository.findByEmail(partnerRegisterDTO.getAccountInfor().getEmail()) == null){
             Role role = roleRepository.getOne(partnerRegisterDTO.getAccountInfor().getRoleId().getRoleId());
             Account account = new Account();
@@ -105,7 +106,7 @@ public class AccountServiceImpl implements AccountService {
             companyPartnerRepository.save(companyPartner);
             return true;
         }else{
-            throw new BadRequestException("Email exist!");
+            throw new HandlerException("Email exist!");
         }
     }
 

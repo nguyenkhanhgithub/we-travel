@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface AccommodationRepository extends JpaRepository<Accommodation , Long> {
     @Query("select a from Accommodation a where a.serviceId.serviceId = :serviceId")
     Accommodation getByServiceId(Long serviceId);
+
+    @Query("select a.accommodationType from Accommodation a where a.serviceId.serviceId = :serviceId ")
+    String getTypeByServiceId(Long serviceId);
 }

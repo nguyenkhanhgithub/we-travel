@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -35,6 +36,8 @@ public class ServiceDTO {
     private Boolean isBlock;
 
     private Long serviceCategory;
+
+    private String typeOfServiceCategory;
 
     private String partnerEmail;
 }

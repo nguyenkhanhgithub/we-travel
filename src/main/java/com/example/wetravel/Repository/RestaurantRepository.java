@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface RestaurantRepository extends JpaRepository<Restaurant , Long> {
     @Query("select r from Restaurant r where r.serviceId.serviceId = :serviceId")
     Restaurant getRestaurantByServiceId(Long serviceId);
+
+    @Query("select r.restaurantServiceType from Restaurant r where r.serviceId.serviceId = :serviceId")
+    String getTypeByServiceId(Long serviceId);
 }

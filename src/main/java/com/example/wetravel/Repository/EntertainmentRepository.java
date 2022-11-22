@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface EntertainmentRepository extends JpaRepository<Entertainment , Long> {
     @Query("select e from Entertainment e where e.serviceId.serviceId = :serviceId")
     Entertainment getEntertainmentByServiceId(Long serviceId);
+
+    @Query("select e.entertainmentType from Entertainment e where e.serviceId.serviceId = :serviceId")
+    String getTypeByServiceId(Long serviceId);
 }

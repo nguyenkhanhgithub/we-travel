@@ -24,10 +24,10 @@ public class BookingController {
     BookingService bookingService;
 
     @GetMapping("get-list-booking/by-account")
-    public ResponseEntity<?> getListBookingByAccountId(@RequestParam(defaultValue = "-1") Long accountId , @RequestParam(defaultValue = "-1") Long tourId ,
-                                                       @RequestParam(defaultValue = "0000-00-00") String startDate, @RequestParam Integer page , @RequestParam Integer size){
+    public ResponseEntity<?> getListBooking(@RequestParam(defaultValue = "-1") Long accountId , @RequestParam(defaultValue = "-1") Long tourId ,
+                                            @RequestParam(defaultValue = "0000-00-00") String startDate, @RequestParam Integer page , @RequestParam Integer size){
         try{
-            Page<UserBookingDTO> result = bookingService.getListBookingByAccountId(accountId , tourId , startDate , page , size);
+            Page<UserBookingDTO> result = bookingService.getListBooking(accountId , tourId , startDate , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

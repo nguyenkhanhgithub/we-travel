@@ -23,5 +23,5 @@ public interface UserBookingRepository extends JpaRepository<UserBooking , Long>
 
     @Query(value = "SELECT * FROM user_booking where (:accountId = -1 or account_id = :accountId) " +
             "and (:tourId = -1 or tour_id = :tourId) and (:startDate = \"0000-00-00\" or start_date = :startDate)" , nativeQuery = true)
-    Page<UserBooking> getListBookingByAccountId(Long accountId , Long tourId , String startDate , Pageable pageable);
+    Page<UserBooking> getListBooking(Long accountId , Long tourId , String startDate , Pageable pageable);
 }

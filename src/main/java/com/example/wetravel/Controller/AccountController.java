@@ -32,11 +32,7 @@ public class AccountController {
     public ResponseEntity<?> registerAccountCustomer(@RequestBody CustomerRegisterDTO customerRegisterDTO){
         try {
             Boolean result =  accountService.registerCustomerAccount(customerRegisterDTO);
-            if(result.equals(true)){
-                return new ResponseEntity<>(new BaseResponse(200 , true , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(new BaseResponse(400 , null , Constant.Message.EMAIL_EXIST) , HttpStatus.BAD_REQUEST);
-            }
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
         }
@@ -46,12 +42,7 @@ public class AccountController {
     public ResponseEntity<?> registerAccountPartner(@RequestBody PartnerRegisterDTO partnerRegisterDTO){
         try{
             Boolean result = accountService.registerPartnerAccount(partnerRegisterDTO);
-            if(result.equals(true)){
-                return new ResponseEntity<>(new BaseResponse(200 , true ,  Constant.Message.CREATE_SUCCESS ) , HttpStatus.OK);
-            }else{
-
-                return new ResponseEntity<>(new BaseResponse(400 , null , Constant.Message.EMAIL_EXIST) , HttpStatus.BAD_REQUEST);
-            }
+            return new ResponseEntity<>(new BaseResponse(200 , result ,  Constant.Message.CREATE_SUCCESS ) , HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
         }

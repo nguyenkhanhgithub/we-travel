@@ -60,7 +60,8 @@ public class ServiceServiceImpl implements ServiceService {
         List<ServiceDTO> serviceDTOList = new ArrayList<>();
         for(Service s : serviceList){
             ServiceDTO serviceDTO = new ServiceDTO();
-            serviceDTO.setServiceId(s.getServiceId());
+            Long serviceId = s.getServiceId();
+            serviceDTO.setServiceId(serviceId);
             serviceDTO.setServiceName(s.getServiceName());
             serviceDTO.setFax(s.getFax());
             serviceDTO.setPhone(s.getPhone());
@@ -72,7 +73,16 @@ public class ServiceServiceImpl implements ServiceService {
             serviceDTO.setTaxCode(s.getTaxCode());
             serviceDTO.setIsActive(s.getIsActive());
             serviceDTO.setIsBlock(s.getIsBlock());
-            serviceDTO.setServiceCategory(s.getServiceCategoryId().getServiceCategoryId());
+
+            Long serviceCateId = s.getServiceCategoryId().getServiceCategoryId();
+            serviceDTO.setServiceCategory(serviceCateId);
+            if(serviceCateId == 1){
+                serviceDTO.setTypeOfServiceCategory(accommodationRepository.getTypeByServiceId(serviceId));
+            }else if(serviceCateId == 2){
+                serviceDTO.setTypeOfServiceCategory(entertainmentRepository.getTypeByServiceId(serviceId));
+            }else {
+                serviceDTO.setTypeOfServiceCategory(restaurantRepository.getTypeByServiceId(serviceId));
+            }
             serviceDTO.setPartnerEmail(s.getPartnerId().getEmail());
             serviceDTOList.add(serviceDTO);
         }
@@ -91,7 +101,8 @@ public class ServiceServiceImpl implements ServiceService {
         List<ServiceDTO> serviceDTOList = new ArrayList<>();
         for(Service s : serviceList){
             ServiceDTO serviceDTO = new ServiceDTO();
-            serviceDTO.setServiceId(s.getServiceId());
+            Long serviceId = s.getServiceId();
+            serviceDTO.setServiceId(serviceId);
             serviceDTO.setServiceName(s.getServiceName());
             serviceDTO.setFax(s.getFax());
             serviceDTO.setPhone(s.getPhone());
@@ -103,7 +114,16 @@ public class ServiceServiceImpl implements ServiceService {
             serviceDTO.setTaxCode(s.getTaxCode());
             serviceDTO.setIsActive(s.getIsActive());
             serviceDTO.setIsBlock(s.getIsBlock());
-            serviceDTO.setServiceCategory(s.getServiceCategoryId().getServiceCategoryId());
+
+            Long serviceCateId = s.getServiceCategoryId().getServiceCategoryId();
+            serviceDTO.setServiceCategory(serviceCateId);
+            if(serviceCateId == 1){
+                serviceDTO.setTypeOfServiceCategory(accommodationRepository.getTypeByServiceId(serviceId));
+            }else if(serviceCateId == 2){
+                serviceDTO.setTypeOfServiceCategory(entertainmentRepository.getTypeByServiceId(serviceId));
+            }else {
+                serviceDTO.setTypeOfServiceCategory(restaurantRepository.getTypeByServiceId(serviceId));
+            }
             serviceDTO.setPartnerEmail(s.getPartnerId().getEmail());
             serviceDTOList.add(serviceDTO);
         }
@@ -274,6 +294,8 @@ public class ServiceServiceImpl implements ServiceService {
         service.setLink(serviceDTO.getLink());
         service.setStatus(serviceDTO.getStatus());
         service.setTaxCode(serviceDTO.getTaxCode());
+        LocalDate now = LocalDate.now();
+        service.setDateRegister(now);
         service.setIsActive(false);
         service.setIsBlock(false);
         ServiceCategory serviceCategory = serviceCategoryRepository.getById(serviceDTO.getServiceCategory());
