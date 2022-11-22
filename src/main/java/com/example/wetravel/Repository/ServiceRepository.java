@@ -23,4 +23,7 @@ public interface ServiceRepository extends JpaRepository<Service, Long> {
     @Query(value = "select s from Service s join Partner p on s.partnerId.partnerId = p.partnerId join \n" +
             "Account a on p.accountId.accountId = a.accountId where p.partnerId = :partnerId")
     Page<Service> getListServiceByPartnerId(Long partnerId , Pageable pageable);
+
+    @Query(value = "SELECT s.* FROM service s join partner p on s.partner_id = p.partner_id where p.account_id = :accountId",nativeQuery = true)
+    List<Service> getListServiceByAccountPartner(Long accountId);
 }

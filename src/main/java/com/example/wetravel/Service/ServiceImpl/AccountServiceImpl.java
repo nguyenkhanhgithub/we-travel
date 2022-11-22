@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.BadRequestException;
+import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -27,6 +28,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     ServiceCategoryRepository serviceCategoryRepository;
+
+    @Autowired
+    ServiceRepository serviceRepository;
 
     @Override
     public Boolean registerCustomerAccount(CustomerRegisterDTO customerRegisterDTO) {
@@ -119,6 +123,13 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.getById(accountId);
         account.setIsBlock(true);
         accountRepository.save(account);
+        List<com.example.wetravel.Entity.Service> serviceList = serviceRepository.getListServiceByAccountPartner(accountId);
+        if(!serviceList.isEmpty()){
+            for (com.example.wetravel.Entity.Service s : serviceList){
+                s.setIsBlock(true);
+                serviceRepository.save(s);
+            }
+        }
         return true;
     }
 
@@ -127,6 +138,13 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.getById(accountId);
         account.setIsBlock(false);
         accountRepository.save(account);
+        List<com.example.wetravel.Entity.Service> serviceList = serviceRepository.getListServiceByAccountPartner(accountId);
+        if(!serviceList.isEmpty()){
+            for (com.example.wetravel.Entity.Service s : serviceList){
+                s.setIsBlock(false);
+                serviceRepository.save(s);
+            }
+        }
         return true;
     }
 }
