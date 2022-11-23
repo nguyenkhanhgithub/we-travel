@@ -83,7 +83,7 @@ public class AccountServiceImpl implements AccountService {
         Map<String , Object> claims = jwtUtil.extractAllClaims(partnerRegisterDTO.getToken());
         String email = claims.get("email").toString();
         Integer roleId = (Integer) claims.get("role");
-        Long serviceCategoryId = (Long) claims.get("serviceCategory");
+        Integer serviceCategoryId = (Integer) claims.get("serviceCategory");
         if(accountRepository.findByEmail(email) == null){
             Role role = roleRepository.getOne(roleId);
             Account account = new Account();
@@ -107,7 +107,7 @@ public class AccountServiceImpl implements AccountService {
             partner.setNumberIdCard(partnerRegisterDTO.getPartnerInfor().getNumberIdCard());
             partner.setDateIssue(partnerRegisterDTO.getPartnerInfor().getDateIssue());
             partner.setPlaceIssue(partnerRegisterDTO.getPartnerInfor().getPlaceIssue());
-            ServiceCategory serviceCategory = serviceCategoryRepository.getOne(serviceCategoryId);
+            ServiceCategory serviceCategory = serviceCategoryRepository.getOne(Long.valueOf(serviceCategoryId));
             partner.setServiceCategoryId(serviceCategory);
             partner.setAccountId(account);
             CompanyPartner companyPartner = new CompanyPartner();
