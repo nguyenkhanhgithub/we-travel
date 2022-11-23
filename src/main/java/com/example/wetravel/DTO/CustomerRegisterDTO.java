@@ -10,11 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomerRegisterDTO {
-    private String email;
+    private String token; //bao gồm email , role
 
     private String password;
-
-    private Integer roleId;
 
     private String firstName;
 
@@ -31,6 +29,4 @@ public class CustomerRegisterDTO {
     private Boolean isPrivate;
 
     private String phone;
-
-    private Integer avatar;
 }

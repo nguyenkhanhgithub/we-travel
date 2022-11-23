@@ -8,10 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account , Long> {
-        Account getAllByEmailAndPassWord(String email , String password);
-
-//        @Query(value = "select * from Account where email = :email" , nativeQuery = true)
-//        Account checkAccountExist(String email);
+        Account getAccountByEmail(String email);
 
         Account findByEmail(String mail);
 

@@ -48,10 +48,30 @@ public class AccountController {
         }
     }
 
-    @PostMapping("change/password")
-    public ResponseEntity<?> activeAccount(@RequestBody Login login){
+    @PostMapping("edit/profile/customer/{userId}")
+    public ResponseEntity<?> editProfileCustomer(@PathVariable Long userId , @RequestBody CustomerRegisterDTO customerRegisterDTO){
         try{
-            Boolean result = accountService.changePassWord(login);
+            Boolean result = accountService.editProfileCustomer(userId , customerRegisterDTO);
+            return new ResponseEntity<>(new BaseResponse(200 , result ,  Constant.Message.UPDATE_SUCCESS ) , HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("edit/profile/partner/{partnerId}")
+    public ResponseEntity<?> editProfilePartner(@PathVariable Long partnerId , @RequestBody PartnerRegisterDTO partnerRegisterDTO){
+        try{
+            Boolean result = accountService.editProfilePartner(partnerId , partnerRegisterDTO);
+            return new ResponseEntity<>(new BaseResponse(200 , result ,  Constant.Message.UPDATE_SUCCESS ) , HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("change/password")
+    public ResponseEntity<?> activeAccount(@RequestBody ChangePasswordDTO changePasswordDTO){
+        try{
+            Boolean result = accountService.changePassWord(changePasswordDTO);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

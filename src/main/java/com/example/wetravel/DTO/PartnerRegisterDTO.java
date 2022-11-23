@@ -13,35 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PartnerRegisterDTO {
-//    private String email;
-//
-//    private String password;
-//
-//    private Integer roleId;
-//
-//    private String firstName;
-//
-//    private String lastName;
-//
-//    private String gender;
-//
-//    private String address;
-//
-//    private String birthDate;
-//
-//    private String phone;
-//
-//    private String emailContact;
-//
-//    private String position;
-//
-//    private String department;
-//
-//    private String numberIdCard;
-//
-//    private String placeIssue;
-//
-//    private String dateIssue;
+    private String token;//bao gồm email , role , serviceCategory
 
     private Account accountInfor;
 

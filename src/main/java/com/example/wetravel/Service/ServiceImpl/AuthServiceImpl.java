@@ -9,9 +9,13 @@ import com.example.wetravel.Exception.HandlerException;
 import com.example.wetravel.Repository.AccountRepository;
 import com.example.wetravel.Repository.PartnerRepository;
 import com.example.wetravel.Repository.UserRepository;
+import com.example.wetravel.Security.JwtUtil;
 import com.example.wetravel.Service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 
 @Service
@@ -26,27 +30,36 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     PartnerRepository partnerRepository;
 
+    @Autowired
+    JwtUtil jwtUtil;
+
     @Override
     public LoginResponse login(Login login) throws HandlerException {
         LoginResponse loginResponse = new LoginResponse();
-        UserDTO userDTO;
         PartnerDTO partnerDTO;
-        Account account = accountRepository.getAllByEmailAndPassWord(login.getEmail(), login.getPassword());
-        if(account != null){
-            if(!account.getIsActive()){
+        Account account = accountRepository.getAccountByEmail(login.getEmail());
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        if(account != null && bcrypt.matches(login.getPassword(), account.getPassWord())){
+            if(!account.getIsActive() || account.getIsBlock()){
                 throw new HandlerException("Account non active!");
             }else {
-                userDTO = userRepository.getDetailUser(account.getAccountId());
-                if (userDTO == null) {
-                    partnerDTO = partnerRepository.getDetailPartner(account.getAccountId());
-                    loginResponse.setInformation(partnerDTO);
-                } else {
+                HashMap<String, Object> claims = new HashMap<>();
+                claims.put("accountId" , account.getAccountId());
+                claims.put("role" , account.getRoleId());
+                claims.put("email" , account.getEmail());
+                if(userRepository.existsByAccountId_AccountId(account.getAccountId())){
+                    UserDTO userDTO = userRepository.getDetailUser(account.getAccountId());
+                    //String token = jwtUtil.generateToken(login.getEmail(), claims);
                     loginResponse.setInformation(userDTO);
+                }else{
+                    partnerDTO = partnerRepository.getDetailPartner(account.getAccountId());
+                    //String token = jwtUtil.generateToken(login.getEmail(), claims);
+                    loginResponse.setInformation(partnerDTO);
                 }
                 return loginResponse;
             }
         }else{
-            throw new HandlerException("Account not exist!");
+            throw new HandlerException("Wrong email or password!");
         }
     }
 }
