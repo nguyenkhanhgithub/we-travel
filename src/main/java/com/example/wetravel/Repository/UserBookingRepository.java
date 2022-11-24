@@ -18,6 +18,6 @@ public interface UserBookingRepository extends JpaRepository<UserBooking , Long>
             "and (:tourId = -1 or tour_id = :tourId) and (:startDate = \"0000-00-00\" or start_date = :startDate)" , nativeQuery = true)
     Page<UserBooking> getListBooking(Long accountId , Long tourId , String startDate , Pageable pageable);
 
-    @Query(value = "SELECT ub.* FROM user_booking ub join tour t on ub.account_id = t.account_id where t.tour_id = :tourId and t.status = 1", nativeQuery = true)
+    @Query(value = "SELECT ub.* FROM user_booking ub join tour t on ub.account_id = t.account_id where t.tour_id = :tourId", nativeQuery = true)
     UserBooking getBookingOfTourPrivateByTourId(Long tourId);
 }

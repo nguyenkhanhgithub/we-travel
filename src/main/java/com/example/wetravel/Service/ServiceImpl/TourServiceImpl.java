@@ -68,6 +68,8 @@ public class TourServiceImpl implements TourService {
             tourDTO.setTourType(t.getTourType());
             tourDTO.setTourMode(t.getTourMode());
             tourDTO.setStartDate(t.getStartDate());
+            tourDTO.setStartTime(t.getStartTime());
+            tourDTO.setEndTime(t.getEndTime());
             tourDTO.setNumberOfDay(t.getNumberOfDay());
             tourDTO.setNumberOfNight(t.getNumberOfNight());
             tourDTO.setMinAdult(t.getMinAdult());
@@ -110,6 +112,8 @@ public class TourServiceImpl implements TourService {
         tourDTO.setTourType(tour.getTourType());
         tourDTO.setTourMode(tour.getTourMode());
         tourDTO.setStartDate(tour.getStartDate());
+        tourDTO.setStartTime(tour.getStartTime());
+        tourDTO.setEndTime(tour.getEndTime());
         tourDTO.setNumberOfDay(tour.getNumberOfDay());
         tourDTO.setNumberOfNight(tour.getNumberOfNight());
         tourDTO.setMinAdult(tour.getMinAdult());
@@ -209,6 +213,8 @@ public class TourServiceImpl implements TourService {
         tour.setTourType(tourDTO.getTourType());
         tour.setTourMode(tourDTO.getTourMode());
         tour.setStartDate(tourDTO.getStartDate());
+        tour.setStartTime(tourDTO.getStartTime());
+        tour.setEndTime(tourDTO.getEndTime());
         tour.setNumberOfDay(tourDTO.getNumberOfDay());
         tour.setNumberOfNight(tourDTO.getNumberOfNight());
         tour.setMinAdult(tourDTO.getMinAdult());
@@ -286,6 +292,8 @@ public class TourServiceImpl implements TourService {
         tour.setTourType(tourDTO.getTourType());
         tour.setTourMode(tourDTO.getTourMode());
         tour.setStartDate(tourDTO.getStartDate());
+        tour.setStartTime(tourDTO.getStartTime());
+        tour.setEndTime(tourDTO.getEndTime());
         tour.setNumberOfDay(tourDTO.getNumberOfDay());
         tour.setNumberOfNight(tourDTO.getNumberOfNight());
         tour.setMinAdult(tourDTO.getMinAdult());
@@ -300,12 +308,8 @@ public class TourServiceImpl implements TourService {
         tour.setDeposit(tourDTO.getDeposit());
         TourCategory tourCategory = tourCategoryRepository.getById(tourDTO.getTourCategoryId());
         tour.setTourCategoryId(tourCategory);
-        try{
-            Account account = accountRepository.getById(tourDTO.getAccountId());
-            tour.setAccountId(account);
-        } catch (Exception e){
-            tour.setAccountId(null);
-        }
+        tourRepository.save(tour);
+
         TourDetail tourDetail = tourDetailRepository.getByTourId(tourId);
         TourDetailDTO tourDetailDTO = tourDTO.getTourDetailDTO();
         tourDetail.setTourIntroduce(tourDetailDTO.getTourIntroduce());
@@ -317,7 +321,6 @@ public class TourServiceImpl implements TourService {
         tourDetail.setMoreDescription(tourDetailDTO.getMoreDescription());
         tourDetail.setLongitude(tourDetailDTO.getLongitude());
         tourDetail.setLatitude(tourDetailDTO.getLatitude());
-        tourDetail.setTourId(tour);
         tourDetailRepository.save(tourDetail);
 
         List<TagOfTour> tagOfTourList = tagOfTourRepository.getByTourDetailId(tourDetail.getTourDetailId());

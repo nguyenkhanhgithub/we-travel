@@ -65,7 +65,7 @@ public class TourController {
         }
     }
 
-    @PutMapping("update/tour/{tourId}")
+    @PostMapping("update/tour/{tourId}")
     public ResponseEntity<?> updateTour(@RequestBody TourDTO tourDTO , @PathVariable Long tourId){
         try{
             TourDTO result = tourService.updateTour(tourDTO , tourId);

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,6 +31,10 @@ public class TourDTO {
     private Boolean tourMode;
 
     private LocalDate startDate;
+
+    private LocalTime startTime;
+
+    private LocalTime endTime;
 
     private Integer numberOfDay;
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Table(name = "Tour")
@@ -76,6 +77,12 @@ public class Tour implements Serializable {
     @Column(name = "start_date")
     private LocalDate startDate;
 
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
+    @Column(name = "end_time")
+    private LocalTime endTime;
+
     @Column(name = "total_price")
     private Float totalPrice;
 
@@ -93,7 +100,7 @@ public class Tour implements Serializable {
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "tourId" , cascade = CascadeType.ALL)
     private List<TourSchedule> tourScheduleList;
 
-    @OneToOne(mappedBy = "tourId" , cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY , mappedBy = "tourId" , cascade = CascadeType.ALL)
     private TourDetail tourDetail;
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "accountId" , cascade = CascadeType.ALL)
