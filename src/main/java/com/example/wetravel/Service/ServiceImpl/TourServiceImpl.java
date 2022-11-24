@@ -129,31 +129,33 @@ public class TourServiceImpl implements TourService {
         tourDTO.setTourCategoryId(tour.getTourCategoryId().getTourCategoryId());
         try{
             tourDTO.setAccountId(tour.getAccountId().getAccountId());
-            UserBooking userBooking = userBookingRepository.getBookingOfTourPrivateByTourId(tourId);
-            UserBookingDTO userBookingDTO = new UserBookingDTO();
-            userBookingDTO.setUserBookingId(userBooking.getUserBookingId());
-            userBookingDTO.setAccountId(userBooking.getAccountId().getAccountId());
-            userBookingDTO.setTourId(userBooking.getTourId().getTourId());
-            userBookingDTO.setFullName(userBooking.getFullName());
-            userBookingDTO.setPhone(userBooking.getPhone());
-            userBookingDTO.setEmail(userBooking.getEmail());
-            userBookingDTO.setBookingDate(userBooking.getBookingDate());
-            userBookingDTO.setStartDate(userBooking.getStartDate());
-            userBookingDTO.setIdCard(userBooking.getIdCard());
-            userBookingDTO.setDateOfIssue(userBooking.getDateOfIssue());
-            userBookingDTO.setPlaceOfIssue(userBooking.getPlaceOfIssue());
-            userBookingDTO.setRequest(userBooking.getRequest());
-            userBookingDTO.setAdultPrice(userBooking.getAdultPrice());
-            userBookingDTO.setChildrenPrice(userBooking.getChildrenPrice());
-            userBookingDTO.setNumberOfAdult(userBooking.getNumberOfAdult());
-            userBookingDTO.setNumberOfChildren(userBooking.getNumberOfChildren());
-            userBookingDTO.setTotalPrice(userBooking.getTotalPrice());
-            userBookingDTO.setOrderId(userBooking.getOrderId());
-            userBookingDTO.setOrderTitle(userBooking.getOrderTitle());
-            userBookingDTO.setPayType(userBooking.getPayType());
-            userBookingDTO.setStatus(userBooking.getStatus());
-            userBookingDTO.setStatusDeposit(userBooking.getStatusDeposit());
-            tourDTO.setUserBookingDTO(userBookingDTO);
+            List<UserBooking> userBookingList = userBookingRepository.getBookingOfTourPrivateByTourId(tourId);
+            for(UserBooking u : userBookingList){
+                UserBookingDTO userBookingDTO = new UserBookingDTO();
+                userBookingDTO.setUserBookingId(u.getUserBookingId());
+                userBookingDTO.setAccountId(u.getAccountId().getAccountId());
+                userBookingDTO.setTourId(u.getTourId().getTourId());
+                userBookingDTO.setFullName(u.getFullName());
+                userBookingDTO.setPhone(u.getPhone());
+                userBookingDTO.setEmail(u.getEmail());
+                userBookingDTO.setBookingDate(u.getBookingDate());
+                userBookingDTO.setStartDate(u.getStartDate());
+                userBookingDTO.setIdCard(u.getIdCard());
+                userBookingDTO.setDateOfIssue(u.getDateOfIssue());
+                userBookingDTO.setPlaceOfIssue(u.getPlaceOfIssue());
+                userBookingDTO.setRequest(u.getRequest());
+                userBookingDTO.setAdultPrice(u.getAdultPrice());
+                userBookingDTO.setChildrenPrice(u.getChildrenPrice());
+                userBookingDTO.setNumberOfAdult(u.getNumberOfAdult());
+                userBookingDTO.setNumberOfChildren(u.getNumberOfChildren());
+                userBookingDTO.setTotalPrice(u.getTotalPrice());
+                userBookingDTO.setOrderId(u.getOrderId());
+                userBookingDTO.setOrderTitle(u.getOrderTitle());
+                userBookingDTO.setPayType(u.getPayType());
+                userBookingDTO.setStatus(u.getStatus());
+                userBookingDTO.setStatusDeposit(u.getStatusDeposit());
+                tourDTO.setUserBookingDTO(userBookingDTO);
+            }
         } catch (Exception e){
             tourDTO.setAccountId(null);
             tourDTO.setUserBookingDTO(null);
