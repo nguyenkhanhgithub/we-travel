@@ -44,6 +44,9 @@ public class TourServiceImpl implements TourService {
     @Autowired
     AccountRepository accountRepository;
 
+    @Autowired
+    UserBookingRepository userBookingRepository;
+
     @Override
     public TourListDTO getAllTour(String tourName , List<Integer> tourCategoryList , Integer tourType
             , Integer status , Integer fromPrice , Integer toPrice , Integer page, Integer size) throws HandlerException{
@@ -122,8 +125,34 @@ public class TourServiceImpl implements TourService {
         tourDTO.setTourCategoryId(tour.getTourCategoryId().getTourCategoryId());
         try{
             tourDTO.setAccountId(tour.getAccountId().getAccountId());
+            UserBooking userBooking = userBookingRepository.getBookingOfTourPrivateByTourId(tourId);
+            UserBookingDTO userBookingDTO = new UserBookingDTO();
+            userBookingDTO.setUserBookingId(userBooking.getUserBookingId());
+            userBookingDTO.setAccountId(userBooking.getAccountId().getAccountId());
+            userBookingDTO.setTourId(userBooking.getTourId().getTourId());
+            userBookingDTO.setFullName(userBooking.getFullName());
+            userBookingDTO.setPhone(userBooking.getPhone());
+            userBookingDTO.setEmail(userBooking.getEmail());
+            userBookingDTO.setBookingDate(userBooking.getBookingDate());
+            userBookingDTO.setStartDate(userBooking.getStartDate());
+            userBookingDTO.setIdCard(userBooking.getIdCard());
+            userBookingDTO.setDateOfIssue(userBooking.getDateOfIssue());
+            userBookingDTO.setPlaceOfIssue(userBooking.getPlaceOfIssue());
+            userBookingDTO.setRequest(userBooking.getRequest());
+            userBookingDTO.setAdultPrice(userBooking.getAdultPrice());
+            userBookingDTO.setChildrenPrice(userBooking.getChildrenPrice());
+            userBookingDTO.setNumberOfAdult(userBooking.getNumberOfAdult());
+            userBookingDTO.setNumberOfChildren(userBooking.getNumberOfChildren());
+            userBookingDTO.setTotalPrice(userBooking.getTotalPrice());
+            userBookingDTO.setOrderId(userBooking.getOrderId());
+            userBookingDTO.setOrderTitle(userBooking.getOrderTitle());
+            userBookingDTO.setPayType(userBooking.getPayType());
+            userBookingDTO.setStatus(userBooking.getStatus());
+            userBookingDTO.setStatusDeposit(userBooking.getStatusDeposit());
+            tourDTO.setUserBookingDTO(userBookingDTO);
         } catch (Exception e){
             tourDTO.setAccountId(null);
+            tourDTO.setUserBookingDTO(null);
         }
 
         TourDetail tourDetail = tourDetailRepository.getByTourId(tourId);

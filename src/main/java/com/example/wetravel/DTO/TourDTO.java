@@ -63,4 +63,6 @@ public class TourDTO {
 
     private Long accountId;
 
+    private UserBookingDTO userBookingDTO;
+
 }

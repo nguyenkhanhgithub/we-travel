@@ -109,35 +109,6 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public UserBookingDTO getBookingOfTourPrivateByTourId(Long tourId) throws HandlerException{
-        UserBooking userBooking = userBookingRepository.getBookingOfTourPrivateByTourId(tourId);
-        UserBookingDTO userBookingDTO = new UserBookingDTO();
-        userBookingDTO.setUserBookingId(userBooking.getUserBookingId());
-        userBookingDTO.setAccountId(userBooking.getAccountId().getAccountId());
-        userBookingDTO.setTourId(userBooking.getTourId().getTourId());
-        userBookingDTO.setFullName(userBooking.getFullName());
-        userBookingDTO.setPhone(userBooking.getPhone());
-        userBookingDTO.setEmail(userBooking.getEmail());
-        userBookingDTO.setBookingDate(userBooking.getBookingDate());
-        userBookingDTO.setStartDate(userBooking.getStartDate());
-        userBookingDTO.setIdCard(userBooking.getIdCard());
-        userBookingDTO.setDateOfIssue(userBooking.getDateOfIssue());
-        userBookingDTO.setPlaceOfIssue(userBooking.getPlaceOfIssue());
-        userBookingDTO.setRequest(userBooking.getRequest());
-        userBookingDTO.setAdultPrice(userBooking.getAdultPrice());
-        userBookingDTO.setChildrenPrice(userBooking.getChildrenPrice());
-        userBookingDTO.setNumberOfAdult(userBooking.getNumberOfAdult());
-        userBookingDTO.setNumberOfChildren(userBooking.getNumberOfChildren());
-        userBookingDTO.setTotalPrice(userBooking.getTotalPrice());
-        userBookingDTO.setOrderId(userBooking.getOrderId());
-        userBookingDTO.setOrderTitle(userBooking.getOrderTitle());
-        userBookingDTO.setPayType(userBooking.getPayType());
-        userBookingDTO.setStatus(userBooking.getStatus());
-        userBookingDTO.setStatusDeposit(userBooking.getStatusDeposit());
-        return userBookingDTO;
-    }
-
-    @Override
     public Boolean updateStatus(Long userBookingId , Integer status) throws HandlerException{
         UserBooking userBooking = userBookingRepository.getById(userBookingId);
         userBooking.setStatus(status);

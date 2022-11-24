@@ -44,16 +44,6 @@ public class BookingController {
         }
     }
 
-    @GetMapping("get-booking/account-create")
-    public ResponseEntity<?> getBookingOfAccountCreate(@RequestParam Long tourId){
-        try{
-            UserBookingDTO result = bookingService.getBookingOfTourPrivateByTourId(tourId);
-            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
-        }catch (HandlerException e){
-            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @PostMapping("update/status")
     public ResponseEntity<?> updateStatus(@RequestParam Long userBookingId , @RequestParam Integer status){
         try{
