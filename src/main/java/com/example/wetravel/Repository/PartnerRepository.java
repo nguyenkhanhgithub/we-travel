@@ -13,6 +13,7 @@ import java.util.List;
 
 @Repository
 public interface PartnerRepository extends JpaRepository<Partner, Long> {
+    Partner getPartnerByAccountId_AccountId(Long accountId);
     Boolean existsByAccountId_AccountId(Long accountId);
     @Query(value = "SELECT p.* FROM partner p join account a on p.account_id = a.account_id where a.email like :email" , nativeQuery = true)
     Partner getPartnerByAccountEmail(String email);

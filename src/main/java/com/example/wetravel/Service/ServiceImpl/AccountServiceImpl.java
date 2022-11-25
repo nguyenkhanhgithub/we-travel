@@ -132,8 +132,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Boolean editProfileCustomer(Long userId , CustomerRegisterDTO customerRegisterDTO) throws HandlerException {
-        User user = userRepository.getById(userId);
+    public Boolean editProfileCustomer(Long accountId , CustomerRegisterDTO customerRegisterDTO) throws HandlerException {
+        User user = userRepository.getByAccountId_AccountId(accountId);
         user.setFirstName(customerRegisterDTO.getFirstName());
         user.setLastName(customerRegisterDTO.getLastName());
         user.setGender(customerRegisterDTO.getGender());
@@ -146,8 +146,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Boolean editProfilePartner(Long partnerId , PartnerRegisterDTO partnerRegisterDTO) throws HandlerException {
-        Partner partner = partnerRepository.getById(partnerId);
+    public Boolean editProfilePartner(Long accountId , PartnerRegisterDTO partnerRegisterDTO) throws HandlerException {
+        Partner partner = partnerRepository.getPartnerByAccountId_AccountId(accountId);
         partner.setFirstName(partnerRegisterDTO.getPartnerInfor().getFirstName());
         partner.setLastName(partnerRegisterDTO.getPartnerInfor().getLastName());
         partner.setGender(partnerRegisterDTO.getPartnerInfor().getGender());

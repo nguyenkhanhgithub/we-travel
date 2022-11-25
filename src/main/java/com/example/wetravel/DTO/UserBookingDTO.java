@@ -59,4 +59,6 @@ public class UserBookingDTO {
     private Integer status;
 
     private Boolean statusDeposit;
+
+    private Float deposit;
 }

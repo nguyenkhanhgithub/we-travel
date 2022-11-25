@@ -48,20 +48,20 @@ public class AccountController {
         }
     }
 
-    @PostMapping("edit/profile/customer/{userId}")
-    public ResponseEntity<?> editProfileCustomer(@PathVariable Long userId , @RequestBody CustomerRegisterDTO customerRegisterDTO){
+    @PostMapping("edit/profile/customer/{accountId}")
+    public ResponseEntity<?> editProfileCustomer(@PathVariable Long accountId , @RequestBody CustomerRegisterDTO customerRegisterDTO){
         try{
-            Boolean result = accountService.editProfileCustomer(userId , customerRegisterDTO);
+            Boolean result = accountService.editProfileCustomer(accountId , customerRegisterDTO);
             return new ResponseEntity<>(new BaseResponse(200 , result ,  Constant.Message.UPDATE_SUCCESS ) , HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("edit/profile/partner/{partnerId}")
-    public ResponseEntity<?> editProfilePartner(@PathVariable Long partnerId , @RequestBody PartnerRegisterDTO partnerRegisterDTO){
+    @PostMapping("edit/profile/partner/{accountId}")
+    public ResponseEntity<?> editProfilePartner(@PathVariable Long accountId , @RequestBody PartnerRegisterDTO partnerRegisterDTO){
         try{
-            Boolean result = accountService.editProfilePartner(partnerId , partnerRegisterDTO);
+            Boolean result = accountService.editProfilePartner(accountId , partnerRegisterDTO);
             return new ResponseEntity<>(new BaseResponse(200 , result ,  Constant.Message.UPDATE_SUCCESS ) , HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

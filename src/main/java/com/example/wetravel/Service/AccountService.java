@@ -12,9 +12,9 @@ public interface AccountService {
 
     Boolean registerPartnerAccount(PartnerRegisterDTO partnerRegisterDTO) throws HandlerException;
 
-    Boolean editProfileCustomer(Long userId , CustomerRegisterDTO customerRegisterDTO) throws HandlerException;
+    Boolean editProfileCustomer(Long accountId , CustomerRegisterDTO customerRegisterDTO) throws HandlerException;
 
-    Boolean editProfilePartner(Long partnerId , PartnerRegisterDTO partnerRegisterDTO) throws HandlerException;
+    Boolean editProfilePartner(Long accountId , PartnerRegisterDTO partnerRegisterDTO) throws HandlerException;
 
     Boolean changePassWord(ChangePasswordDTO changePasswordDTO);
 
