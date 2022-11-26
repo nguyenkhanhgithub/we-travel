@@ -148,9 +148,20 @@ public class ServiceController {
     public ResponseEntity<?> approveService(@PathVariable Long serviceId){
         try{
             Boolean result = serviceService.approveService(serviceId);
-            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.DELETE_SUCCESS) , HttpStatus.OK);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.APPROVE_SUCCESS) , HttpStatus.OK);
         }catch(HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("unblock/service/{serviceId}")
+    public ResponseEntity<?> unblockService(@PathVariable Long serviceId){
+        try{
+            Boolean result = serviceService.unblockService(serviceId);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch(HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

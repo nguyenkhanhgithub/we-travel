@@ -162,6 +162,21 @@ public class AccountServiceImpl implements AccountService {
         partner.setDepartment(partnerRegisterDTO.getPartnerInfor().getDepartment());
         partner.setPosition(partnerRegisterDTO.getPartnerInfor().getPosition());
         partnerRepository.save(partner);
+
+        CompanyPartner companyPartner = companyPartnerRepository.getByPartner_PartnerId(partner.getPartnerId());
+        companyPartner.setCompanyName(partnerRegisterDTO.getCompanyPartnerInfor().getCompanyName());
+        companyPartner.setShortName(partnerRegisterDTO.getCompanyPartnerInfor().getShortName());
+        companyPartner.setAddress(partnerRegisterDTO.getCompanyPartnerInfor().getAddress());
+        companyPartner.setCity(partnerRegisterDTO.getCompanyPartnerInfor().getCity());
+        companyPartner.setEmail(partnerRegisterDTO.getCompanyPartnerInfor().getEmail());
+        companyPartner.setFax(partnerRegisterDTO.getCompanyPartnerInfor().getFax());
+        companyPartner.setPhone(partnerRegisterDTO.getCompanyPartnerInfor().getPhone());
+        companyPartner.setTaxCode(partnerRegisterDTO.getCompanyPartnerInfor().getTaxCode());
+        companyPartner.setWebsite(partnerRegisterDTO.getCompanyPartnerInfor().getWebsite());
+        companyPartner.setBusinessCode(partnerRegisterDTO.getCompanyPartnerInfor().getBusinessCode());
+        companyPartner.setRegistrationDate(partnerRegisterDTO.getCompanyPartnerInfor().getRegistrationDate());
+        companyPartner.setIncorporationDate(partnerRegisterDTO.getCompanyPartnerInfor().getIncorporationDate());
+        companyPartnerRepository.save(companyPartner);
         return true;
     }
 

@@ -40,6 +40,9 @@ public class Constant {
         public static final String CREATE_SUCCESS = "Create Success!";
         public static final String UPDATE_SUCCESS = "Update Success!";
         public static final String DELETE_SUCCESS = "Delete Success!";
+
+        public static final String APPROVE_SUCCESS = "Approve Success!";
+
         public static final String EMAIL_EXIST = "Email exist!";
 
     }

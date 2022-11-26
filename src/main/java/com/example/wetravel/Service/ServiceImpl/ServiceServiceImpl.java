@@ -583,5 +583,16 @@ public class ServiceServiceImpl implements ServiceService {
         return true;
     }
 
+    @Override
+    public Boolean unblockService(Long serviceId) throws HandlerException {
+        if(!serviceRepository.existsById(serviceId)){
+            throw new HandlerException("Service not found!");
+        }
+        Service service = serviceRepository.getById(serviceId);
+        service.setIsBlock(false);
+        serviceRepository.save(service);
+        return true;
+    }
+
 
 }

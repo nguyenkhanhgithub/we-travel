@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         Account account = accountRepository.getAccountByEmail(login.getEmail());
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         if(account != null && bcrypt.matches(login.getPassword(), account.getPassWord())){
-            if(!account.getIsActive() || account.getIsBlock()){
+            if(!account.getIsActive()){
                 throw new HandlerException("Account non active!");
             }else {
                 HashMap<String, Object> claims = new HashMap<>();

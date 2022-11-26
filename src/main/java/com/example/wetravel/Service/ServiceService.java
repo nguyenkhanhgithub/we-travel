@@ -37,4 +37,6 @@ public interface ServiceService {
     Boolean deleteService(Long serviceId) throws HandlerException;
 
     Boolean approveService(Long serviceId) throws HandlerException;
+
+    Boolean unblockService(Long serviceId) throws HandlerException;
 }
