@@ -39,26 +39,22 @@ public class AuthServiceImpl implements AuthService {
         PartnerDTO partnerDTO;
         Account account = accountRepository.getAccountByEmail(login.getEmail());
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-        if(account != null && bcrypt.matches(login.getPassword(), account.getPassWord())){
-            if(!account.getIsActive()){
-                throw new HandlerException("Account non active!");
-            }else {
-                HashMap<String, Object> claims = new HashMap<>();
-                claims.put("accountId" , account.getAccountId());
-                claims.put("role" , account.getRoleId());
-                claims.put("email" , account.getEmail());
-                if(userRepository.existsByAccountId_AccountId(account.getAccountId())){
-                    UserDTO userDTO = userRepository.getDetailUser(account.getAccountId());
-                    //String token = jwtUtil.generateToken(login.getEmail(), claims);
-                    loginResponse.setInformation(userDTO);
-                }else{
-                    partnerDTO = partnerRepository.getDetailPartner(account.getAccountId());
-                    //String token = jwtUtil.generateToken(login.getEmail(), claims);
-                    loginResponse.setInformation(partnerDTO);
-                }
-                return loginResponse;
+        if (account != null && bcrypt.matches(login.getPassword(), account.getPassWord())) {
+            HashMap<String, Object> claims = new HashMap<>();
+            claims.put("accountId", account.getAccountId());
+            claims.put("role", account.getRoleId());
+            claims.put("email", account.getEmail());
+            if (userRepository.existsByAccountId_AccountId(account.getAccountId())) {
+                UserDTO userDTO = userRepository.getDetailUser(account.getAccountId());
+                //String token = jwtUtil.generateToken(login.getEmail(), claims);
+                loginResponse.setInformation(userDTO);
+            } else {
+                partnerDTO = partnerRepository.getDetailPartner(account.getAccountId());
+                //String token = jwtUtil.generateToken(login.getEmail(), claims);
+                loginResponse.setInformation(partnerDTO);
             }
-        }else{
+            return loginResponse;
+        } else {
             throw new HandlerException("Wrong email or password!");
         }
     }
