@@ -89,4 +89,7 @@ public class UserBooking implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "userBookingId" , cascade = CascadeType.ALL)
     private List<RequestCancel> requestCancelList;
+
+    @OneToOne(mappedBy = "userBookingId" , cascade = CascadeType.ALL)
+    private Feedback feedbackId;
 }

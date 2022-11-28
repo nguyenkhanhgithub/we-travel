@@ -41,4 +41,8 @@ public class Feedback implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "feedbackId" , cascade = CascadeType.ALL)
     private List<ReportFeedback> reportFeedbackList;
+
+    @OneToOne
+    @JoinColumn(name = "user_booking_id" , referencedColumnName = "user_booking_id")
+    private UserBooking userBookingId;
 }
