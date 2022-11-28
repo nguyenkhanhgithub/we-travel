@@ -30,9 +30,6 @@ public class TourSchedule implements Serializable {
     @Column(name = "to_place")
     private String toPlace;
 
-    @OneToMany(fetch = FetchType.LAZY , mappedBy = "tourScheduleId" , cascade = CascadeType.ALL)
-    private List<TourServiceOfSchedule> tourServiceOfScheduleList;
-
     @ManyToOne
     @JoinColumn(name = "tour_id" , referencedColumnName = "tour_id")
     private Tour tourId;

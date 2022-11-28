@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Table(name = "user_booking")
 @Entity
@@ -85,4 +86,7 @@ public class UserBooking implements Serializable {
 
     @Column(name = "status_deposit")
     private Boolean statusDeposit;
+
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "userBookingId" , cascade = CascadeType.ALL)
+    private List<RequestCancel> requestCancelList;
 }

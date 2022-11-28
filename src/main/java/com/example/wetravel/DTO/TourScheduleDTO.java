@@ -17,6 +17,4 @@ public class TourScheduleDTO {
     private String content;
 
     private String toPlace;
-
-    private List<TourServiceOfScheduleDTO> tourServiceOfScheduleDTOList;
 }

@@ -27,9 +27,6 @@ public class TourServiceImpl implements TourService {
     TagOfTourRepository tagOfTourRepository;
 
     @Autowired
-    TourServiceOfScheduleRepository tourServiceOfScheduleRepository;
-
-    @Autowired
     TourDetailRepository tourDetailRepository;
 
     @Autowired
@@ -190,13 +187,6 @@ public class TourServiceImpl implements TourService {
             tourScheduleDTO.setTourScheduleName(ts.getTourScheduleName());
             tourScheduleDTO.setContent(ts.getContent());
             tourScheduleDTO.setToPlace(ts.getToPlace());
-            List<TourServiceOfScheduleDTO> tourServiceOfScheduleDTOList = new ArrayList<>();
-            for(TourServiceOfSchedule tso : ts.getTourServiceOfScheduleList()){
-                TourServiceOfScheduleDTO tourServiceOfScheduleDTO = new TourServiceOfScheduleDTO();
-                tourServiceOfScheduleDTO.setServiceId(tso.getServiceId().getServiceId());
-                tourServiceOfScheduleDTOList.add(tourServiceOfScheduleDTO);
-            }
-            tourScheduleDTO.setTourServiceOfScheduleDTOList(tourServiceOfScheduleDTOList);
             tourScheduleDTOList.add(tourScheduleDTO);
         }
         tourDTO.setTourScheduleDTOList(tourScheduleDTOList);
@@ -268,13 +258,6 @@ public class TourServiceImpl implements TourService {
             tourSchedule.setToPlace(ts.getToPlace());
             tourSchedule.setTourId(tour);
             tourScheduleRepository.save(tourSchedule);
-            for(TourServiceOfScheduleDTO tso : ts.getTourServiceOfScheduleDTOList()){
-                TourServiceOfSchedule tourServiceOfSchedule = new TourServiceOfSchedule();
-                com.example.wetravel.Entity.Service tourService = serviceRepository.getById(tso.getServiceId());
-                tourServiceOfSchedule.setServiceId(tourService);
-                tourServiceOfSchedule.setTourScheduleId(tourSchedule);
-                tourServiceOfScheduleRepository.save(tourServiceOfSchedule);
-            }
         }
         tourDTO.setTourId(tour.getTourId());
         return tourDTO;
@@ -344,13 +327,6 @@ public class TourServiceImpl implements TourService {
             tourSchedule.setToPlace(ts.getToPlace());
             tourSchedule.setTourId(tour);
             tourScheduleRepository.save(tourSchedule);
-            for(TourServiceOfScheduleDTO tso : ts.getTourServiceOfScheduleDTOList()){
-                TourServiceOfSchedule tourServiceOfSchedule = new TourServiceOfSchedule();
-                com.example.wetravel.Entity.Service tourService = serviceRepository.getById(tso.getServiceId());
-                tourServiceOfSchedule.setServiceId(tourService);
-                tourServiceOfSchedule.setTourScheduleId(tourSchedule);
-                tourServiceOfScheduleRepository.save(tourServiceOfSchedule);
-            }
         }
         return tourDTO;
     }

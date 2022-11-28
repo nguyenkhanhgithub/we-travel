@@ -67,7 +67,7 @@ public class Service implements Serializable {
     private Partner partnerId;
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "serviceId" , cascade = CascadeType.ALL)
-    private List<PostPartner> postPartnerList;
+    private List<Post> postList;
 
     @OneToOne(fetch = FetchType.LAZY , mappedBy = "serviceId" , cascade = CascadeType.ALL)
     private Accommodation accommodation;
@@ -80,7 +80,4 @@ public class Service implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "serviceId" , cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.REMOVE})
     private List<UtilitiesService> utilitiesServiceList;
-
-    @OneToMany(fetch = FetchType.LAZY , mappedBy = "serviceId" , cascade = CascadeType.ALL)
-    private List<TourServiceOfSchedule> tourServiceOfScheduleList;
 }

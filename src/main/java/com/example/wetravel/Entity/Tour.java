@@ -103,6 +103,9 @@ public class Tour implements Serializable {
     @OneToOne(fetch = FetchType.LAZY , mappedBy = "tourId" , cascade = CascadeType.ALL)
     private TourDetail tourDetail;
 
-    @OneToMany(fetch = FetchType.LAZY , mappedBy = "accountId" , cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "tourId" , cascade = CascadeType.ALL)
     private List<UserBooking> userBookingList;
+
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "tourId" , cascade = CascadeType.ALL)
+    private List<Feedback> feedbackList;
 }
