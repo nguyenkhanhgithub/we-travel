@@ -87,6 +87,9 @@ public class UserBooking implements Serializable {
     @Column(name = "status_deposit")
     private Boolean statusDeposit;
 
+    @Column(name = "is_feedback" , columnDefinition = "false")
+    private Boolean isFeedback;
+
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "userBookingId" , cascade = CascadeType.ALL)
     private List<RequestCancel> requestCancelList;
 

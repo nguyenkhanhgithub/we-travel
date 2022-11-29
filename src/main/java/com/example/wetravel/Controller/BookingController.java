@@ -2,6 +2,7 @@ package com.example.wetravel.Controller;
 
 import com.example.wetravel.Constant.BaseResponse;
 import com.example.wetravel.Constant.Constant;
+import com.example.wetravel.DTO.RequestCancelBookingDTO;
 import com.example.wetravel.DTO.TourListDTO;
 import com.example.wetravel.DTO.UserBookingDTO;
 import com.example.wetravel.Exception.HandlerException;
@@ -58,6 +59,16 @@ public class BookingController {
     public ResponseEntity<?> updateStatusDeposit(@RequestParam Long userBookingId , @RequestParam Boolean statusDeposit){
         try{
             Boolean result = bookingService.updateStatusDeposit(userBookingId , statusDeposit);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch (HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("request/cancel/booking")
+    public ResponseEntity<?> cancelRequestBooking(@RequestBody RequestCancelBookingDTO requestCancelBookingDTO){
+        try{
+            Boolean result = bookingService.createRequestCancel(requestCancelBookingDTO);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

@@ -1,6 +1,7 @@
 package com.example.wetravel.Service;
 
 
+import com.example.wetravel.DTO.RequestCancelBookingDTO;
 import com.example.wetravel.DTO.UserBookingDTO;
 import com.example.wetravel.Exception.HandlerException;
 import org.springframework.data.domain.Page;
@@ -14,4 +15,6 @@ public interface BookingService {
     Boolean updateStatus(Long userBookingId , Integer status) throws HandlerException;
 
     Boolean updateStatusDeposit(Long userBookingId , Boolean statusDeposit) throws HandlerException;
+
+    Boolean createRequestCancel(RequestCancelBookingDTO requestCancelBookingDTO) throws HandlerException;
 }

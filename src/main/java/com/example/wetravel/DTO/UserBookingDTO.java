@@ -61,4 +61,6 @@ public class UserBookingDTO {
     private Boolean statusDeposit;
 
     private Float deposit;
+
+    private Boolean isFeedback;
 }

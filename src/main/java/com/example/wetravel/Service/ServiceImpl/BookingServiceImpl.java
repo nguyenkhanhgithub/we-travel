@@ -1,13 +1,10 @@
 package com.example.wetravel.Service.ServiceImpl;
 
+import com.example.wetravel.DTO.RequestCancelBookingDTO;
 import com.example.wetravel.DTO.UserBookingDTO;
-import com.example.wetravel.Entity.Account;
-import com.example.wetravel.Entity.Tour;
-import com.example.wetravel.Entity.UserBooking;
+import com.example.wetravel.Entity.*;
 import com.example.wetravel.Exception.HandlerException;
-import com.example.wetravel.Repository.AccountRepository;
-import com.example.wetravel.Repository.TourRepository;
-import com.example.wetravel.Repository.UserBookingRepository;
+import com.example.wetravel.Repository.*;
 import com.example.wetravel.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +29,12 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    ReasonCancelRepository reasonCancelRepository;
+
+    @Autowired
+    RequestCancelRepository requestCancelRepository;
 
     @Override
     public Page<UserBookingDTO> getListBooking(Long accountId , Long tourId , String startDate , Integer page , Integer size) throws HandlerException{
@@ -69,6 +72,7 @@ public class BookingServiceImpl implements BookingService {
             userBookingDTO.setStatus(u.getStatus());
             userBookingDTO.setDeposit(u.getTourId().getDeposit());
             userBookingDTO.setStatusDeposit(u.getStatusDeposit());
+            userBookingDTO.setIsFeedback(u.getIsFeedback());
             userBookingDTOList.add(userBookingDTO);
         }
         return new PageImpl<>(userBookingDTOList , pageable , userBookingDTOList.size());
@@ -122,6 +126,21 @@ public class BookingServiceImpl implements BookingService {
         UserBooking userBooking = userBookingRepository.getById(userBookingId);
         userBooking.setStatusDeposit(statusDeposit);
         userBookingRepository.save(userBooking);
+        return true;
+    }
+
+    @Override
+    public Boolean createRequestCancel(RequestCancelBookingDTO requestCancelBookingDTO) throws HandlerException {
+        RequestCancel requestCancel = new RequestCancel();
+        UserBooking userBooking = userBookingRepository.getById(requestCancelBookingDTO.getUserBookingId());
+        requestCancel.setUserBookingId(userBooking);
+        LocalDate now = LocalDate.now();
+        requestCancel.setRequestDate(now);
+        ReasonCancel reasonCancel = reasonCancelRepository.getById(requestCancelBookingDTO.getReasonCancelId());
+        requestCancel.setReasonCancelId(reasonCancel);
+        requestCancel.setDescription(requestCancelBookingDTO.getDescription());
+        requestCancel.setStatus(0);
+        requestCancelRepository.save(requestCancel);
         return true;
     }
 }
