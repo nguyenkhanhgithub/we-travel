@@ -74,7 +74,7 @@ public class ClientServiceImpl implements ClientService {
                 dataMail.setSubject(Constant.Mail.SUBJECT_FORGOT_PASSWORD);
 
                 Map<String, Object> props = new HashMap<>();
-                props.put("link", Constant.Server.LOCALHOST + "change-password?token=" + token);
+                props.put("link", Constant.Server.LOCALHOST + "change-password?token=" + token + "&email="+ email);
                 dataMail.setProps(props);
 
                 mailService.sendMail(dataMail, Constant.Mail.CLIENT_REGISTER);
