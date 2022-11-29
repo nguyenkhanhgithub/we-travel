@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import java.time.LocalDate;
 import java.util.List;
@@ -69,7 +70,17 @@ public class BookingController {
     public ResponseEntity<?> cancelRequestBooking(@RequestBody RequestCancelBookingDTO requestCancelBookingDTO){
         try{
             Boolean result = bookingService.createRequestCancel(requestCancelBookingDTO);
-            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
+        }catch (HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("delete/request/cancel/booking/{requestCancelId}")
+    public ResponseEntity<?> deleteRequestCancelBooking(@PathVariable Long requestCancelId){
+        try{
+            Boolean result = bookingService.deleteRequestCancelBooking(requestCancelId);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
         }

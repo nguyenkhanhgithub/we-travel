@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RequestCancelRepository extends JpaRepository<RequestCancel , Long> {
+    Boolean existsRequestCancelByRequestCancelId(Long requestCancelId);
 }

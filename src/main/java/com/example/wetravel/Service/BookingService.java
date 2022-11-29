@@ -17,4 +17,6 @@ public interface BookingService {
     Boolean updateStatusDeposit(Long userBookingId , Boolean statusDeposit) throws HandlerException;
 
     Boolean createRequestCancel(RequestCancelBookingDTO requestCancelBookingDTO) throws HandlerException;
+
+    Boolean deleteRequestCancelBooking(Long requestCancelId) throws HandlerException;
 }

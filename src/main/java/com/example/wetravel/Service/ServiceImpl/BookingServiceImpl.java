@@ -143,4 +143,16 @@ public class BookingServiceImpl implements BookingService {
         requestCancelRepository.save(requestCancel);
         return true;
     }
+
+    @Override
+    public Boolean deleteRequestCancelBooking(Long requestCancelId) throws HandlerException{
+        if(!requestCancelRepository.existsRequestCancelByRequestCancelId(requestCancelId)){
+            throw new HandlerException("Request not found!");
+        }
+        RequestCancel requestCancel = requestCancelRepository.getById(requestCancelId);
+        requestCancelRepository.delete(requestCancel);
+        return true;
+    }
+
+
 }
