@@ -106,6 +106,7 @@ public class BookingServiceImpl implements BookingService {
         userBooking.setPayType(userBookingDTO.getPayType());
         userBooking.setStatus(userBookingDTO.getStatus());
         userBooking.setStatusDeposit(userBookingDTO.getStatusDeposit());
+        userBooking.setIsFeedback(false);
         userBookingRepository.save(userBooking);
         userBookingDTO.setUserBookingId(userBooking.getUserBookingId());
         userBookingDTO.setTourName(tour.getTourName());

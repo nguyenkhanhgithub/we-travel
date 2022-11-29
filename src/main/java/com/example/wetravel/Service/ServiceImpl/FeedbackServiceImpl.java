@@ -38,6 +38,8 @@ public class FeedbackServiceImpl implements FeedbackService {
         Tour tour = tourRepository.getById(feedbackDTO.getTourId());
         feedback.setTourId(tour);
         UserBooking userBooking = userBookingRepository.getById(feedbackDTO.getUserbookingId());
+        userBooking.setIsFeedback(true);
+        userBookingRepository.save(userBooking);
         feedback.setUserBookingId(userBooking);
         LocalDate now = LocalDate.now();
         feedback.setCreateDate(now);

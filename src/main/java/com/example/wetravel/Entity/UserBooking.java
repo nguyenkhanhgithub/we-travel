@@ -87,7 +87,7 @@ public class UserBooking implements Serializable {
     @Column(name = "status_deposit")
     private Boolean statusDeposit;
 
-    @Column(name = "is_feedback" , columnDefinition = "false")
+    @Column(name = "is_feedback")
     private Boolean isFeedback;
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "userBookingId" , cascade = CascadeType.ALL)
