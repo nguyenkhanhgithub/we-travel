@@ -1,15 +1,10 @@
 package com.example.wetravel.Service.ServiceImpl;
 
 import com.example.wetravel.DTO.FeedbackDTO;
-import com.example.wetravel.Entity.Account;
-import com.example.wetravel.Entity.Feedback;
-import com.example.wetravel.Entity.Tour;
-import com.example.wetravel.Entity.UserBooking;
+import com.example.wetravel.DTO.ReportFeedbackDTO;
+import com.example.wetravel.Entity.*;
 import com.example.wetravel.Exception.HandlerException;
-import com.example.wetravel.Repository.AccountRepository;
-import com.example.wetravel.Repository.FeedbackRepository;
-import com.example.wetravel.Repository.TourRepository;
-import com.example.wetravel.Repository.UserBookingRepository;
+import com.example.wetravel.Repository.*;
 import com.example.wetravel.Service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +25,12 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
     UserBookingRepository userBookingRepository;
 
+    @Autowired
+    ReportFeedbackRepository reportFeedbackRepository;
+
+    @Autowired
+    ReasonReportFeedbackRepository reasonReportFeedbackRepository;
+
     @Override
     public FeedbackDTO createFeedback(FeedbackDTO feedbackDTO) throws HandlerException {
         Feedback feedback = new Feedback();
@@ -48,5 +49,29 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedbackRepository.save(feedback);
         feedbackDTO.setCreateDate(now);
         return feedbackDTO;
+    }
+
+    @Override
+    public ReportFeedbackDTO createReportFeedback(ReportFeedbackDTO reportFeedbackDTO) throws HandlerException {
+        ReportFeedback reportFeedback = new ReportFeedback();
+        Feedback feedback = feedbackRepository.getById(reportFeedbackDTO.getFeedbackId());
+        reportFeedback.setFeedbackId(feedback);
+        ReasonReportFeedback reasonReportFeedback = reasonReportFeedbackRepository.getById(reportFeedbackDTO.getReasonReportFeedbackId());
+        reportFeedback.setReasonReportFeedbackId(reasonReportFeedback);
+        Account account = accountRepository.getById(reportFeedbackDTO.getAccountId());
+        reportFeedback.setAccountId(account);
+        reportFeedback.setDescription(reportFeedbackDTO.getDescription());
+        return reportFeedbackDTO;
+    }
+
+    @Override
+    public Boolean blockFeedback(Long feedbackId) throws HandlerException {
+        if(!feedbackRepository.existsFeedbackByFeedbackId(feedbackId)){
+            throw new HandlerException("Feedback not found!");
+        }
+        Feedback feedback = feedbackRepository.getById(feedbackId);
+        feedback.setIsBlock(true);
+        feedbackRepository.save(feedback);
+        return true;
     }
 }
