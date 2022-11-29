@@ -44,6 +44,9 @@ public class TourServiceImpl implements TourService {
     @Autowired
     UserBookingRepository userBookingRepository;
 
+    @Autowired
+    FeedbackRepository feedbackRepository;
+
     @Override
     public TourListDTO getAllTour(String tourName , List<Integer> tourCategoryList , Integer tourType
             , Integer status , Integer fromPrice , Integer toPrice , Integer page, Integer size) throws HandlerException{
@@ -178,6 +181,24 @@ public class TourServiceImpl implements TourService {
             tagOfTourDTOList.add(tagOfTourDTO);
         }
         tourDetailDTO.setTagOfTourDTOList(tagOfTourDTOList);
+        try{
+            List<FeedbackDTO> feedbackDTOList = new ArrayList<>();
+            List<Feedback> feedbackList = feedbackRepository.getAllByTourId_TourId(tourId);
+            for(Feedback f : feedbackList){
+                FeedbackDTO feedbackDTO = new FeedbackDTO();
+                feedbackDTO.setAccountId(f.getAccountId().getAccountId());
+                feedbackDTO.setTourId(f.getTourId().getTourId());
+                feedbackDTO.setUserbookingId(f.getUserBookingId().getUserBookingId());
+                feedbackDTO.setCreateDate(f.getCreateDate());
+                feedbackDTO.setContent(f.getContent());
+                feedbackDTO.setIsBlock(f.getIsBlock());
+                feedbackDTOList.add(feedbackDTO);
+            }
+            tourDetailDTO.setFeedbackDTOList(feedbackDTOList);
+        }catch (Exception e){
+            tourDetailDTO.setFeedbackDTOList(null);
+        }
+
         tourDTO.setTourDetailDTO(tourDetailDTO);
 
         List<TourSchedule> tourScheduleList = tourScheduleRepository.getByTourId(tourId);

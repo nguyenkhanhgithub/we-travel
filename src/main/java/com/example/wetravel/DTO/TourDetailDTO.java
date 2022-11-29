@@ -31,4 +31,6 @@ public class TourDetailDTO {
     private Float latitude;
 
     private List<TagOfTourDTO> tagOfTourDTOList;
+
+    private List<FeedbackDTO> feedbackDTOList;
 }
