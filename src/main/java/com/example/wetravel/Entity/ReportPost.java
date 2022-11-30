@@ -32,7 +32,4 @@ public class ReportPost implements Serializable {
     @ManyToOne
     @JoinColumn(name = "reason_report_post_id" , referencedColumnName = "reason_report_post_id")
     private ReasonReportPost reasonReportPostId;
-
-    @Column(name = "description")
-    private String description;
 }

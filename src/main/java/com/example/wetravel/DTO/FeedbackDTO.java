@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,4 +30,6 @@ public class FeedbackDTO {
     private String firstName;
 
     private String lastName;
+
+    private List<ReportFeedbackDTO> reportFeedbackDTOList;
 }

@@ -15,6 +15,4 @@ public class ReportFeedbackDTO {
     private Long feedbackId;
 
     private Long reasonReportFeedbackId;
-
-    private String description;
 }

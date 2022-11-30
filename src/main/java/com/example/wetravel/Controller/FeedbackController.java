@@ -52,11 +52,20 @@ public class FeedbackController {
     }
 
     @GetMapping(value = "/get-list-feedback/by-tour")
-    public ResponseEntity<?> getListFeedbackByTour(@RequestParam Long tourId , @RequestParam Integer page , @RequestParam Integer size){
+    public ResponseEntity<?> getListFeedbackByTour(@RequestParam Long tourId , @RequestParam(defaultValue = "-1") Integer isBlock, @RequestParam Integer page , @RequestParam Integer size){
         try{
-            Page<FeedbackDTO> result = feedbackService.getListFeedbackByTourId(tourId , page , size);
+            Page<FeedbackDTO> result = feedbackService.getListFeedbackByTourId(tourId , isBlock , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(new BaseResponse(400 , false , e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
 
+    @GetMapping(value = "/get-list-feedback/reported")
+    public ResponseEntity<?> getListFeedbackContainReport(@RequestParam Integer page , @RequestParam Integer size){
+        try{
+            Page<FeedbackDTO> result = feedbackService.getListFeedbackContainReport(page , size);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , false , e.getMessage()), HttpStatus.BAD_REQUEST);
         }

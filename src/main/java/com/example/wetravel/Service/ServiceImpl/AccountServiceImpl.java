@@ -119,7 +119,7 @@ public class AccountServiceImpl implements AccountService {
             companyPartner.setBusinessCode(partnerRegisterDTO.getCompanyPartnerInfor().getBusinessCode());
             companyPartner.setRegistrationDate(partnerRegisterDTO.getCompanyPartnerInfor().getRegistrationDate());
             companyPartner.setIncorporationDate(partnerRegisterDTO.getCompanyPartnerInfor().getIncorporationDate());
-            companyPartner.setPartner(partner);
+            companyPartner.setPartnerId(partner);
             companyPartnerRepository.save(companyPartner);
             return true;
         }else{
@@ -159,7 +159,7 @@ public class AccountServiceImpl implements AccountService {
         partner.setPosition(partnerRegisterDTO.getPartnerInfor().getPosition());
         partnerRepository.save(partner);
 
-        CompanyPartner companyPartner = companyPartnerRepository.getByPartner_PartnerId(partner.getPartnerId());
+        CompanyPartner companyPartner = companyPartnerRepository.getByPartnerId_PartnerId(partner.getPartnerId());
         companyPartner.setCompanyName(partnerRegisterDTO.getCompanyPartnerInfor().getCompanyName());
         companyPartner.setShortName(partnerRegisterDTO.getCompanyPartnerInfor().getShortName());
         companyPartner.setAddress(partnerRegisterDTO.getCompanyPartnerInfor().getAddress());

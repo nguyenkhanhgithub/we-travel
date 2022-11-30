@@ -65,8 +65,8 @@ public class Partner implements Serializable {
     @Column(name = "date_issue")
     private String dateIssue;
 
-    @OneToOne(mappedBy = "partner" , cascade = CascadeType.ALL)
-    private CompanyPartner companyPartner;
+    @OneToOne(mappedBy = "partnerId" , cascade = CascadeType.ALL)
+    private CompanyPartner companyPartnerId;
 
     @OneToMany(mappedBy = "partnerId" , cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Service> serviceList;

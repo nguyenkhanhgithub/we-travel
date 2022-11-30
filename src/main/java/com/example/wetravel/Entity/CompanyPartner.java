@@ -22,7 +22,7 @@ public class CompanyPartner implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "partner_id" , referencedColumnName = "partner_id")
-    private Partner partner;
+    private Partner partnerId;
 
     @Column(name = "company_name")
     private String companyName;

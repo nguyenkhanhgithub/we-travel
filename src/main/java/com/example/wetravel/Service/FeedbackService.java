@@ -5,6 +5,8 @@ import com.example.wetravel.DTO.ReportFeedbackDTO;
 import com.example.wetravel.Exception.HandlerException;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface FeedbackService {
     FeedbackDTO createFeedback(FeedbackDTO feedbackDTO) throws HandlerException;
 
@@ -12,5 +14,7 @@ public interface FeedbackService {
 
     Boolean blockFeedback(Long feedbackId) throws HandlerException;
 
-    Page<FeedbackDTO> getListFeedbackByTourId(Long tourId , Integer page , Integer size) throws HandlerException;
+    Page<FeedbackDTO> getListFeedbackByTourId(Long tourId , Integer isBlock , Integer page , Integer size) throws HandlerException;
+
+    Page<FeedbackDTO> getListFeedbackContainReport(Integer page , Integer size) throws HandlerException;
 }
