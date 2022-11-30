@@ -89,7 +89,7 @@ public class TourController {
     public ResponseEntity<?> activeTour(@PathVariable Long tourId){
         try{
             Boolean result = tourService.activeTour(tourId);
-            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.DELETE_SUCCESS) , HttpStatus.OK);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
         }

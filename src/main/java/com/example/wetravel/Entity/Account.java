@@ -24,9 +24,6 @@ public class Account implements Serializable{
     @Column(name = "password" , nullable = false)
     private String passWord;
 
-    @Column(name = "is_active" , nullable = false)
-    private Boolean isActive = true;
-
     @Column(name = "is_block" , nullable = false)
     private Boolean isBlock = false;
 

@@ -6,7 +6,6 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.example.wetravel.DTO.ChangePasswordDTO;
 import com.example.wetravel.DTO.CustomerRegisterDTO;
 import com.example.wetravel.DTO.PartnerRegisterDTO;
 import com.example.wetravel.Entity.Account;

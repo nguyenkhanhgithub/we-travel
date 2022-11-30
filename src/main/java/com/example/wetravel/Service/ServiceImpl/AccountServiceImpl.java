@@ -1,8 +1,7 @@
 package com.example.wetravel.Service.ServiceImpl;
 
-import com.example.wetravel.DTO.ChangePasswordDTO;
+import com.example.wetravel.Constant.Constant;
 import com.example.wetravel.DTO.CustomerRegisterDTO;
-import com.example.wetravel.DTO.Login;
 import com.example.wetravel.DTO.PartnerRegisterDTO;
 import com.example.wetravel.Entity.*;
 import com.example.wetravel.Exception.HandlerException;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.BadRequestException;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +55,6 @@ public class AccountServiceImpl implements AccountService {
             account.setEmail(email);
             String passwordEncode = passwordEncoder.encode(customerRegisterDTO.getPassword());
             account.setPassWord(passwordEncode);
-            account.setIsActive(true);
             account.setIsBlock(false);
             account.setRoleId(role);
             User user = new User();
@@ -74,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
             userRepository.save(user);
             return true;
         }else{
-            throw new HandlerException("Email exist");
+            throw new HandlerException(Constant.Message.EMAIL_EXIST);
         }
     }
 
@@ -90,7 +87,6 @@ public class AccountServiceImpl implements AccountService {
             account.setEmail(email);
             String passwordEncode = passwordEncoder.encode(partnerRegisterDTO.getAccountInfor().getPassWord());
             account.setPassWord(passwordEncode);
-            account.setIsActive(true);
             account.setIsBlock(false);
             account.setRoleId(role);
             Partner partner = new Partner();
@@ -127,7 +123,7 @@ public class AccountServiceImpl implements AccountService {
             companyPartnerRepository.save(companyPartner);
             return true;
         }else{
-            throw new HandlerException("Email exist!");
+            throw new HandlerException(Constant.Message.EMAIL_EXIST);
         }
     }
 
@@ -177,18 +173,6 @@ public class AccountServiceImpl implements AccountService {
         companyPartner.setRegistrationDate(partnerRegisterDTO.getCompanyPartnerInfor().getRegistrationDate());
         companyPartner.setIncorporationDate(partnerRegisterDTO.getCompanyPartnerInfor().getIncorporationDate());
         companyPartnerRepository.save(companyPartner);
-        return true;
-    }
-
-    @Override
-    public Boolean changePassWord(ChangePasswordDTO changePasswordDTO) {
-        Map<String , Object> claims = jwtUtil.extractAllClaims(changePasswordDTO.getToken());
-        String email = claims.get("email").toString();
-        Account account = accountRepository.findByEmail(email);
-        String passwordEncode = passwordEncoder.encode(changePasswordDTO.getPassword());
-        account.setPassWord(passwordEncode);
-        account.setIsActive(true);
-        accountRepository.save(account);
         return true;
     }
 

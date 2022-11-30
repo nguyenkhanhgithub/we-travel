@@ -4,7 +4,6 @@ import com.example.wetravel.Constant.BaseResponse;
 import com.example.wetravel.Constant.Constant;
 import com.example.wetravel.DTO.FeedbackDTO;
 import com.example.wetravel.DTO.ReportFeedbackDTO;
-import com.example.wetravel.Entity.ReportFeedback;
 import com.example.wetravel.Service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

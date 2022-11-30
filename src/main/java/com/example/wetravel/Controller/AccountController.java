@@ -68,24 +68,13 @@ public class AccountController {
         }
     }
 
-    @PostMapping("change/password")
-    public ResponseEntity<?> activeAccount(@RequestBody ChangePasswordDTO changePasswordDTO){
-        try{
-            Boolean result = accountService.changePassWord(changePasswordDTO);
-            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @GetMapping("get/list-partner")
     public ResponseEntity<?> getListPartner(@RequestParam(defaultValue = "all") String emailPartner,
                                             @RequestParam(defaultValue = "-1") Integer serviceCategoryId ,
-                                            @RequestParam(defaultValue = "-1") Integer isActive ,
                                             @RequestParam(defaultValue = "-1") Integer isBlock ,
                                             @RequestParam Integer page , @RequestParam Integer size){
         try{
-            Page<PartnerDTO> result = partnerService.getListPartner(emailPartner ,serviceCategoryId ,isActive , isBlock ,page , size);
+            Page<PartnerDTO> result = partnerService.getListPartner(emailPartner ,serviceCategoryId ,isBlock ,page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
@@ -122,7 +111,7 @@ public class AccountController {
         }
     }
 
-    @DeleteMapping("block/account/{accountId}")
+    @PutMapping("block/account/{accountId}")
     public ResponseEntity<?> blockAccount(@PathVariable Long accountId){
         try{
             Boolean result = accountService.blockAccount(accountId);

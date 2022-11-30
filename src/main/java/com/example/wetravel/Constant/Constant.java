@@ -41,9 +41,18 @@ public class Constant {
         public static final String UPDATE_SUCCESS = "Update Success!";
         public static final String DELETE_SUCCESS = "Delete Success!";
 
+        public static final String CHANGE_PASSWORD = "Change Password Success!";
+
         public static final String APPROVE_SUCCESS = "Approve Success!";
 
         public static final String EMAIL_EXIST = "Email exist!";
+
+        public static final String EMAIL_NOT_EXIST = "Email not exist!";
+
+        public static final String SEND_MAIL_ERROR = "SEND MAIL ERROR!";
+
+        public static final String SEND_MAIL_SUCCESS = "SEND MAIL SUCCESS!";
+
 
     }
 
