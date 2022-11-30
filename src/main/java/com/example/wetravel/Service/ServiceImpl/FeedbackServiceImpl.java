@@ -1,5 +1,6 @@
 package com.example.wetravel.Service.ServiceImpl;
 
+import com.example.wetravel.Constant.Constant;
 import com.example.wetravel.DTO.FeedbackDTO;
 import com.example.wetravel.DTO.ReportFeedbackDTO;
 import com.example.wetravel.Entity.*;
@@ -37,7 +38,11 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
     ReasonReportFeedbackRepository reasonReportFeedbackRepository;
 
+    @Autowired
+    UserRepository userRepository;
 
+    @Autowired
+    PartnerRepository partnerRepository;
 
     @Override
     public FeedbackDTO createFeedback(FeedbackDTO feedbackDTO) throws HandlerException {
@@ -91,12 +96,23 @@ public class FeedbackServiceImpl implements FeedbackService {
         List<FeedbackDTO> feedbackDTOList = new ArrayList<>();
         for (Feedback f : feedbackList) {
             FeedbackDTO feedbackDTO = new FeedbackDTO();
+            feedbackDTO.setFeedbackId(f.getFeedbackId());
             feedbackDTO.setAccountId(f.getAccountId().getAccountId());
             feedbackDTO.setTourId(f.getTourId().getTourId());
             feedbackDTO.setUserbookingId(f.getUserBookingId().getUserBookingId());
             feedbackDTO.setCreateDate(f.getCreateDate());
             feedbackDTO.setContent(f.getContent());
             feedbackDTO.setIsBlock(f.getIsBlock());
+            Account account = accountRepository.getById(f.getAccountId().getAccountId());
+            if(account.getRoleId().getRoleId() == Constant.Role.Customer){
+                User user = userRepository.getByAccountId_AccountId(account.getAccountId());
+                feedbackDTO.setFirstName(user.getFirstName());
+                feedbackDTO.setLastName(user.getLastName());
+            }else{
+                Partner partner = partnerRepository.getPartnerByAccountId_AccountId(account.getAccountId());
+                feedbackDTO.setFirstName(partner.getFirstName());
+                feedbackDTO.setLastName(partner.getLastName());
+            }
             feedbackDTOList.add(feedbackDTO);
         }
         return new PageImpl<>(feedbackDTOList , pageable , feedbackDTOList.size());

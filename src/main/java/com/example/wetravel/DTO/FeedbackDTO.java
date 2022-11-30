@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class FeedbackDTO {
+    private Long feedbackId;
+
     private Long accountId;
 
     private Long tourId;
@@ -23,4 +25,8 @@ public class FeedbackDTO {
     private String content;
 
     private Boolean isBlock;
+
+    private String firstName;
+
+    private String lastName;
 }
