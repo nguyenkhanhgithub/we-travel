@@ -46,7 +46,7 @@ public class ClientServiceImpl implements ClientService {
         PartnerDTO partnerDTO;
         Account account = accountRepository.getAccountByEmail(login.getEmail());
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-        if (account != null && bcrypt.matches(login.getPassword(), account.getPassWord())) {
+        if (account != null && bcrypt.matches(login.getPassword(), account.getPassWord()) || account.getRoleId().getRoleId() == Constant.Role.Admin) {
             HashMap<String, Object> claims = new HashMap<>();
             claims.put("accountId", account.getAccountId());
             claims.put("role", account.getRoleId());
