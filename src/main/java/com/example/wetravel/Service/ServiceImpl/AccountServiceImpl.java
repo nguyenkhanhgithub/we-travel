@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
         Map<String , Object> claims = jwtUtil.extractAllClaims(customerRegisterDTO.getToken());
         String email = claims.get("email").toString();
         Integer roleId = (Integer) claims.get("role");
-        if(accountRepository.findByEmail(email) == null){
+        if(!accountRepository.existsAccountByEmail(email)){
             Role role = roleRepository.getOne(roleId);
             Account account = new Account();
             account.setEmail(email);
