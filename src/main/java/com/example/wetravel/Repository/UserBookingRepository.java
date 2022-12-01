@@ -13,6 +13,7 @@ import java.util.List;
 
 @Repository
 public interface UserBookingRepository extends JpaRepository<UserBooking , Long> {
+    List<UserBooking> getAllByAccountId_AccountId(Long accountId);
     Boolean existsByAccountId_AccountId(Long accountId);
     @Query(value = "SELECT * FROM user_booking where (:accountId = -1 or account_id = :accountId) " +
             "and (:tourId = -1 or tour_id = :tourId) and (:startDate = \"0000-00-00\" or start_date = :startDate)" , nativeQuery = true)

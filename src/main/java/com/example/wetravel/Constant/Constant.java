@@ -56,11 +56,19 @@ public class Constant {
 
     }
 
-    public static class Status{
+    public static class StatusTour{
         public static final Integer ACTIVE = 1;
 
         public static final Integer WAITING = 2;
 
         public static final Integer CLOSE = 3;
+    }
+
+    public static class StatusBooking{
+        public static final Integer NOT_PAY_YET = 0;
+
+        public static final Integer PAY = 1;
+
+        public static final Integer CANCEL = 2;
     }
 }

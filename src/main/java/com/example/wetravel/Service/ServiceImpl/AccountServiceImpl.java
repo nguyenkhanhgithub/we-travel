@@ -3,6 +3,7 @@ package com.example.wetravel.Service.ServiceImpl;
 import com.example.wetravel.Constant.Constant;
 import com.example.wetravel.DTO.CustomerRegisterDTO;
 import com.example.wetravel.DTO.PartnerRegisterDTO;
+import com.example.wetravel.DTO.UserBookingDTO;
 import com.example.wetravel.Entity.*;
 import com.example.wetravel.Exception.HandlerException;
 import com.example.wetravel.Repository.*;
@@ -37,6 +38,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     ServiceRepository serviceRepository;
+
+    @Autowired
+    UserBookingRepository userBookingRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -186,6 +190,13 @@ public class AccountServiceImpl implements AccountService {
             for (com.example.wetravel.Entity.Service s : serviceList){
                 s.setIsBlock(true);
                 serviceRepository.save(s);
+            }
+        }
+        List<UserBooking> userBookingList = userBookingRepository.getAllByAccountId_AccountId(accountId);
+        if(!userBookingList.isEmpty()){
+            for (UserBooking u : userBookingList){
+                u.setStatus(Constant.StatusBooking.CANCEL);
+                userBookingRepository.save(u);
             }
         }
         return true;

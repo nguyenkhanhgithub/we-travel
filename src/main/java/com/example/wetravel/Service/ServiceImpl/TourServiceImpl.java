@@ -347,7 +347,7 @@ public class TourServiceImpl implements TourService {
         if(!tourRepository.existsById(tourId)){
             throw new HandlerException("Tour not found!");
         }
-        tour.setStatus(Constant.Status.CLOSE);
+        tour.setStatus(Constant.StatusTour.CLOSE);
         tourRepository.save(tour);
         return true;
     }
@@ -358,7 +358,7 @@ public class TourServiceImpl implements TourService {
         if(!tourRepository.existsById(tourId)){
             throw new HandlerException("Tour not found!");
         }
-        tour.setStatus(Constant.Status.ACTIVE);
+        tour.setStatus(Constant.StatusTour.ACTIVE);
         tourRepository.save(tour);
         return true;
     }
