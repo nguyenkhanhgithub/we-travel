@@ -14,7 +14,7 @@ public interface FeedbackService {
 
     Boolean blockFeedback(Long feedbackId) throws HandlerException;
 
-    Page<FeedbackDTO> getListFeedbackByTourId(Long tourId , Integer isBlock , Integer page , Integer size) throws HandlerException;
+    Page<FeedbackDTO> getListFeedback(Long tourId , Integer isBlock , Integer page , Integer size) throws HandlerException;
 
     Page<FeedbackDTO> getListFeedbackContainReport(Integer page , Integer size) throws HandlerException;
 }

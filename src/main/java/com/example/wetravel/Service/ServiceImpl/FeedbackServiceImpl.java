@@ -86,7 +86,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public Page<FeedbackDTO> getListFeedbackByTourId(Long tourId , Integer isBlock , Integer page , Integer size) throws HandlerException {
+    public Page<FeedbackDTO> getListFeedback(Long tourId , Integer isBlock , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
         Page<Feedback> feedbackPage = feedbackRepository.getAllByTourId(tourId , isBlock , pageable);
         List<Feedback> feedbackList = feedbackPage.getContent();
