@@ -16,8 +16,9 @@ class AccountTest {
      * <ul>
      *   <li>{@link Account#Account()}
      *   <li>{@link Account#setAccountId(Long)}
+     *   <li>{@link Account#setCommentList(List)}
      *   <li>{@link Account#setEmail(String)}
-     *   <li>{@link Account#setIsActive(Boolean)}
+     *   <li>{@link Account#setFeedbackList(List)}
      *   <li>{@link Account#setIsBlock(Boolean)}
      *   <li>{@link Account#setPartner(Partner)}
      *   <li>{@link Account#setPassWord(String)}
@@ -26,14 +27,15 @@ class AccountTest {
      *   <li>{@link Account#setUser(User)}
      *   <li>{@link Account#setUserBookingList(List)}
      *   <li>{@link Account#getAccountId()}
+     *   <li>{@link Account#getCommentList()}
+     *   <li>{@link Account#getTourList()}
+     *   <li>{@link Account#getUserBookingList()}
      *   <li>{@link Account#getEmail()}
-     *   <li>{@link Account#getIsActive()}
+     *   <li>{@link Account#getFeedbackList()}
      *   <li>{@link Account#getIsBlock()}
      *   <li>{@link Account#getPartner()}
      *   <li>{@link Account#getPassWord()}
      *   <li>{@link Account#getRoleId()}
-     *   <li>{@link Account#getTourList()}
-     *   <li>{@link Account#getUserBookingList()}
      *   <li>{@link Account#getUser()}
      * </ul>
      */
@@ -41,13 +43,19 @@ class AccountTest {
     void testConstructor() {
         Account actualAccount = new Account();
         actualAccount.setAccountId(1234567890L);
+        ArrayList<Comment> commentList = new ArrayList<>();
+        actualAccount.setCommentList(commentList);
         actualAccount.setEmail("jane.doe@example.org");
-        actualAccount.setIsActive(true);
+        ArrayList<Feedback> feedbackList = new ArrayList<>();
+        actualAccount.setFeedbackList(feedbackList);
         actualAccount.setIsBlock(true);
         Account account = new Account();
         account.setAccountId(1234567890L);
+        ArrayList<Comment> commentList1 = new ArrayList<>();
+        account.setCommentList(commentList1);
         account.setEmail("jane.doe@example.org");
-        account.setIsActive(true);
+        ArrayList<Feedback> feedbackList1 = new ArrayList<>();
+        account.setFeedbackList(feedbackList1);
         account.setIsBlock(true);
         account.setPartner(new Partner());
         account.setPassWord("Pass Word");
@@ -66,7 +74,7 @@ class AccountTest {
         companyPartner.setEmail("jane.doe@example.org");
         companyPartner.setFax("Fax");
         companyPartner.setIncorporationDate("2020-03-01");
-        companyPartner.setPartner(new Partner());
+        companyPartner.setPartnerId(new Partner());
         companyPartner.setPhone("4105551212");
         companyPartner.setRegistrationDate("2020-03-01");
         companyPartner.setShortName("Short Name");
@@ -84,7 +92,7 @@ class AccountTest {
         partner.setAddress("42 Main St");
         partner.setBirthDate("2020-03-01");
         partner.setCity("Oxford");
-        partner.setCompanyPartner(companyPartner);
+        partner.setCompanyPartnerId(companyPartner);
         partner.setDateIssue("2020-03-01");
         partner.setDepartment("Department");
         partner.setEmail("jane.doe@example.org");
@@ -106,8 +114,11 @@ class AccountTest {
         role.setRoleName("Role Name");
         Account account1 = new Account();
         account1.setAccountId(1234567890L);
+        ArrayList<Comment> commentList2 = new ArrayList<>();
+        account1.setCommentList(commentList2);
         account1.setEmail("jane.doe@example.org");
-        account1.setIsActive(true);
+        ArrayList<Feedback> feedbackList2 = new ArrayList<>();
+        account1.setFeedbackList(feedbackList2);
         account1.setIsBlock(true);
         account1.setPartner(new Partner());
         account1.setPassWord("Pass Word");
@@ -131,8 +142,11 @@ class AccountTest {
         user.setUserId(123L);
         Account account2 = new Account();
         account2.setAccountId(1234567890L);
+        ArrayList<Comment> commentList3 = new ArrayList<>();
+        account2.setCommentList(commentList3);
         account2.setEmail("jane.doe@example.org");
-        account2.setIsActive(true);
+        ArrayList<Feedback> feedbackList3 = new ArrayList<>();
+        account2.setFeedbackList(feedbackList3);
         account2.setIsBlock(true);
         account2.setPartner(partner);
         account2.setPassWord("Pass Word");
@@ -144,8 +158,11 @@ class AccountTest {
         account2.setUserBookingList(userBookingList2);
         Account account3 = new Account();
         account3.setAccountId(1234567890L);
+        ArrayList<Comment> commentList4 = new ArrayList<>();
+        account3.setCommentList(commentList4);
         account3.setEmail("jane.doe@example.org");
-        account3.setIsActive(true);
+        ArrayList<Feedback> feedbackList4 = new ArrayList<>();
+        account3.setFeedbackList(feedbackList4);
         account3.setIsBlock(true);
         account3.setPartner(new Partner());
         account3.setPassWord("Pass Word");
@@ -164,7 +181,7 @@ class AccountTest {
         companyPartner1.setEmail("jane.doe@example.org");
         companyPartner1.setFax("Fax");
         companyPartner1.setIncorporationDate("2020-03-01");
-        companyPartner1.setPartner(new Partner());
+        companyPartner1.setPartnerId(new Partner());
         companyPartner1.setPhone("4105551212");
         companyPartner1.setRegistrationDate("2020-03-01");
         companyPartner1.setShortName("Short Name");
@@ -182,7 +199,7 @@ class AccountTest {
         partner1.setAddress("42 Main St");
         partner1.setBirthDate("2020-03-01");
         partner1.setCity("Oxford");
-        partner1.setCompanyPartner(companyPartner1);
+        partner1.setCompanyPartnerId(companyPartner1);
         partner1.setDateIssue("2020-03-01");
         partner1.setDepartment("Department");
         partner1.setEmail("jane.doe@example.org");
@@ -206,7 +223,7 @@ class AccountTest {
         companyPartner2.setEmail("jane.doe@example.org");
         companyPartner2.setFax("Fax");
         companyPartner2.setIncorporationDate("2020-03-01");
-        companyPartner2.setPartner(partner1);
+        companyPartner2.setPartnerId(partner1);
         companyPartner2.setPhone("4105551212");
         companyPartner2.setRegistrationDate("2020-03-01");
         companyPartner2.setShortName("Short Name");
@@ -224,7 +241,7 @@ class AccountTest {
         partner2.setAddress("42 Main St");
         partner2.setBirthDate("2020-03-01");
         partner2.setCity("Oxford");
-        partner2.setCompanyPartner(companyPartner2);
+        partner2.setCompanyPartnerId(companyPartner2);
         partner2.setDateIssue("2020-03-01");
         partner2.setDepartment("Department");
         partner2.setEmail("jane.doe@example.org");
@@ -251,8 +268,11 @@ class AccountTest {
         actualAccount.setTourList(tourList4);
         Account account4 = new Account();
         account4.setAccountId(1234567890L);
+        ArrayList<Comment> commentList5 = new ArrayList<>();
+        account4.setCommentList(commentList5);
         account4.setEmail("jane.doe@example.org");
-        account4.setIsActive(true);
+        ArrayList<Feedback> feedbackList5 = new ArrayList<>();
+        account4.setFeedbackList(feedbackList5);
         account4.setIsBlock(true);
         account4.setPartner(new Partner());
         account4.setPassWord("Pass Word");
@@ -271,7 +291,7 @@ class AccountTest {
         companyPartner3.setEmail("jane.doe@example.org");
         companyPartner3.setFax("Fax");
         companyPartner3.setIncorporationDate("2020-03-01");
-        companyPartner3.setPartner(new Partner());
+        companyPartner3.setPartnerId(new Partner());
         companyPartner3.setPhone("4105551212");
         companyPartner3.setRegistrationDate("2020-03-01");
         companyPartner3.setShortName("Short Name");
@@ -289,7 +309,7 @@ class AccountTest {
         partner3.setAddress("42 Main St");
         partner3.setBirthDate("2020-03-01");
         partner3.setCity("Oxford");
-        partner3.setCompanyPartner(companyPartner3);
+        partner3.setCompanyPartnerId(companyPartner3);
         partner3.setDateIssue("2020-03-01");
         partner3.setDepartment("Department");
         partner3.setEmail("jane.doe@example.org");
@@ -311,8 +331,11 @@ class AccountTest {
         role2.setRoleName("Role Name");
         Account account5 = new Account();
         account5.setAccountId(1234567890L);
+        ArrayList<Comment> commentList6 = new ArrayList<>();
+        account5.setCommentList(commentList6);
         account5.setEmail("jane.doe@example.org");
-        account5.setIsActive(true);
+        ArrayList<Feedback> feedbackList6 = new ArrayList<>();
+        account5.setFeedbackList(feedbackList6);
         account5.setIsBlock(true);
         account5.setPartner(new Partner());
         account5.setPassWord("Pass Word");
@@ -336,8 +359,11 @@ class AccountTest {
         user1.setUserId(123L);
         Account account6 = new Account();
         account6.setAccountId(1234567890L);
+        ArrayList<Comment> commentList7 = new ArrayList<>();
+        account6.setCommentList(commentList7);
         account6.setEmail("jane.doe@example.org");
-        account6.setIsActive(true);
+        ArrayList<Feedback> feedbackList7 = new ArrayList<>();
+        account6.setFeedbackList(feedbackList7);
         account6.setIsBlock(true);
         account6.setPartner(partner3);
         account6.setPassWord("Pass Word");
@@ -363,14 +389,116 @@ class AccountTest {
         ArrayList<UserBooking> userBookingList7 = new ArrayList<>();
         actualAccount.setUserBookingList(userBookingList7);
         assertEquals(1234567890L, actualAccount.getAccountId().longValue());
+        List<Comment> commentList8 = actualAccount.getCommentList();
+        assertSame(commentList, commentList8);
+        assertEquals(feedbackList, commentList8);
+        assertEquals(commentList3, commentList8);
+        assertEquals(feedbackList3, commentList8);
+        assertEquals(commentList1, commentList8);
+        assertEquals(feedbackList1, commentList8);
+        assertEquals(tourList, commentList8);
+        assertEquals(userBookingList, commentList8);
+        assertEquals(partnerList, commentList8);
+        assertEquals(serviceList, commentList8);
+        assertEquals(serviceList1, commentList8);
+        assertEquals(accountList, commentList8);
+        assertEquals(tourList2, commentList8);
+        assertEquals(commentList2, commentList8);
+        assertEquals(feedbackList2, commentList8);
+        assertEquals(tourList1, commentList8);
+        assertEquals(userBookingList1, commentList8);
+        assertEquals(userBookingList2, commentList8);
+        assertEquals(commentList4, commentList8);
+        assertEquals(feedbackList4, commentList8);
+        assertEquals(tourList3, commentList8);
+        assertEquals(userBookingList3, commentList8);
+        assertEquals(partnerList1, commentList8);
+        assertEquals(serviceList2, commentList8);
+        assertEquals(serviceList3, commentList8);
+        assertEquals(partnerList2, commentList8);
+        assertEquals(serviceList4, commentList8);
+        assertEquals(serviceList5, commentList8);
+        assertEquals(accountList1, commentList8);
+        assertEquals(commentList7, commentList8);
+        assertEquals(feedbackList7, commentList8);
+        assertEquals(commentList5, commentList8);
+        assertEquals(feedbackList5, commentList8);
+        assertEquals(tourList5, commentList8);
+        assertEquals(userBookingList4, commentList8);
+        assertEquals(partnerList3, commentList8);
+        assertEquals(serviceList6, commentList8);
+        assertEquals(serviceList7, commentList8);
+        assertEquals(accountList2, commentList8);
+        assertEquals(tourList7, commentList8);
+        assertEquals(commentList6, commentList8);
+        assertEquals(feedbackList6, commentList8);
+        assertEquals(tourList6, commentList8);
+        assertEquals(userBookingList5, commentList8);
+        assertEquals(userBookingList6, commentList8);
+        List<Tour> tourList8 = actualAccount.getTourList();
+        assertEquals(tourList8, commentList8);
+        List<UserBooking> userBookingList8 = actualAccount.getUserBookingList();
+        assertEquals(userBookingList8, commentList8);
         assertEquals("jane.doe@example.org", actualAccount.getEmail());
-        assertTrue(actualAccount.getIsActive());
+        List<Feedback> feedbackList8 = actualAccount.getFeedbackList();
+        assertSame(feedbackList, feedbackList8);
+        assertEquals(commentList3, feedbackList8);
+        assertEquals(feedbackList3, feedbackList8);
+        assertEquals(commentList1, feedbackList8);
+        assertEquals(feedbackList1, feedbackList8);
+        assertEquals(tourList, feedbackList8);
+        assertEquals(userBookingList, feedbackList8);
+        assertEquals(partnerList, feedbackList8);
+        assertEquals(serviceList, feedbackList8);
+        assertEquals(serviceList1, feedbackList8);
+        assertEquals(accountList, feedbackList8);
+        assertEquals(tourList2, feedbackList8);
+        assertEquals(commentList2, feedbackList8);
+        assertEquals(feedbackList2, feedbackList8);
+        assertEquals(tourList1, feedbackList8);
+        assertEquals(userBookingList1, feedbackList8);
+        assertEquals(userBookingList2, feedbackList8);
+        assertEquals(commentList4, feedbackList8);
+        assertEquals(feedbackList4, feedbackList8);
+        assertEquals(tourList3, feedbackList8);
+        assertEquals(userBookingList3, feedbackList8);
+        assertEquals(partnerList1, feedbackList8);
+        assertEquals(serviceList2, feedbackList8);
+        assertEquals(serviceList3, feedbackList8);
+        assertEquals(partnerList2, feedbackList8);
+        assertEquals(serviceList4, feedbackList8);
+        assertEquals(serviceList5, feedbackList8);
+        assertEquals(accountList1, feedbackList8);
+        assertEquals(commentList7, feedbackList8);
+        assertEquals(feedbackList7, feedbackList8);
+        assertEquals(commentList5, feedbackList8);
+        assertEquals(feedbackList5, feedbackList8);
+        assertEquals(tourList5, feedbackList8);
+        assertEquals(userBookingList4, feedbackList8);
+        assertEquals(partnerList3, feedbackList8);
+        assertEquals(serviceList6, feedbackList8);
+        assertEquals(serviceList7, feedbackList8);
+        assertEquals(accountList2, feedbackList8);
+        assertEquals(tourList7, feedbackList8);
+        assertEquals(commentList6, feedbackList8);
+        assertEquals(feedbackList6, feedbackList8);
+        assertEquals(tourList6, feedbackList8);
+        assertEquals(userBookingList5, feedbackList8);
+        assertEquals(userBookingList6, feedbackList8);
+        assertEquals(commentList8, feedbackList8);
+        assertEquals(tourList8, feedbackList8);
+        assertEquals(userBookingList8, feedbackList8);
         assertTrue(actualAccount.getIsBlock());
         assertSame(partner2, actualAccount.getPartner());
         assertEquals("Pass Word", actualAccount.getPassWord());
         assertSame(role1, actualAccount.getRoleId());
-        List<Tour> tourList8 = actualAccount.getTourList();
         assertSame(tourList4, tourList8);
+        assertEquals(commentList, tourList8);
+        assertEquals(feedbackList, tourList8);
+        assertEquals(commentList3, tourList8);
+        assertEquals(feedbackList3, tourList8);
+        assertEquals(commentList1, tourList8);
+        assertEquals(feedbackList1, tourList8);
         assertEquals(tourList, tourList8);
         assertEquals(userBookingList, tourList8);
         assertEquals(partnerList, tourList8);
@@ -378,9 +506,13 @@ class AccountTest {
         assertEquals(serviceList1, tourList8);
         assertEquals(accountList, tourList8);
         assertEquals(tourList2, tourList8);
+        assertEquals(commentList2, tourList8);
+        assertEquals(feedbackList2, tourList8);
         assertEquals(tourList1, tourList8);
         assertEquals(userBookingList1, tourList8);
         assertEquals(userBookingList2, tourList8);
+        assertEquals(commentList4, tourList8);
+        assertEquals(feedbackList4, tourList8);
         assertEquals(tourList3, tourList8);
         assertEquals(userBookingList3, tourList8);
         assertEquals(partnerList1, tourList8);
@@ -390,6 +522,10 @@ class AccountTest {
         assertEquals(serviceList4, tourList8);
         assertEquals(serviceList5, tourList8);
         assertEquals(accountList1, tourList8);
+        assertEquals(commentList7, tourList8);
+        assertEquals(feedbackList7, tourList8);
+        assertEquals(commentList5, tourList8);
+        assertEquals(feedbackList5, tourList8);
         assertEquals(tourList5, tourList8);
         assertEquals(userBookingList4, tourList8);
         assertEquals(partnerList3, tourList8);
@@ -397,13 +533,20 @@ class AccountTest {
         assertEquals(serviceList7, tourList8);
         assertEquals(accountList2, tourList8);
         assertEquals(tourList7, tourList8);
+        assertEquals(commentList6, tourList8);
+        assertEquals(feedbackList6, tourList8);
         assertEquals(tourList6, tourList8);
         assertEquals(userBookingList5, tourList8);
         assertEquals(userBookingList6, tourList8);
-        List<UserBooking> userBookingList8 = actualAccount.getUserBookingList();
         assertEquals(userBookingList8, tourList8);
         assertSame(user2, actualAccount.getUser());
         assertSame(userBookingList7, userBookingList8);
+        assertEquals(commentList, userBookingList8);
+        assertEquals(feedbackList, userBookingList8);
+        assertEquals(commentList3, userBookingList8);
+        assertEquals(feedbackList3, userBookingList8);
+        assertEquals(commentList1, userBookingList8);
+        assertEquals(feedbackList1, userBookingList8);
         assertEquals(tourList, userBookingList8);
         assertEquals(userBookingList, userBookingList8);
         assertEquals(partnerList, userBookingList8);
@@ -411,9 +554,13 @@ class AccountTest {
         assertEquals(serviceList1, userBookingList8);
         assertEquals(accountList, userBookingList8);
         assertEquals(tourList2, userBookingList8);
+        assertEquals(commentList2, userBookingList8);
+        assertEquals(feedbackList2, userBookingList8);
         assertEquals(tourList1, userBookingList8);
         assertEquals(userBookingList1, userBookingList8);
         assertEquals(userBookingList2, userBookingList8);
+        assertEquals(commentList4, userBookingList8);
+        assertEquals(feedbackList4, userBookingList8);
         assertEquals(tourList3, userBookingList8);
         assertEquals(userBookingList3, userBookingList8);
         assertEquals(partnerList1, userBookingList8);
@@ -424,6 +571,10 @@ class AccountTest {
         assertEquals(serviceList5, userBookingList8);
         assertEquals(accountList1, userBookingList8);
         assertEquals(tourList4, userBookingList8);
+        assertEquals(commentList7, userBookingList8);
+        assertEquals(feedbackList7, userBookingList8);
+        assertEquals(commentList5, userBookingList8);
+        assertEquals(feedbackList5, userBookingList8);
         assertEquals(tourList5, userBookingList8);
         assertEquals(userBookingList4, userBookingList8);
         assertEquals(partnerList3, userBookingList8);
@@ -431,6 +582,8 @@ class AccountTest {
         assertEquals(serviceList7, userBookingList8);
         assertEquals(accountList2, userBookingList8);
         assertEquals(tourList7, userBookingList8);
+        assertEquals(commentList6, userBookingList8);
+        assertEquals(feedbackList6, userBookingList8);
         assertEquals(tourList6, userBookingList8);
         assertEquals(userBookingList5, userBookingList8);
         assertEquals(userBookingList6, userBookingList8);
@@ -440,11 +593,12 @@ class AccountTest {
      * Methods under test:
      *
      * <ul>
-     *   <li>{@link Account#Account(Long, String, String, Boolean, Boolean, Role, User, Partner, List, List)}
+     *   <li>{@link Account#Account(Long, String, String, Boolean, Role, User, Partner, List, List, List, List)}
      *   <li>{@link Account#Account()}
      *   <li>{@link Account#setAccountId(Long)}
+     *   <li>{@link Account#setCommentList(List)}
      *   <li>{@link Account#setEmail(String)}
-     *   <li>{@link Account#setIsActive(Boolean)}
+     *   <li>{@link Account#setFeedbackList(List)}
      *   <li>{@link Account#setIsBlock(Boolean)}
      *   <li>{@link Account#setPartner(Partner)}
      *   <li>{@link Account#setPassWord(String)}
@@ -453,14 +607,15 @@ class AccountTest {
      *   <li>{@link Account#setUser(User)}
      *   <li>{@link Account#setUserBookingList(List)}
      *   <li>{@link Account#getAccountId()}
+     *   <li>{@link Account#getCommentList()}
+     *   <li>{@link Account#getTourList()}
+     *   <li>{@link Account#getUserBookingList()}
      *   <li>{@link Account#getEmail()}
-     *   <li>{@link Account#getIsActive()}
+     *   <li>{@link Account#getFeedbackList()}
      *   <li>{@link Account#getIsBlock()}
      *   <li>{@link Account#getPartner()}
      *   <li>{@link Account#getPassWord()}
      *   <li>{@link Account#getRoleId()}
-     *   <li>{@link Account#getTourList()}
-     *   <li>{@link Account#getUserBookingList()}
      *   <li>{@link Account#getUser()}
      * </ul>
      */
@@ -474,8 +629,11 @@ class AccountTest {
 
         Account account = new Account();
         account.setAccountId(1234567890L);
+        ArrayList<Comment> commentList = new ArrayList<>();
+        account.setCommentList(commentList);
         account.setEmail("jane.doe@example.org");
-        account.setIsActive(true);
+        ArrayList<Feedback> feedbackList = new ArrayList<>();
+        account.setFeedbackList(feedbackList);
         account.setIsBlock(true);
         account.setPartner(new Partner());
         account.setPassWord("Pass Word");
@@ -495,7 +653,7 @@ class AccountTest {
         companyPartner.setEmail("jane.doe@example.org");
         companyPartner.setFax("Fax");
         companyPartner.setIncorporationDate("2020-03-01");
-        companyPartner.setPartner(new Partner());
+        companyPartner.setPartnerId(new Partner());
         companyPartner.setPhone("4105551212");
         companyPartner.setRegistrationDate("2020-03-01");
         companyPartner.setShortName("Short Name");
@@ -515,7 +673,7 @@ class AccountTest {
         partner.setAddress("42 Main St");
         partner.setBirthDate("2020-03-01");
         partner.setCity("Oxford");
-        partner.setCompanyPartner(companyPartner);
+        partner.setCompanyPartnerId(companyPartner);
         partner.setDateIssue("2020-03-01");
         partner.setDepartment("Department");
         partner.setEmail("jane.doe@example.org");
@@ -539,8 +697,11 @@ class AccountTest {
 
         Account account1 = new Account();
         account1.setAccountId(1234567890L);
+        ArrayList<Comment> commentList1 = new ArrayList<>();
+        account1.setCommentList(commentList1);
         account1.setEmail("jane.doe@example.org");
-        account1.setIsActive(true);
+        ArrayList<Feedback> feedbackList1 = new ArrayList<>();
+        account1.setFeedbackList(feedbackList1);
         account1.setIsBlock(true);
         account1.setPartner(new Partner());
         account1.setPassWord("Pass Word");
@@ -566,8 +727,11 @@ class AccountTest {
 
         Account account2 = new Account();
         account2.setAccountId(1234567890L);
+        ArrayList<Comment> commentList2 = new ArrayList<>();
+        account2.setCommentList(commentList2);
         account2.setEmail("jane.doe@example.org");
-        account2.setIsActive(true);
+        ArrayList<Feedback> feedbackList2 = new ArrayList<>();
+        account2.setFeedbackList(feedbackList2);
         account2.setIsBlock(true);
         account2.setPartner(partner);
         account2.setPassWord("Pass Word");
@@ -593,8 +757,11 @@ class AccountTest {
 
         Account account3 = new Account();
         account3.setAccountId(1234567890L);
+        ArrayList<Comment> commentList3 = new ArrayList<>();
+        account3.setCommentList(commentList3);
         account3.setEmail("jane.doe@example.org");
-        account3.setIsActive(true);
+        ArrayList<Feedback> feedbackList3 = new ArrayList<>();
+        account3.setFeedbackList(feedbackList3);
         account3.setIsBlock(true);
         account3.setPartner(new Partner());
         account3.setPassWord("Pass Word");
@@ -614,7 +781,7 @@ class AccountTest {
         companyPartner1.setEmail("jane.doe@example.org");
         companyPartner1.setFax("Fax");
         companyPartner1.setIncorporationDate("2020-03-01");
-        companyPartner1.setPartner(new Partner());
+        companyPartner1.setPartnerId(new Partner());
         companyPartner1.setPhone("4105551212");
         companyPartner1.setRegistrationDate("2020-03-01");
         companyPartner1.setShortName("Short Name");
@@ -634,7 +801,7 @@ class AccountTest {
         partner1.setAddress("42 Main St");
         partner1.setBirthDate("2020-03-01");
         partner1.setCity("Oxford");
-        partner1.setCompanyPartner(companyPartner1);
+        partner1.setCompanyPartnerId(companyPartner1);
         partner1.setDateIssue("2020-03-01");
         partner1.setDepartment("Department");
         partner1.setEmail("jane.doe@example.org");
@@ -658,8 +825,11 @@ class AccountTest {
 
         Account account4 = new Account();
         account4.setAccountId(1234567890L);
+        ArrayList<Comment> commentList4 = new ArrayList<>();
+        account4.setCommentList(commentList4);
         account4.setEmail("jane.doe@example.org");
-        account4.setIsActive(true);
+        ArrayList<Feedback> feedbackList4 = new ArrayList<>();
+        account4.setFeedbackList(feedbackList4);
         account4.setIsBlock(true);
         account4.setPartner(new Partner());
         account4.setPassWord("Pass Word");
@@ -685,8 +855,11 @@ class AccountTest {
 
         Account account5 = new Account();
         account5.setAccountId(1234567890L);
+        ArrayList<Comment> commentList5 = new ArrayList<>();
+        account5.setCommentList(commentList5);
         account5.setEmail("jane.doe@example.org");
-        account5.setIsActive(true);
+        ArrayList<Feedback> feedbackList5 = new ArrayList<>();
+        account5.setFeedbackList(feedbackList5);
         account5.setIsBlock(true);
         account5.setPartner(partner1);
         account5.setPassWord("Pass Word");
@@ -699,8 +872,11 @@ class AccountTest {
 
         Account account6 = new Account();
         account6.setAccountId(1234567890L);
+        ArrayList<Comment> commentList6 = new ArrayList<>();
+        account6.setCommentList(commentList6);
         account6.setEmail("jane.doe@example.org");
-        account6.setIsActive(true);
+        ArrayList<Feedback> feedbackList6 = new ArrayList<>();
+        account6.setFeedbackList(feedbackList6);
         account6.setIsBlock(true);
         account6.setPartner(new Partner());
         account6.setPassWord("Pass Word");
@@ -720,7 +896,7 @@ class AccountTest {
         companyPartner2.setEmail("jane.doe@example.org");
         companyPartner2.setFax("Fax");
         companyPartner2.setIncorporationDate("2020-03-01");
-        companyPartner2.setPartner(new Partner());
+        companyPartner2.setPartnerId(new Partner());
         companyPartner2.setPhone("4105551212");
         companyPartner2.setRegistrationDate("2020-03-01");
         companyPartner2.setShortName("Short Name");
@@ -740,7 +916,7 @@ class AccountTest {
         partner2.setAddress("42 Main St");
         partner2.setBirthDate("2020-03-01");
         partner2.setCity("Oxford");
-        partner2.setCompanyPartner(companyPartner2);
+        partner2.setCompanyPartnerId(companyPartner2);
         partner2.setDateIssue("2020-03-01");
         partner2.setDepartment("Department");
         partner2.setEmail("jane.doe@example.org");
@@ -765,7 +941,7 @@ class AccountTest {
         companyPartner3.setEmail("jane.doe@example.org");
         companyPartner3.setFax("Fax");
         companyPartner3.setIncorporationDate("2020-03-01");
-        companyPartner3.setPartner(partner2);
+        companyPartner3.setPartnerId(partner2);
         companyPartner3.setPhone("4105551212");
         companyPartner3.setRegistrationDate("2020-03-01");
         companyPartner3.setShortName("Short Name");
@@ -785,7 +961,7 @@ class AccountTest {
         partner3.setAddress("42 Main St");
         partner3.setBirthDate("2020-03-01");
         partner3.setCity("Oxford");
-        partner3.setCompanyPartner(companyPartner3);
+        partner3.setCompanyPartnerId(companyPartner3);
         partner3.setDateIssue("2020-03-01");
         partner3.setDepartment("Department");
         partner3.setEmail("jane.doe@example.org");
@@ -802,16 +978,24 @@ class AccountTest {
         partner3.setServiceList(serviceList7);
         ArrayList<UserBooking> userBookingList7 = new ArrayList<>();
         ArrayList<Tour> tourList7 = new ArrayList<>();
-        Account actualAccount = new Account(1234567890L, "jane.doe@example.org", "Pass Word", true, true, role, user1,
-                partner3, userBookingList7, tourList7);
+        ArrayList<Feedback> feedbackList7 = new ArrayList<>();
+        ArrayList<Comment> commentList7 = new ArrayList<>();
+        Account actualAccount = new Account(1234567890L, "jane.doe@example.org", "Pass Word", true, role, user1, partner3,
+                userBookingList7, tourList7, feedbackList7, commentList7);
         actualAccount.setAccountId(1234567890L);
+        ArrayList<Comment> commentList8 = new ArrayList<>();
+        actualAccount.setCommentList(commentList8);
         actualAccount.setEmail("jane.doe@example.org");
-        actualAccount.setIsActive(true);
+        ArrayList<Feedback> feedbackList8 = new ArrayList<>();
+        actualAccount.setFeedbackList(feedbackList8);
         actualAccount.setIsBlock(true);
         Account account7 = new Account();
         account7.setAccountId(1234567890L);
+        ArrayList<Comment> commentList9 = new ArrayList<>();
+        account7.setCommentList(commentList9);
         account7.setEmail("jane.doe@example.org");
-        account7.setIsActive(true);
+        ArrayList<Feedback> feedbackList9 = new ArrayList<>();
+        account7.setFeedbackList(feedbackList9);
         account7.setIsBlock(true);
         account7.setPartner(new Partner());
         account7.setPassWord("Pass Word");
@@ -830,7 +1014,7 @@ class AccountTest {
         companyPartner4.setEmail("jane.doe@example.org");
         companyPartner4.setFax("Fax");
         companyPartner4.setIncorporationDate("2020-03-01");
-        companyPartner4.setPartner(new Partner());
+        companyPartner4.setPartnerId(new Partner());
         companyPartner4.setPhone("4105551212");
         companyPartner4.setRegistrationDate("2020-03-01");
         companyPartner4.setShortName("Short Name");
@@ -848,7 +1032,7 @@ class AccountTest {
         partner4.setAddress("42 Main St");
         partner4.setBirthDate("2020-03-01");
         partner4.setCity("Oxford");
-        partner4.setCompanyPartner(companyPartner4);
+        partner4.setCompanyPartnerId(companyPartner4);
         partner4.setDateIssue("2020-03-01");
         partner4.setDepartment("Department");
         partner4.setEmail("jane.doe@example.org");
@@ -870,8 +1054,11 @@ class AccountTest {
         role3.setRoleName("Role Name");
         Account account8 = new Account();
         account8.setAccountId(1234567890L);
+        ArrayList<Comment> commentList10 = new ArrayList<>();
+        account8.setCommentList(commentList10);
         account8.setEmail("jane.doe@example.org");
-        account8.setIsActive(true);
+        ArrayList<Feedback> feedbackList10 = new ArrayList<>();
+        account8.setFeedbackList(feedbackList10);
         account8.setIsBlock(true);
         account8.setPartner(new Partner());
         account8.setPassWord("Pass Word");
@@ -895,8 +1082,11 @@ class AccountTest {
         user3.setUserId(123L);
         Account account9 = new Account();
         account9.setAccountId(1234567890L);
+        ArrayList<Comment> commentList11 = new ArrayList<>();
+        account9.setCommentList(commentList11);
         account9.setEmail("jane.doe@example.org");
-        account9.setIsActive(true);
+        ArrayList<Feedback> feedbackList11 = new ArrayList<>();
+        account9.setFeedbackList(feedbackList11);
         account9.setIsBlock(true);
         account9.setPartner(partner4);
         account9.setPassWord("Pass Word");
@@ -908,8 +1098,11 @@ class AccountTest {
         account9.setUserBookingList(userBookingList10);
         Account account10 = new Account();
         account10.setAccountId(1234567890L);
+        ArrayList<Comment> commentList12 = new ArrayList<>();
+        account10.setCommentList(commentList12);
         account10.setEmail("jane.doe@example.org");
-        account10.setIsActive(true);
+        ArrayList<Feedback> feedbackList12 = new ArrayList<>();
+        account10.setFeedbackList(feedbackList12);
         account10.setIsBlock(true);
         account10.setPartner(new Partner());
         account10.setPassWord("Pass Word");
@@ -928,7 +1121,7 @@ class AccountTest {
         companyPartner5.setEmail("jane.doe@example.org");
         companyPartner5.setFax("Fax");
         companyPartner5.setIncorporationDate("2020-03-01");
-        companyPartner5.setPartner(new Partner());
+        companyPartner5.setPartnerId(new Partner());
         companyPartner5.setPhone("4105551212");
         companyPartner5.setRegistrationDate("2020-03-01");
         companyPartner5.setShortName("Short Name");
@@ -946,7 +1139,7 @@ class AccountTest {
         partner5.setAddress("42 Main St");
         partner5.setBirthDate("2020-03-01");
         partner5.setCity("Oxford");
-        partner5.setCompanyPartner(companyPartner5);
+        partner5.setCompanyPartnerId(companyPartner5);
         partner5.setDateIssue("2020-03-01");
         partner5.setDepartment("Department");
         partner5.setEmail("jane.doe@example.org");
@@ -970,7 +1163,7 @@ class AccountTest {
         companyPartner6.setEmail("jane.doe@example.org");
         companyPartner6.setFax("Fax");
         companyPartner6.setIncorporationDate("2020-03-01");
-        companyPartner6.setPartner(partner5);
+        companyPartner6.setPartnerId(partner5);
         companyPartner6.setPhone("4105551212");
         companyPartner6.setRegistrationDate("2020-03-01");
         companyPartner6.setShortName("Short Name");
@@ -988,7 +1181,7 @@ class AccountTest {
         partner6.setAddress("42 Main St");
         partner6.setBirthDate("2020-03-01");
         partner6.setCity("Oxford");
-        partner6.setCompanyPartner(companyPartner6);
+        partner6.setCompanyPartnerId(companyPartner6);
         partner6.setDateIssue("2020-03-01");
         partner6.setDepartment("Department");
         partner6.setEmail("jane.doe@example.org");
@@ -1015,8 +1208,11 @@ class AccountTest {
         actualAccount.setTourList(tourList12);
         Account account11 = new Account();
         account11.setAccountId(1234567890L);
+        ArrayList<Comment> commentList13 = new ArrayList<>();
+        account11.setCommentList(commentList13);
         account11.setEmail("jane.doe@example.org");
-        account11.setIsActive(true);
+        ArrayList<Feedback> feedbackList13 = new ArrayList<>();
+        account11.setFeedbackList(feedbackList13);
         account11.setIsBlock(true);
         account11.setPartner(new Partner());
         account11.setPassWord("Pass Word");
@@ -1035,7 +1231,7 @@ class AccountTest {
         companyPartner7.setEmail("jane.doe@example.org");
         companyPartner7.setFax("Fax");
         companyPartner7.setIncorporationDate("2020-03-01");
-        companyPartner7.setPartner(new Partner());
+        companyPartner7.setPartnerId(new Partner());
         companyPartner7.setPhone("4105551212");
         companyPartner7.setRegistrationDate("2020-03-01");
         companyPartner7.setShortName("Short Name");
@@ -1053,7 +1249,7 @@ class AccountTest {
         partner7.setAddress("42 Main St");
         partner7.setBirthDate("2020-03-01");
         partner7.setCity("Oxford");
-        partner7.setCompanyPartner(companyPartner7);
+        partner7.setCompanyPartnerId(companyPartner7);
         partner7.setDateIssue("2020-03-01");
         partner7.setDepartment("Department");
         partner7.setEmail("jane.doe@example.org");
@@ -1075,8 +1271,11 @@ class AccountTest {
         role5.setRoleName("Role Name");
         Account account12 = new Account();
         account12.setAccountId(1234567890L);
+        ArrayList<Comment> commentList14 = new ArrayList<>();
+        account12.setCommentList(commentList14);
         account12.setEmail("jane.doe@example.org");
-        account12.setIsActive(true);
+        ArrayList<Feedback> feedbackList14 = new ArrayList<>();
+        account12.setFeedbackList(feedbackList14);
         account12.setIsBlock(true);
         account12.setPartner(new Partner());
         account12.setPassWord("Pass Word");
@@ -1100,8 +1299,11 @@ class AccountTest {
         user4.setUserId(123L);
         Account account13 = new Account();
         account13.setAccountId(1234567890L);
+        ArrayList<Comment> commentList15 = new ArrayList<>();
+        account13.setCommentList(commentList15);
         account13.setEmail("jane.doe@example.org");
-        account13.setIsActive(true);
+        ArrayList<Feedback> feedbackList15 = new ArrayList<>();
+        account13.setFeedbackList(feedbackList15);
         account13.setIsBlock(true);
         account13.setPartner(partner7);
         account13.setPassWord("Pass Word");
@@ -1127,15 +1329,209 @@ class AccountTest {
         ArrayList<UserBooking> userBookingList15 = new ArrayList<>();
         actualAccount.setUserBookingList(userBookingList15);
         assertEquals(1234567890L, actualAccount.getAccountId().longValue());
+        List<Comment> commentList16 = actualAccount.getCommentList();
+        assertSame(commentList8, commentList16);
+        assertEquals(accountList, commentList16);
+        assertEquals(commentList2, commentList16);
+        assertEquals(feedbackList2, commentList16);
+        assertEquals(commentList, commentList16);
+        assertEquals(feedbackList, commentList16);
+        assertEquals(tourList, commentList16);
+        assertEquals(userBookingList, commentList16);
+        assertEquals(partnerList, commentList16);
+        assertEquals(serviceList, commentList16);
+        assertEquals(serviceList1, commentList16);
+        assertEquals(accountList1, commentList16);
+        assertEquals(tourList2, commentList16);
+        assertEquals(commentList1, commentList16);
+        assertEquals(feedbackList1, commentList16);
+        assertEquals(tourList1, commentList16);
+        assertEquals(userBookingList1, commentList16);
+        assertEquals(userBookingList2, commentList16);
+        assertEquals(commentList5, commentList16);
+        assertEquals(feedbackList5, commentList16);
+        assertEquals(commentList3, commentList16);
+        assertEquals(feedbackList3, commentList16);
+        assertEquals(tourList3, commentList16);
+        assertEquals(userBookingList3, commentList16);
+        assertEquals(partnerList1, commentList16);
+        assertEquals(serviceList2, commentList16);
+        assertEquals(serviceList3, commentList16);
+        assertEquals(accountList2, commentList16);
+        assertEquals(tourList5, commentList16);
+        assertEquals(commentList4, commentList16);
+        assertEquals(feedbackList4, commentList16);
+        assertEquals(tourList4, commentList16);
+        assertEquals(userBookingList4, commentList16);
+        assertEquals(userBookingList5, commentList16);
+        assertEquals(commentList6, commentList16);
+        assertEquals(feedbackList6, commentList16);
+        assertEquals(tourList6, commentList16);
+        assertEquals(userBookingList6, commentList16);
+        assertEquals(partnerList2, commentList16);
+        assertEquals(serviceList4, commentList16);
+        assertEquals(serviceList5, commentList16);
+        assertEquals(partnerList3, commentList16);
+        assertEquals(serviceList6, commentList16);
+        assertEquals(serviceList7, commentList16);
+        assertEquals(userBookingList7, commentList16);
+        assertEquals(tourList7, commentList16);
+        assertEquals(feedbackList7, commentList16);
+        assertEquals(commentList7, commentList16);
+        assertEquals(feedbackList8, commentList16);
+        assertEquals(commentList11, commentList16);
+        assertEquals(feedbackList11, commentList16);
+        assertEquals(commentList9, commentList16);
+        assertEquals(feedbackList9, commentList16);
+        assertEquals(tourList8, commentList16);
+        assertEquals(userBookingList8, commentList16);
+        assertEquals(partnerList4, commentList16);
+        assertEquals(serviceList8, commentList16);
+        assertEquals(serviceList9, commentList16);
+        assertEquals(accountList3, commentList16);
+        assertEquals(tourList10, commentList16);
+        assertEquals(commentList10, commentList16);
+        assertEquals(feedbackList10, commentList16);
+        assertEquals(tourList9, commentList16);
+        assertEquals(userBookingList9, commentList16);
+        assertEquals(userBookingList10, commentList16);
+        assertEquals(commentList12, commentList16);
+        assertEquals(feedbackList12, commentList16);
+        assertEquals(tourList11, commentList16);
+        assertEquals(userBookingList11, commentList16);
+        assertEquals(partnerList5, commentList16);
+        assertEquals(serviceList10, commentList16);
+        assertEquals(serviceList11, commentList16);
+        assertEquals(partnerList6, commentList16);
+        assertEquals(serviceList12, commentList16);
+        assertEquals(serviceList13, commentList16);
+        assertEquals(accountList4, commentList16);
+        assertEquals(commentList15, commentList16);
+        assertEquals(feedbackList15, commentList16);
+        assertEquals(commentList13, commentList16);
+        assertEquals(feedbackList13, commentList16);
+        assertEquals(tourList13, commentList16);
+        assertEquals(userBookingList12, commentList16);
+        assertEquals(partnerList7, commentList16);
+        assertEquals(serviceList14, commentList16);
+        assertEquals(serviceList15, commentList16);
+        assertEquals(accountList5, commentList16);
+        assertEquals(tourList15, commentList16);
+        assertEquals(commentList14, commentList16);
+        assertEquals(feedbackList14, commentList16);
+        assertEquals(tourList14, commentList16);
+        assertEquals(userBookingList13, commentList16);
+        assertEquals(userBookingList14, commentList16);
+        List<Tour> tourList16 = actualAccount.getTourList();
+        assertEquals(tourList16, commentList16);
+        List<UserBooking> userBookingList16 = actualAccount.getUserBookingList();
+        assertEquals(userBookingList16, commentList16);
         assertEquals("jane.doe@example.org", actualAccount.getEmail());
-        assertTrue(actualAccount.getIsActive());
+        List<Feedback> feedbackList16 = actualAccount.getFeedbackList();
+        assertSame(feedbackList8, feedbackList16);
+        assertEquals(accountList, feedbackList16);
+        assertEquals(commentList2, feedbackList16);
+        assertEquals(feedbackList2, feedbackList16);
+        assertEquals(commentList, feedbackList16);
+        assertEquals(feedbackList, feedbackList16);
+        assertEquals(tourList, feedbackList16);
+        assertEquals(userBookingList, feedbackList16);
+        assertEquals(partnerList, feedbackList16);
+        assertEquals(serviceList, feedbackList16);
+        assertEquals(serviceList1, feedbackList16);
+        assertEquals(accountList1, feedbackList16);
+        assertEquals(tourList2, feedbackList16);
+        assertEquals(commentList1, feedbackList16);
+        assertEquals(feedbackList1, feedbackList16);
+        assertEquals(tourList1, feedbackList16);
+        assertEquals(userBookingList1, feedbackList16);
+        assertEquals(userBookingList2, feedbackList16);
+        assertEquals(commentList5, feedbackList16);
+        assertEquals(feedbackList5, feedbackList16);
+        assertEquals(commentList3, feedbackList16);
+        assertEquals(feedbackList3, feedbackList16);
+        assertEquals(tourList3, feedbackList16);
+        assertEquals(userBookingList3, feedbackList16);
+        assertEquals(partnerList1, feedbackList16);
+        assertEquals(serviceList2, feedbackList16);
+        assertEquals(serviceList3, feedbackList16);
+        assertEquals(accountList2, feedbackList16);
+        assertEquals(tourList5, feedbackList16);
+        assertEquals(commentList4, feedbackList16);
+        assertEquals(feedbackList4, feedbackList16);
+        assertEquals(tourList4, feedbackList16);
+        assertEquals(userBookingList4, feedbackList16);
+        assertEquals(userBookingList5, feedbackList16);
+        assertEquals(commentList6, feedbackList16);
+        assertEquals(feedbackList6, feedbackList16);
+        assertEquals(tourList6, feedbackList16);
+        assertEquals(userBookingList6, feedbackList16);
+        assertEquals(partnerList2, feedbackList16);
+        assertEquals(serviceList4, feedbackList16);
+        assertEquals(serviceList5, feedbackList16);
+        assertEquals(partnerList3, feedbackList16);
+        assertEquals(serviceList6, feedbackList16);
+        assertEquals(serviceList7, feedbackList16);
+        assertEquals(userBookingList7, feedbackList16);
+        assertEquals(tourList7, feedbackList16);
+        assertEquals(feedbackList7, feedbackList16);
+        assertEquals(commentList7, feedbackList16);
+        assertEquals(commentList11, feedbackList16);
+        assertEquals(feedbackList11, feedbackList16);
+        assertEquals(commentList9, feedbackList16);
+        assertEquals(feedbackList9, feedbackList16);
+        assertEquals(tourList8, feedbackList16);
+        assertEquals(userBookingList8, feedbackList16);
+        assertEquals(partnerList4, feedbackList16);
+        assertEquals(serviceList8, feedbackList16);
+        assertEquals(serviceList9, feedbackList16);
+        assertEquals(accountList3, feedbackList16);
+        assertEquals(tourList10, feedbackList16);
+        assertEquals(commentList10, feedbackList16);
+        assertEquals(feedbackList10, feedbackList16);
+        assertEquals(tourList9, feedbackList16);
+        assertEquals(userBookingList9, feedbackList16);
+        assertEquals(userBookingList10, feedbackList16);
+        assertEquals(commentList12, feedbackList16);
+        assertEquals(feedbackList12, feedbackList16);
+        assertEquals(tourList11, feedbackList16);
+        assertEquals(userBookingList11, feedbackList16);
+        assertEquals(partnerList5, feedbackList16);
+        assertEquals(serviceList10, feedbackList16);
+        assertEquals(serviceList11, feedbackList16);
+        assertEquals(partnerList6, feedbackList16);
+        assertEquals(serviceList12, feedbackList16);
+        assertEquals(serviceList13, feedbackList16);
+        assertEquals(accountList4, feedbackList16);
+        assertEquals(commentList15, feedbackList16);
+        assertEquals(feedbackList15, feedbackList16);
+        assertEquals(commentList13, feedbackList16);
+        assertEquals(feedbackList13, feedbackList16);
+        assertEquals(tourList13, feedbackList16);
+        assertEquals(userBookingList12, feedbackList16);
+        assertEquals(partnerList7, feedbackList16);
+        assertEquals(serviceList14, feedbackList16);
+        assertEquals(serviceList15, feedbackList16);
+        assertEquals(accountList5, feedbackList16);
+        assertEquals(tourList15, feedbackList16);
+        assertEquals(commentList14, feedbackList16);
+        assertEquals(feedbackList14, feedbackList16);
+        assertEquals(tourList14, feedbackList16);
+        assertEquals(userBookingList13, feedbackList16);
+        assertEquals(userBookingList14, feedbackList16);
+        assertEquals(commentList16, feedbackList16);
+        assertEquals(tourList16, feedbackList16);
+        assertEquals(userBookingList16, feedbackList16);
         assertTrue(actualAccount.getIsBlock());
         assertSame(partner6, actualAccount.getPartner());
         assertEquals("Pass Word", actualAccount.getPassWord());
         assertSame(role4, actualAccount.getRoleId());
-        List<Tour> tourList16 = actualAccount.getTourList();
         assertSame(tourList12, tourList16);
         assertEquals(accountList, tourList16);
+        assertEquals(commentList2, tourList16);
+        assertEquals(feedbackList2, tourList16);
+        assertEquals(commentList, tourList16);
+        assertEquals(feedbackList, tourList16);
         assertEquals(tourList, tourList16);
         assertEquals(userBookingList, tourList16);
         assertEquals(partnerList, tourList16);
@@ -1143,9 +1539,15 @@ class AccountTest {
         assertEquals(serviceList1, tourList16);
         assertEquals(accountList1, tourList16);
         assertEquals(tourList2, tourList16);
+        assertEquals(commentList1, tourList16);
+        assertEquals(feedbackList1, tourList16);
         assertEquals(tourList1, tourList16);
         assertEquals(userBookingList1, tourList16);
         assertEquals(userBookingList2, tourList16);
+        assertEquals(commentList5, tourList16);
+        assertEquals(feedbackList5, tourList16);
+        assertEquals(commentList3, tourList16);
+        assertEquals(feedbackList3, tourList16);
         assertEquals(tourList3, tourList16);
         assertEquals(userBookingList3, tourList16);
         assertEquals(partnerList1, tourList16);
@@ -1153,9 +1555,13 @@ class AccountTest {
         assertEquals(serviceList3, tourList16);
         assertEquals(accountList2, tourList16);
         assertEquals(tourList5, tourList16);
+        assertEquals(commentList4, tourList16);
+        assertEquals(feedbackList4, tourList16);
         assertEquals(tourList4, tourList16);
         assertEquals(userBookingList4, tourList16);
         assertEquals(userBookingList5, tourList16);
+        assertEquals(commentList6, tourList16);
+        assertEquals(feedbackList6, tourList16);
         assertEquals(tourList6, tourList16);
         assertEquals(userBookingList6, tourList16);
         assertEquals(partnerList2, tourList16);
@@ -1166,6 +1572,14 @@ class AccountTest {
         assertEquals(serviceList7, tourList16);
         assertEquals(userBookingList7, tourList16);
         assertEquals(tourList7, tourList16);
+        assertEquals(feedbackList7, tourList16);
+        assertEquals(commentList7, tourList16);
+        assertEquals(commentList8, tourList16);
+        assertEquals(feedbackList8, tourList16);
+        assertEquals(commentList11, tourList16);
+        assertEquals(feedbackList11, tourList16);
+        assertEquals(commentList9, tourList16);
+        assertEquals(feedbackList9, tourList16);
         assertEquals(tourList8, tourList16);
         assertEquals(userBookingList8, tourList16);
         assertEquals(partnerList4, tourList16);
@@ -1173,9 +1587,13 @@ class AccountTest {
         assertEquals(serviceList9, tourList16);
         assertEquals(accountList3, tourList16);
         assertEquals(tourList10, tourList16);
+        assertEquals(commentList10, tourList16);
+        assertEquals(feedbackList10, tourList16);
         assertEquals(tourList9, tourList16);
         assertEquals(userBookingList9, tourList16);
         assertEquals(userBookingList10, tourList16);
+        assertEquals(commentList12, tourList16);
+        assertEquals(feedbackList12, tourList16);
         assertEquals(tourList11, tourList16);
         assertEquals(userBookingList11, tourList16);
         assertEquals(partnerList5, tourList16);
@@ -1185,6 +1603,10 @@ class AccountTest {
         assertEquals(serviceList12, tourList16);
         assertEquals(serviceList13, tourList16);
         assertEquals(accountList4, tourList16);
+        assertEquals(commentList15, tourList16);
+        assertEquals(feedbackList15, tourList16);
+        assertEquals(commentList13, tourList16);
+        assertEquals(feedbackList13, tourList16);
         assertEquals(tourList13, tourList16);
         assertEquals(userBookingList12, tourList16);
         assertEquals(partnerList7, tourList16);
@@ -1192,14 +1614,19 @@ class AccountTest {
         assertEquals(serviceList15, tourList16);
         assertEquals(accountList5, tourList16);
         assertEquals(tourList15, tourList16);
+        assertEquals(commentList14, tourList16);
+        assertEquals(feedbackList14, tourList16);
         assertEquals(tourList14, tourList16);
         assertEquals(userBookingList13, tourList16);
         assertEquals(userBookingList14, tourList16);
-        List<UserBooking> userBookingList16 = actualAccount.getUserBookingList();
         assertEquals(userBookingList16, tourList16);
         assertSame(user5, actualAccount.getUser());
         assertSame(userBookingList15, userBookingList16);
         assertEquals(accountList, userBookingList16);
+        assertEquals(commentList2, userBookingList16);
+        assertEquals(feedbackList2, userBookingList16);
+        assertEquals(commentList, userBookingList16);
+        assertEquals(feedbackList, userBookingList16);
         assertEquals(tourList, userBookingList16);
         assertEquals(userBookingList, userBookingList16);
         assertEquals(partnerList, userBookingList16);
@@ -1207,9 +1634,15 @@ class AccountTest {
         assertEquals(serviceList1, userBookingList16);
         assertEquals(accountList1, userBookingList16);
         assertEquals(tourList2, userBookingList16);
+        assertEquals(commentList1, userBookingList16);
+        assertEquals(feedbackList1, userBookingList16);
         assertEquals(tourList1, userBookingList16);
         assertEquals(userBookingList1, userBookingList16);
         assertEquals(userBookingList2, userBookingList16);
+        assertEquals(commentList5, userBookingList16);
+        assertEquals(feedbackList5, userBookingList16);
+        assertEquals(commentList3, userBookingList16);
+        assertEquals(feedbackList3, userBookingList16);
         assertEquals(tourList3, userBookingList16);
         assertEquals(userBookingList3, userBookingList16);
         assertEquals(partnerList1, userBookingList16);
@@ -1217,9 +1650,13 @@ class AccountTest {
         assertEquals(serviceList3, userBookingList16);
         assertEquals(accountList2, userBookingList16);
         assertEquals(tourList5, userBookingList16);
+        assertEquals(commentList4, userBookingList16);
+        assertEquals(feedbackList4, userBookingList16);
         assertEquals(tourList4, userBookingList16);
         assertEquals(userBookingList4, userBookingList16);
         assertEquals(userBookingList5, userBookingList16);
+        assertEquals(commentList6, userBookingList16);
+        assertEquals(feedbackList6, userBookingList16);
         assertEquals(tourList6, userBookingList16);
         assertEquals(userBookingList6, userBookingList16);
         assertEquals(partnerList2, userBookingList16);
@@ -1230,6 +1667,14 @@ class AccountTest {
         assertEquals(serviceList7, userBookingList16);
         assertEquals(userBookingList7, userBookingList16);
         assertEquals(tourList7, userBookingList16);
+        assertEquals(feedbackList7, userBookingList16);
+        assertEquals(commentList7, userBookingList16);
+        assertEquals(commentList8, userBookingList16);
+        assertEquals(feedbackList8, userBookingList16);
+        assertEquals(commentList11, userBookingList16);
+        assertEquals(feedbackList11, userBookingList16);
+        assertEquals(commentList9, userBookingList16);
+        assertEquals(feedbackList9, userBookingList16);
         assertEquals(tourList8, userBookingList16);
         assertEquals(userBookingList8, userBookingList16);
         assertEquals(partnerList4, userBookingList16);
@@ -1237,9 +1682,13 @@ class AccountTest {
         assertEquals(serviceList9, userBookingList16);
         assertEquals(accountList3, userBookingList16);
         assertEquals(tourList10, userBookingList16);
+        assertEquals(commentList10, userBookingList16);
+        assertEquals(feedbackList10, userBookingList16);
         assertEquals(tourList9, userBookingList16);
         assertEquals(userBookingList9, userBookingList16);
         assertEquals(userBookingList10, userBookingList16);
+        assertEquals(commentList12, userBookingList16);
+        assertEquals(feedbackList12, userBookingList16);
         assertEquals(tourList11, userBookingList16);
         assertEquals(userBookingList11, userBookingList16);
         assertEquals(partnerList5, userBookingList16);
@@ -1250,6 +1699,10 @@ class AccountTest {
         assertEquals(serviceList13, userBookingList16);
         assertEquals(accountList4, userBookingList16);
         assertEquals(tourList12, userBookingList16);
+        assertEquals(commentList15, userBookingList16);
+        assertEquals(feedbackList15, userBookingList16);
+        assertEquals(commentList13, userBookingList16);
+        assertEquals(feedbackList13, userBookingList16);
         assertEquals(tourList13, userBookingList16);
         assertEquals(userBookingList12, userBookingList16);
         assertEquals(partnerList7, userBookingList16);
@@ -1257,6 +1710,8 @@ class AccountTest {
         assertEquals(serviceList15, userBookingList16);
         assertEquals(accountList5, userBookingList16);
         assertEquals(tourList15, userBookingList16);
+        assertEquals(commentList14, userBookingList16);
+        assertEquals(feedbackList14, userBookingList16);
         assertEquals(tourList14, userBookingList16);
         assertEquals(userBookingList13, userBookingList16);
         assertEquals(userBookingList14, userBookingList16);
