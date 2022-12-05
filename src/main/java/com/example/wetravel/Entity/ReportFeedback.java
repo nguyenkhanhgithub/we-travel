@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Table(name = "Report_Feedback")
 @Entity
@@ -31,4 +32,7 @@ public class ReportFeedback implements Serializable {
     @ManyToOne
     @JoinColumn(name = "reason_report_feedback_id" , referencedColumnName = "reason_report_feedback_id")
     private ReasonReportFeedback reasonReportFeedbackId;
+
+    @Column(name = "create_date")
+    private LocalDate createDate;
 }

@@ -53,6 +53,8 @@ public class Constant {
 
         public static final String SEND_MAIL_SUCCESS = "SEND MAIL SUCCESS!";
 
+        public static final String FEEDBACK_EXIST = "FEEDBACK EXIST!";
+
 
     }
 

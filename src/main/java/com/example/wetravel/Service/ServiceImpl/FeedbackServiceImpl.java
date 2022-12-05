@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
@@ -70,6 +71,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         reportFeedback.setReasonReportFeedbackId(reasonReportFeedback);
         Account account = accountRepository.getById(reportFeedbackDTO.getAccountId());
         reportFeedback.setAccountId(account);
+        reportFeedback.setCreateDate(LocalDate.now());
         reportFeedbackRepository.save(reportFeedback);
         return reportFeedbackDTO;
     }
@@ -125,7 +127,15 @@ public class FeedbackServiceImpl implements FeedbackService {
             FeedbackDTO feedbackDTO = new FeedbackDTO();
             feedbackDTO.setFeedbackId(f.getFeedbackId());
             feedbackDTO.setAccountId(f.getAccountId().getAccountId());
+            if(Objects.equals(f.getAccountId().getRoleId().getRoleId(), Constant.Role.Customer)) {
+                feedbackDTO.setFirstName(f.getAccountId().getUser().getFirstName());
+                feedbackDTO.setLastName(f.getAccountId().getUser().getLastName());
+            }else if(Objects.equals(f.getAccountId().getRoleId().getRoleId(), Constant.Role.Partner)){
+                feedbackDTO.setFirstName(f.getAccountId().getPartner().getFirstName());
+                feedbackDTO.setLastName(f.getAccountId().getPartner().getLastName());
+            }
             feedbackDTO.setTourId(f.getTourId().getTourId());
+            feedbackDTO.setTourName(f.getTourId().getTourName());
             feedbackDTO.setUserbookingId(f.getUserBookingId().getUserBookingId());
             feedbackDTO.setCreateDate(f.getCreateDate());
             feedbackDTO.setContent(f.getContent());
@@ -135,6 +145,13 @@ public class FeedbackServiceImpl implements FeedbackService {
             for (ReportFeedback rf : reportFeedbackList){
                 ReportFeedbackDTO reportFeedbackDTO = new ReportFeedbackDTO();
                 reportFeedbackDTO.setAccountId(rf.getAccountId().getAccountId());
+                if(Objects.equals(rf.getAccountId().getRoleId().getRoleId(), Constant.Role.Customer)) {
+                    reportFeedbackDTO.setFirstName(f.getAccountId().getUser().getFirstName());
+                    reportFeedbackDTO.setLastName(f.getAccountId().getUser().getLastName());
+                }else if(Objects.equals(rf.getAccountId().getRoleId().getRoleId(), Constant.Role.Partner)){
+                    reportFeedbackDTO.setFirstName(rf.getAccountId().getPartner().getFirstName());
+                    reportFeedbackDTO.setLastName(rf.getAccountId().getPartner().getLastName());
+                }
                 reportFeedbackDTO.setFeedbackId(rf.getFeedbackId().getFeedbackId());
                 reportFeedbackDTO.setReasonReportFeedbackId(rf.getReportFeedbackId());
                 reportFeedbackDTOList.add(reportFeedbackDTO);
@@ -143,5 +160,15 @@ public class FeedbackServiceImpl implements FeedbackService {
             feedbackDTOList.add(feedbackDTO);
         }
         return new PageImpl<>(feedbackDTOList , pageable , feedbackDTOList.size());
+    }
+
+    @Override
+    public Boolean deleteReportFeedback(Long feedbackId) throws HandlerException {
+        if(!reportFeedbackRepository.existsReportFeedbackByFeedbackId_FeedbackId(feedbackId)){
+            throw new HandlerException(Constant.Message.FEEDBACK_EXIST);
+        }
+        List<ReportFeedback> reportFeedback = reportFeedbackRepository.getAllByFeedbackId_FeedbackId(feedbackId);
+        reportFeedbackRepository.deleteAll(reportFeedback);
+        return true;
     }
 }

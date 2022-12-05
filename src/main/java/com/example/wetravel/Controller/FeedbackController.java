@@ -71,4 +71,14 @@ public class FeedbackController {
         }
     }
 
+    @DeleteMapping(value = "/delete/report-feedback/{feedbackId}")
+    public ResponseEntity<?> deleteReportFeedback(@PathVariable Long feedbackId){
+        try{
+            Boolean result = feedbackService.deleteReportFeedback(feedbackId);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.DELETE_SUCCESS) , HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(new BaseResponse(400 , false , e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

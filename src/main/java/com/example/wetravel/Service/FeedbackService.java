@@ -17,4 +17,6 @@ public interface FeedbackService {
     Page<FeedbackDTO> getListFeedback(Long tourId , Integer isBlock , Integer page , Integer size) throws HandlerException;
 
     Page<FeedbackDTO> getListFeedbackContainReport(Integer page , Integer size) throws HandlerException;
+
+    Boolean deleteReportFeedback(Long feedbackId) throws HandlerException;
 }

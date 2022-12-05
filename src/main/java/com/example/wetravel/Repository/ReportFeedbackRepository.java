@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ReportFeedbackRepository extends JpaRepository<ReportFeedback , Long> {
     List<ReportFeedback> getAllByFeedbackId_FeedbackId(Long feedbackId);
+
+    Boolean existsReportFeedbackByFeedbackId_FeedbackId(Long feedbackId);
 }

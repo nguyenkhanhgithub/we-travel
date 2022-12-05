@@ -12,6 +12,10 @@ import lombok.Setter;
 public class ReportFeedbackDTO {
     private Long accountId;
 
+    private String firstName;
+
+    private String lastName;
+
     private Long feedbackId;
 
     private Long reasonReportFeedbackId;

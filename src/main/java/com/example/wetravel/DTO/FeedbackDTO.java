@@ -19,6 +19,8 @@ public class FeedbackDTO {
 
     private Long tourId;
 
+    private String tourName;
+
     private Long userbookingId;
 
     private LocalDate createDate;
