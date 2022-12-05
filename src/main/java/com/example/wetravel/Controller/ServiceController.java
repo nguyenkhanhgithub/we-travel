@@ -34,9 +34,11 @@ public class ServiceController {
                                                    @RequestParam(defaultValue = "0") Long serviceCategoryId ,
                                                    @RequestParam(defaultValue = "-1") Integer isActive ,
                                                    @RequestParam(defaultValue = "-1") Integer isBlock ,
-                                                   @RequestParam(defaultValue = "-1") Integer status){
+                                                   @RequestParam(defaultValue = "-1") Integer status,
+                                                   @RequestParam(defaultValue = "1") Integer page ,
+                                                   @RequestParam(defaultValue = "1") Integer size){
         try{
-            List<ServiceDTO> result = serviceService.getAllServiceByCondition(emailPartner, serviceCategoryId, isActive, isBlock , status);
+            Page<ServiceDTO> result = serviceService.getAllServiceByCondition(emailPartner, serviceCategoryId, isActive, isBlock , status , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

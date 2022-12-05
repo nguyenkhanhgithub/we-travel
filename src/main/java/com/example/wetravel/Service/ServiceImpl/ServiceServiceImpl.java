@@ -51,9 +51,11 @@ public class ServiceServiceImpl implements ServiceService {
     TypeOfCuisineServiceRepository typeOfCuisineServiceRepository;
 
     @Override
-    public List<ServiceDTO> getAllServiceByCondition(String emailPartner , Long serviceCategoryId ,
-                                                     Integer isActive , Integer isBlock , Integer status) throws HandlerException {
-        List<Service> serviceList = serviceRepository.getListServiceByCondition(emailPartner, serviceCategoryId, isActive, isBlock , status);
+    public Page<ServiceDTO> getAllServiceByCondition(String emailPartner , Long serviceCategoryId ,Integer isActive ,
+                                                     Integer isBlock , Integer status , Integer page , Integer size) throws HandlerException {
+        Pageable pageable = PageRequest.of(page - 1 , size);
+        List<Service> serviceList = serviceRepository.getListServiceByCondition(emailPartner, serviceCategoryId, isActive, isBlock , status );
+
         if(serviceList.isEmpty()){
             throw new HandlerException("Service not found!");
         }
@@ -86,7 +88,7 @@ public class ServiceServiceImpl implements ServiceService {
             serviceDTO.setPartnerEmail(s.getPartnerId().getEmail());
             serviceDTOList.add(serviceDTO);
         }
-        return serviceDTOList;
+        return new PageImpl<>(serviceDTOList , pageable , serviceDTOList.size());
     }
 
     @Override

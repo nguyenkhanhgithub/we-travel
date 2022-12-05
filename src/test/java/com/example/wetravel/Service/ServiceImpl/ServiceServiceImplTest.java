@@ -89,19 +89,6 @@ class ServiceServiceImplTest {
     private UtilitiesSubcategoryRepository utilitiesSubcategoryRepository;
 
     /**
-     * Method under test: {@link ServiceServiceImpl#getAllServiceByCondition(String, Long, Integer, Integer, Integer)}
-     */
-    @Test
-    void testGetAllServiceByCondition() throws HandlerException {
-        when(serviceRepository.getListServiceByCondition((String) any(), (Long) any(), (Integer) any(), (Integer) any(),
-                (Integer) any())).thenReturn(new ArrayList<>());
-        assertThrows(HandlerException.class,
-                () -> serviceServiceImpl.getAllServiceByCondition("jane.doe@example.org", 123L, 1, 1, 1));
-        verify(serviceRepository).getListServiceByCondition((String) any(), (Long) any(), (Integer) any(),
-                (Integer) any(), (Integer) any());
-    }
-
-    /**
      * Method under test: {@link ServiceServiceImpl#getListServiceByPartnerId(Long, Integer, Integer)}
      */
     @Test
