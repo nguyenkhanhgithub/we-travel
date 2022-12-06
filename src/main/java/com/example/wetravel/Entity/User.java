@@ -44,7 +44,4 @@ public class User implements Serializable{
 
     @Column(name = "is_private")
     private Boolean isPrivate;
-
-    @Column(name = "rank_point")
-    private Integer rankPoint;
 }

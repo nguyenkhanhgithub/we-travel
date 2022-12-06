@@ -22,6 +22,8 @@ public class UserBookingDTO {
 
     private Integer tourType;
 
+    private Integer tourStatus;
+
     private String fullName;
 
     private String phone;

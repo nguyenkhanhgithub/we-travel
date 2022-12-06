@@ -18,5 +18,7 @@ public interface BookingService {
 
     Boolean createRequestCancel(RequestCancelBookingDTO requestCancelBookingDTO) throws HandlerException;
 
+    Page<RequestCancelBookingDTO> getListRequestCancelBooking(String email , Integer page , Integer size) throws HandlerException;
+
     Boolean deleteRequestCancelBooking(Long requestCancelId) throws HandlerException;
 }

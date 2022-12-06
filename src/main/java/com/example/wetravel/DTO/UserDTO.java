@@ -22,6 +22,4 @@ public interface UserDTO {
     String getBirthDate();
 
     String getPhone();
-
-    Integer getRankPoint();
 }

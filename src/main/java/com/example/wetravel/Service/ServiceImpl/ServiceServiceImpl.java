@@ -88,7 +88,9 @@ public class ServiceServiceImpl implements ServiceService {
             serviceDTO.setPartnerEmail(s.getPartnerId().getEmail());
             serviceDTOList.add(serviceDTO);
         }
-        return new PageImpl<>(serviceDTOList , pageable , serviceDTOList.size());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()) , serviceDTOList.size());
+        return new PageImpl<>(serviceDTOList.subList(start , end) , pageable , serviceDTOList.size());
     }
 
     @Override

@@ -70,7 +70,6 @@ public class AccountServiceImpl implements AccountService {
             user.setBirthDate(customerRegisterDTO.getBirthDate());
             user.setPhone(customerRegisterDTO.getPhone());
             user.setIsPrivate(customerRegisterDTO.getIsPrivate());
-            user.setRankPoint(0);
             user.setAccountId(account);
             userRepository.save(user);
             return true;

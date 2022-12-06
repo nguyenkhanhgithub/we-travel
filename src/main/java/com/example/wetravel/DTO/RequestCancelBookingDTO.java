@@ -14,6 +14,8 @@ import java.time.LocalDate;
 public class RequestCancelBookingDTO {
     private Long userBookingId;
 
+    private UserBookingDTO userBookingDTO;
+
     private Long reasonCancelId;
 
     private LocalDate requestDate;
