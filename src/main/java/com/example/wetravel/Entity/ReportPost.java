@@ -22,7 +22,7 @@ public class ReportPost implements Serializable {
     @Column(name = "report_post_id")
     private Long reportPostId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "post_id" , referencedColumnName = "post_id")
     private Post postId;
 
@@ -30,7 +30,7 @@ public class ReportPost implements Serializable {
     @JoinColumn(name = "account_id" , referencedColumnName = "account_id")
     private Account accountId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "reason_report_post_id" , referencedColumnName = "reason_report_post_id")
     private ReasonReportPost reasonReportPostId;
 

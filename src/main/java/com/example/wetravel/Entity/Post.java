@@ -26,6 +26,10 @@ public class Post implements Serializable {
     @JoinColumn(name = "topic_id" , referencedColumnName = "topic_id")
     private Topic topicId;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id" , referencedColumnName = "account_id")
+    private Account accountId;
+
     @Column(name = "date_post")
     private LocalDateTime timePost;
 
@@ -50,4 +54,7 @@ public class Post implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "postId" , cascade = CascadeType.ALL)
     private List<ReportPost> reportPostList;
+
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "postId" , cascade = CascadeType.ALL)
+    private List<Comment> commentList;
 }

@@ -51,4 +51,7 @@ public class Account implements Serializable{
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "accountId" , cascade = CascadeType.ALL)
     private List<Alert> alertList;
+
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "accountId" , cascade = CascadeType.ALL)
+    private List<Post> postList;
 }

@@ -25,11 +25,11 @@ public class ReportFeedback implements Serializable {
     @JoinColumn(name = "account_id" , referencedColumnName = "account_id")
     private Account accountId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "feedback_id" , referencedColumnName = "feedback_id")
     private Feedback feedbackId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "reason_report_feedback_id" , referencedColumnName = "reason_report_feedback_id")
     private ReasonReportFeedback reasonReportFeedbackId;
 

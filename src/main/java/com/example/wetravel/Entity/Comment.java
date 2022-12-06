@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Table(name = "Comment")
 @Entity
@@ -26,7 +26,7 @@ public class Comment implements Serializable {
     private Account accountId;
 
     @Column(name = "create_date")
-    private LocalDate createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "content")
     private String content;
@@ -34,7 +34,7 @@ public class Comment implements Serializable {
     @Column(name = "parent_comment_id")
     private Long parentCommentId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "post_id" , referencedColumnName = "post_id")
     private Post postId;
 }
