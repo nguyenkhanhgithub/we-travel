@@ -43,7 +43,6 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public LoginResponse login(Login login) throws HandlerException {
         LoginResponse loginResponse = new LoginResponse();
-        PartnerDTO partnerDTO;
         Account account = accountRepository.getAccountByEmail(login.getEmail());
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         if (account != null && bcrypt.matches(login.getPassword(), account.getPassWord()) || account.getRoleId().getRoleId() == Constant.Role.Admin) {
@@ -51,14 +50,18 @@ public class ClientServiceImpl implements ClientService {
             claims.put("accountId", account.getAccountId());
             claims.put("role", account.getRoleId());
             claims.put("email", account.getEmail());
-            if (userRepository.existsByAccountId_AccountId(account.getAccountId())) {
+            if (Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Customer)) {
                 UserDTO userDTO = userRepository.getDetailUser(account.getAccountId());
                 //String token = jwtUtil.generateToken(login.getEmail(), claims);
                 loginResponse.setInformation(userDTO);
-            } else {
-                partnerDTO = partnerRepository.getDetailPartner(account.getAccountId());
+            } else if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Partner)){
+                PartnerDTO partnerDTO = partnerRepository.getDetailPartner(account.getAccountId());
                 //String token = jwtUtil.generateToken(login.getEmail(), claims);
                 loginResponse.setInformation(partnerDTO);
+            } else {
+                AccountDTO accountDTO = new AccountDTO();
+                accountDTO.setAccountId(account.getAccountId());
+                loginResponse.setInformation(accountDTO);
             }
             return loginResponse;
         } else {
