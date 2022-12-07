@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Table(name = "Alert")
 @Entity
@@ -32,4 +33,7 @@ public class Alert implements Serializable {
 
     @Column(name = "status")
     private Boolean status;
+
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
 }

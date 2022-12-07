@@ -153,6 +153,7 @@ public class BookingServiceImpl implements BookingService {
         List<RequestCancelBookingDTO> requestCancelBookingDTOList = new ArrayList<>();
         for (RequestCancel rc : requestCancelList){
             RequestCancelBookingDTO requestCancelBookingDTO = new RequestCancelBookingDTO();
+            requestCancelBookingDTO.setRequestCancelBookingId(rc.getRequestCancelId());
             requestCancelBookingDTO.setUserBookingId(rc.getUserBookingId().getUserBookingId());
 
             UserBooking u = rc.getUserBookingId();
@@ -183,11 +184,13 @@ public class BookingServiceImpl implements BookingService {
             userBookingDTO.setDeposit(u.getTourId().getDeposit());
             userBookingDTO.setStatusDeposit(u.getStatusDeposit());
             userBookingDTO.setIsFeedback(u.getIsFeedback());
+
             requestCancelBookingDTO.setUserBookingDTO(userBookingDTO);
             requestCancelBookingDTO.setRequestDate(rc.getRequestDate());
             requestCancelBookingDTO.setDescription(rc.getDescription());
             requestCancelBookingDTO.setStatus(rc.getStatus());
             requestCancelBookingDTO.setReasonCancelId(rc.getReasonCancelId().getReasonCancelId());
+            requestCancelBookingDTO.setAccountEmail(u.getAccountId().getEmail());
             requestCancelBookingDTOList.add(requestCancelBookingDTO);
         }
         int start = (int) pageable.getOffset();

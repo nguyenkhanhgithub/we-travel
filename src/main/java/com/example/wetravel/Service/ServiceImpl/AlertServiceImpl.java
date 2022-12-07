@@ -11,6 +11,7 @@ import com.example.wetravel.Service.AlertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,24 +31,29 @@ public class AlertServiceImpl implements AlertService {
         alert.setTitle(alertDTO.getTitle());
         alert.setContent(alertDTO.getContent());
         alert.setStatus(false);
+        LocalDateTime timeCreate = LocalDateTime.now();
+        alert.setCreateDate(timeCreate);
         alertRepository.save(alert);
         alertDTO.setStatus(false);
+        alertDTO.setTimeCreate(timeCreate);
         return alertDTO;
     }
 
     @Override
     public List<AlertDTO> getListAlertByAccountId(Long accountId) throws HandlerException {
-        List<Alert> alertList = alertRepository.getAllByAccountId_AccountId(accountId);
+        List<Alert> alertList = alertRepository.getAllByAccountId_AccountIdOrderByCreateDateDesc(accountId);
         if(alertList.isEmpty()){
             throw new HandlerException(Constant.Message.NOT_FOUND);
         }
         List<AlertDTO> alertDTOList = new ArrayList<>();
         for (Alert a : alertList){
             AlertDTO alertDTO = new AlertDTO();
+            alertDTO.setAlertId(a.getAlertId());
             alertDTO.setAccountId(a.getAccountId().getAccountId());
             alertDTO.setTitle(a.getTitle());
             alertDTO.setContent(a.getContent());
             alertDTO.setStatus(a.getStatus());
+            alertDTO.setTimeCreate(a.getCreateDate());
             alertDTOList.add(alertDTO);
         }
         return alertDTOList;

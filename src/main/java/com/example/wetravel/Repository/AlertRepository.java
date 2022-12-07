@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface AlertRepository extends JpaRepository<Alert , Long> {
-    List<Alert> getAllByAccountId_AccountId(Long accountId);
+    List<Alert> getAllByAccountId_AccountIdOrderByCreateDateDesc(Long accountId);
 
     Boolean existsAlertByAlertId(Long alertId);
 }
