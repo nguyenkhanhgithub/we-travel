@@ -30,9 +30,6 @@ public class PostServiceImpl implements PostService {
     TopicRepository topicRepository;
 
     @Autowired
-    ServiceRepository serviceRepository;
-
-    @Autowired
     AccountRepository accountRepository;
 
     @Autowired
@@ -58,8 +55,6 @@ public class PostServiceImpl implements PostService {
         post.setContent(postDTO.getContent());
         post.setIsPublic(postDTO.getIsPublic());
         post.setIsBlock(false);
-        com.example.wetravel.Entity.Service service = serviceRepository.getById(postDTO.getServiceId());
-        post.setServiceId(service);
         postRepository.save(post);
         postDTO.setTimePost(timePost);
         postDTO.setIsBlock(false);
@@ -99,7 +94,6 @@ public class PostServiceImpl implements PostService {
             postDTO.setContent(p.getContent());
             postDTO.setIsPublic(p.getIsPublic());
             postDTO.setIsBlock(p.getIsBlock());
-            postDTO.setServiceId(p.getServiceId().getServiceId());
             List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostDTO();
             postDTO.setReportPostDTOList(reportPostDTOList);
             postDTOList.add(postDTO);

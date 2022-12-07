@@ -90,8 +90,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public Page<FeedbackDTO> getListFeedback(Long tourId , Integer isBlock , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
-        Page<Feedback> feedbackPage = feedbackRepository.getAllByTourId(tourId , isBlock , pageable);
-        List<Feedback> feedbackList = feedbackPage.getContent();
+        List<Feedback> feedbackList = feedbackRepository.getAllByTourId(tourId , isBlock);
         List<FeedbackDTO> feedbackDTOList = new ArrayList<>();
         for (Feedback f : feedbackList) {
             FeedbackDTO feedbackDTO = new FeedbackDTO();
@@ -114,14 +113,15 @@ public class FeedbackServiceImpl implements FeedbackService {
             }
             feedbackDTOList.add(feedbackDTO);
         }
-        return new PageImpl<>(feedbackDTOList , pageable , feedbackDTOList.size());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()) , feedbackDTOList.size());
+        return new PageImpl<>(feedbackDTOList.subList(start , end) , pageable , feedbackDTOList.size());
     }
 
     @Override
     public Page<FeedbackDTO> getListFeedbackContainReport(Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 ,size);
-        Page<Feedback> feedbackPage = feedbackRepository.getListFeedback(pageable);
-        List<Feedback> feedbackList = feedbackPage.getContent();
+        List<Feedback> feedbackList = feedbackRepository.findAll();
         List<FeedbackDTO> feedbackDTOList = new ArrayList<>();
         for (Feedback f : feedbackList){
             FeedbackDTO feedbackDTO = new FeedbackDTO();
@@ -154,12 +154,15 @@ public class FeedbackServiceImpl implements FeedbackService {
                 }
                 reportFeedbackDTO.setFeedbackId(rf.getFeedbackId().getFeedbackId());
                 reportFeedbackDTO.setReasonReportFeedbackId(rf.getReportFeedbackId());
+                reportFeedbackDTO.setCreateDate(rf.getCreateDate());
                 reportFeedbackDTOList.add(reportFeedbackDTO);
             }
             feedbackDTO.setReportFeedbackDTOList(reportFeedbackDTOList);
             feedbackDTOList.add(feedbackDTO);
         }
-        return new PageImpl<>(feedbackDTOList , pageable , feedbackDTOList.size());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()) , feedbackDTOList.size());
+        return new PageImpl<>(feedbackDTOList.subList(start , end) , pageable , feedbackDTOList.size());
     }
 
     @Override

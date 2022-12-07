@@ -48,10 +48,6 @@ public class Post implements Serializable {
     @Column(name = "is_block")
     private Boolean isBlock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id" , referencedColumnName = "service_id")
-    private Service serviceId;
-
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "postId" , cascade = CascadeType.ALL)
     private List<ReportPost> reportPostList;
 

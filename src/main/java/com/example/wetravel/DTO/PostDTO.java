@@ -30,7 +30,5 @@ public class PostDTO {
 
     private Boolean isBlock;
 
-    private Long serviceId;
-
     private List<ReportPostDTO> reportPostDTOList;
 }

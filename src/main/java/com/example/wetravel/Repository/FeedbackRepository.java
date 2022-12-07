@@ -7,13 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback , Long> {
     @Query(value = "SELECT * FROM feedback where (-1 = :isBlock or is_block = :isBlock) and tour_id = :tourId" , nativeQuery = true)
-    Page<Feedback> getAllByTourId(Long tourId , Integer isBlock , Pageable pageable);
-
-    @Query(value = "select * from feedback" , nativeQuery = true)
-    Page<Feedback> getListFeedback(Pageable pageable);
+    List<Feedback> getAllByTourId(Long tourId , Integer isBlock);
 
     Boolean existsFeedbackByFeedbackId(Long feedbackId);
 }

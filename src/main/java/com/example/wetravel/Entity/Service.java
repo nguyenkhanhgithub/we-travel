@@ -66,9 +66,6 @@ public class Service implements Serializable {
     @JoinColumn(name = "partner_id" , referencedColumnName = "partner_id")
     private Partner partnerId;
 
-    @OneToMany(fetch = FetchType.LAZY , mappedBy = "serviceId" , cascade = CascadeType.ALL)
-    private List<Post> postList;
-
     @OneToOne(fetch = FetchType.LAZY , mappedBy = "serviceId" , cascade = CascadeType.ALL)
     private Accommodation accommodation;
 
