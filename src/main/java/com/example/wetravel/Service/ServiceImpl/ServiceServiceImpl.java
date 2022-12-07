@@ -54,7 +54,7 @@ public class ServiceServiceImpl implements ServiceService {
     public Page<ServiceDTO> getAllServiceByCondition(String emailPartner , Long serviceCategoryId ,Integer isActive ,
                                                      Integer isBlock , Integer status , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
-        List<Service> serviceList = serviceRepository.getListServiceByCondition(emailPartner, serviceCategoryId, isActive, isBlock , status );
+        List<Service> serviceList = serviceRepository.getListServiceByCondition("%" + emailPartner + "%", serviceCategoryId, isActive, isBlock , status );
 
         if(serviceList.isEmpty()){
             throw new HandlerException("Service not found!");

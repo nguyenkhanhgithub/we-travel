@@ -149,7 +149,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Page<RequestCancelBookingDTO> getListRequestCancelBooking(String email , Integer page, Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
-        List<RequestCancel> requestCancelList = requestCancelRepository.getListRequestCancel(email);
+        List<RequestCancel> requestCancelList = requestCancelRepository.getListRequestCancel("%" + email + "%");
         List<RequestCancelBookingDTO> requestCancelBookingDTOList = new ArrayList<>();
         for (RequestCancel rc : requestCancelList){
             RequestCancelBookingDTO requestCancelBookingDTO = new RequestCancelBookingDTO();

@@ -14,7 +14,7 @@ public interface ServiceRepository extends JpaRepository<Service, Long> {
     boolean existsAllByServiceName(String serviceName);
 
     @Query(value = "select s.* from service s join partner p on s.partner_id = p.partner_id join \n" +
-            "account a on p.account_id = a.account_id where (a.email like %:emailPartner% or \"all\" = :emailPartner) \n" +
+            "account a on p.account_id = a.account_id where (a.email like :emailPartner or \"all\" = :emailPartner) \n" +
             "and (s.service_category_id = :serviceCategoryId or 0 = :serviceCategoryId) and " +
             "(s.is_active = :isActive or -1 = :isActive) and (s.is_block = :isBlock or -1 = :isBlock)" +
             " and (s.status = :status or -1 = :status)" , nativeQuery = true)

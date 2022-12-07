@@ -49,7 +49,7 @@ public class TourServiceImpl implements TourService {
             , Integer status , Integer fromPrice , Integer toPrice , Integer page, Integer size) throws HandlerException{
         TourListDTO tourListDTO = new TourListDTO();
         Pageable pageable = PageRequest.of(page-1, size);
-        Page<Tour> tourList = tourRepository.getListTour(tourName , tourCategoryList , tourType , status , fromPrice , toPrice , pageable);
+        Page<Tour> tourList = tourRepository.getListTour("%" +tourName+"%" , tourCategoryList , tourType , status , fromPrice , toPrice , pageable);
         if(tourList.isEmpty()){
             throw new HandlerException("Tour not found!");
         }
@@ -87,7 +87,7 @@ public class TourServiceImpl implements TourService {
             }
             tourDTOList.add(tourDTO);
         }
-        Integer count = tourRepository.countListTour(tourName , tourCategoryList , tourType , status , fromPrice , toPrice);
+        Integer count = tourRepository.countListTour("%" +tourName +"%" , tourCategoryList , tourType , status , fromPrice , toPrice);
         tourListDTO.setTourDTO(tourDTOList);
         tourListDTO.setCountTour(count);
         return tourListDTO;
@@ -334,7 +334,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Integer countTour(String tourName , List<Integer> tourCategoryList , Integer tourType , Integer status , Integer fromPrice , Integer toPrice) throws HandlerException {
-        Integer count = tourRepository.countListTour(tourName , tourCategoryList , status , tourType , fromPrice , toPrice);
+        Integer count = tourRepository.countListTour("%" +tourName + "%" , tourCategoryList , status , tourType , fromPrice , toPrice);
         if(count == 0){
             throw new HandlerException("Tour not found!");
         }
