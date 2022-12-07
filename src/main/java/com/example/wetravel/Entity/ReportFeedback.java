@@ -21,15 +21,15 @@ public class ReportFeedback implements Serializable {
     @Column(name = "report_feedback_id")
     private Long reportFeedbackId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id" , referencedColumnName = "account_id")
     private Account accountId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feedback_id" , referencedColumnName = "feedback_id")
     private Feedback feedbackId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "reason_report_feedback_id" , referencedColumnName = "reason_report_feedback_id")
     private ReasonReportFeedback reasonReportFeedbackId;
 

@@ -3,6 +3,7 @@ package com.example.wetravel.Service;
 import com.example.wetravel.DTO.CommentDTO;
 import com.example.wetravel.DTO.PostDTO;
 import com.example.wetravel.DTO.ReportPostDTO;
+import com.example.wetravel.DTO.ReportPostRequestDTO;
 import com.example.wetravel.Exception.HandlerException;
 import org.springframework.data.domain.Page;
 
@@ -17,7 +18,7 @@ public interface PostService {
 
     CommentDTO createComment(CommentDTO commentDTO) throws HandlerException;
 
-    ReportPostDTO createReportPost(ReportPostDTO reportPostDTO) throws HandlerException;
+    ReportPostRequestDTO createReportPost(ReportPostRequestDTO reportPostRequestDTO) throws HandlerException;
 
 
 }

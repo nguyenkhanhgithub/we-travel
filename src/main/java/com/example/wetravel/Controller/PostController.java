@@ -2,10 +2,7 @@ package com.example.wetravel.Controller;
 
 import com.example.wetravel.Constant.BaseResponse;
 import com.example.wetravel.Constant.Constant;
-import com.example.wetravel.DTO.AlertDTO;
-import com.example.wetravel.DTO.CommentDTO;
-import com.example.wetravel.DTO.PostDTO;
-import com.example.wetravel.DTO.ReportPostDTO;
+import com.example.wetravel.DTO.*;
 import com.example.wetravel.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,9 +66,9 @@ public class PostController {
     }
 
     @PostMapping("create/report-post")
-    public ResponseEntity<?> createReportPost(@RequestBody ReportPostDTO reportPostDTO){
+    public ResponseEntity<?> createReportPost(@RequestBody ReportPostRequestDTO reportPostRequestDTO){
         try {
-            ReportPostDTO result =  postService.createReportPost(reportPostDTO);
+            ReportPostRequestDTO result =  postService.createReportPost(reportPostRequestDTO);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

@@ -4,6 +4,7 @@ import com.example.wetravel.Constant.Constant;
 import com.example.wetravel.DTO.CommentDTO;
 import com.example.wetravel.DTO.PostDTO;
 import com.example.wetravel.DTO.ReportPostDTO;
+import com.example.wetravel.DTO.ReportPostRequestDTO;
 import com.example.wetravel.Entity.*;
 import com.example.wetravel.Exception.HandlerException;
 import com.example.wetravel.Repository.*;
@@ -125,15 +126,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ReportPostDTO createReportPost(ReportPostDTO reportPostDTO) throws HandlerException {
+    public ReportPostRequestDTO createReportPost(ReportPostRequestDTO reportPostRequestDTO) throws HandlerException {
         ReportPost reportPost = new ReportPost();
-        reportPost.setPostId(postRepository.getById(reportPostDTO.getPostId()));
-        reportPost.setAccountId(accountRepository.getById(reportPostDTO.getAccountId()));
-        reportPost.setReasonReportPostId(reasonReportPostRepository.getById(reportPostDTO.getReasonReportPostId()));
+        reportPost.setPostId(postRepository.getById(reportPostRequestDTO.getPostId()));
+        reportPost.setAccountId(accountRepository.getById(reportPostRequestDTO.getAccountId()));
+        reportPost.setReasonReportPostId(reasonReportPostRepository.getById(reportPostRequestDTO.getReasonReportPostId()));
         LocalDate timeCreate = LocalDate.now();
         reportPost.setCreateDate(timeCreate);
         reportPostRepository.save(reportPost);
-        reportPostDTO.setCreateDate(timeCreate);
-        return reportPostDTO;
+        reportPostRequestDTO.setCreateDate(timeCreate);
+        return reportPostRequestDTO;
     }
 }

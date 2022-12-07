@@ -26,7 +26,7 @@ public class Post implements Serializable {
     @JoinColumn(name = "topic_id" , referencedColumnName = "topic_id")
     private Topic topicId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id" , referencedColumnName = "account_id")
     private Account accountId;
 
@@ -48,7 +48,7 @@ public class Post implements Serializable {
     @Column(name = "is_block")
     private Boolean isBlock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id" , referencedColumnName = "service_id")
     private Service serviceId;
 
