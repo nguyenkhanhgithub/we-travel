@@ -87,10 +87,10 @@ public class BookingController {
         }
     }
 
-    @DeleteMapping("delete/request/cancel/booking/{requestCancelId}")
-    public ResponseEntity<?> deleteRequestCancelBooking(@PathVariable Long requestCancelId){
+    @DeleteMapping("delete/request/cancel/booking/{bookingId}")
+    public ResponseEntity<?> deleteRequestCancelBooking(@PathVariable Long bookingId){
         try{
-            Boolean result = bookingService.deleteRequestCancelBooking(requestCancelId);
+            Boolean result = bookingService.deleteRequestCancelBooking(bookingId);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.DELETE_SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

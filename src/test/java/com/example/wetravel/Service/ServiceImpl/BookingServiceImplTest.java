@@ -167,7 +167,6 @@ class BookingServiceImplTest {
         user.setIsPrivate(true);
         user.setLastName("Doe");
         user.setPhone("4105551212");
-        user.setRankPoint(1);
         user.setUserId(123L);
 
         Account account2 = new Account();
@@ -218,7 +217,6 @@ class BookingServiceImplTest {
         user1.setIsPrivate(true);
         user1.setLastName("Doe");
         user1.setPhone("4105551212");
-        user1.setRankPoint(1);
         user1.setUserId(123L);
 
         Account account3 = new Account();
@@ -423,7 +421,6 @@ class BookingServiceImplTest {
         user2.setIsPrivate(true);
         user2.setLastName("Doe");
         user2.setPhone("4105551212");
-        user2.setRankPoint(1);
         user2.setUserId(123L);
 
         Account account6 = new Account();
@@ -848,7 +845,6 @@ class BookingServiceImplTest {
         user.setIsPrivate(true);
         user.setLastName("Doe");
         user.setPhone("4105551212");
-        user.setRankPoint(1);
         user.setUserId(123L);
 
         Account account2 = new Account();
@@ -899,7 +895,6 @@ class BookingServiceImplTest {
         user1.setIsPrivate(true);
         user1.setLastName("Doe");
         user1.setPhone("4105551212");
-        user1.setRankPoint(1);
         user1.setUserId(123L);
 
         Account account3 = new Account();
@@ -1104,7 +1099,6 @@ class BookingServiceImplTest {
         user2.setIsPrivate(true);
         user2.setLastName("Doe");
         user2.setPhone("4105551212");
-        user2.setRankPoint(1);
         user2.setUserId(123L);
 
         Account account6 = new Account();
@@ -1237,9 +1231,9 @@ class BookingServiceImplTest {
         requestCancel.setUserBookingId(userBooking1);
         when(requestCancelRepository.getById((Long) any())).thenReturn(requestCancel);
         doNothing().when(requestCancelRepository).delete((RequestCancel) any());
-        when(requestCancelRepository.existsRequestCancelByRequestCancelId((Long) any())).thenReturn(true);
+        when(requestCancelRepository.existsRequestCancelByUserBookingId_UserBookingId((Long) any())).thenReturn(true);
         assertTrue(bookingServiceImpl.deleteRequestCancelBooking(123L));
-        verify(requestCancelRepository).existsRequestCancelByRequestCancelId((Long) any());
+        verify(requestCancelRepository).existsRequestCancelByUserBookingId_UserBookingId((Long) any());
         verify(requestCancelRepository).getById((Long) any());
         verify(requestCancelRepository).delete((RequestCancel) any());
     }

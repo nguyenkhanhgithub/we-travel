@@ -196,11 +196,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Boolean deleteRequestCancelBooking(Long requestCancelId) throws HandlerException{
-        if(!requestCancelRepository.existsRequestCancelByRequestCancelId(requestCancelId)){
+    public Boolean deleteRequestCancelBooking(Long bookingId) throws HandlerException{
+        if(!requestCancelRepository.existsRequestCancelByUserBookingId_UserBookingId(bookingId)){
             throw new HandlerException("Request not found!");
         }
-        RequestCancel requestCancel = requestCancelRepository.getById(requestCancelId);
+        RequestCancel requestCancel = requestCancelRepository.getRequestCancelByUserBookingId_UserBookingId(bookingId);
         requestCancelRepository.delete(requestCancel);
         return true;
     }
