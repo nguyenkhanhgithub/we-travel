@@ -14,5 +14,7 @@ public interface FeedbackRepository extends JpaRepository<Feedback , Long> {
     @Query(value = "SELECT * FROM feedback where (-1 = :isBlock or is_block = :isBlock) and tour_id = :tourId" , nativeQuery = true)
     List<Feedback> getAllByTourId(Long tourId , Integer isBlock);
 
+    @Query(value = "select distinct f.* from feedback f right join report_feedback rf on f.feedback_id = rf.feedback_id" , nativeQuery = true)
+    List<Feedback> getListFeedbackContainReport();
     Boolean existsFeedbackByFeedbackId(Long feedbackId);
 }

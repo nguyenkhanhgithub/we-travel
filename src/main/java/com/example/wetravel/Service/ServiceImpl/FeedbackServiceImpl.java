@@ -121,7 +121,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public Page<FeedbackDTO> getListFeedbackContainReport(Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 ,size);
-        List<Feedback> feedbackList = feedbackRepository.findAll();
+        List<Feedback> feedbackList = feedbackRepository.getListFeedbackContainReport();
         List<FeedbackDTO> feedbackDTOList = new ArrayList<>();
         for (Feedback f : feedbackList){
             FeedbackDTO feedbackDTO = new FeedbackDTO();

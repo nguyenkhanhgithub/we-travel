@@ -111,7 +111,11 @@ public class PostServiceImpl implements PostService {
         LocalDateTime timeComment = LocalDateTime.now();
         comment.setCreateDate(timeComment);
         comment.setContent(commentDTO.getContent());
-        comment.setParentCommentId(null);
+        if (commentDTO.getParentCommentId() == null) {
+            comment.setParentCommentId(null);
+        } else {
+            comment.setParentCommentId(commentDTO.getParentCommentId());
+        }
         Post post = postRepository.getById(commentDTO.getPostId());
         comment.setPostId(post);
         commentDTO.setTimeComment(timeComment);
