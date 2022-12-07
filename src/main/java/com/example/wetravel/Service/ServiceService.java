@@ -12,7 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface ServiceService {
-    Page<ServiceDTO> getAllServiceByCondition(String emailPartner , Long serviceCategoryId ,
+    Page<ServiceDTO> getAllServiceByCondition(String emailPartner ,String serviceName , Long serviceCategoryId ,
                                               Integer isActive , Integer isBlock , Integer status , Integer page , Integer size) throws HandlerException;
 
     Page<ServiceDTO> getListServiceByPartnerId(Long partnerId , Integer page , Integer size) throws HandlerException;
