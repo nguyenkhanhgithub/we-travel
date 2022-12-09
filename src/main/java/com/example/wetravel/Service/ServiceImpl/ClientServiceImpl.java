@@ -121,7 +121,7 @@ public class ClientServiceImpl implements ClientService {
                 mailService.sendMail(dataMail, Constant.Mail.CLIENT_REGISTER);
                 return token;
             }else{
-                return Constant.Message.EMAIL_EXIST;
+                throw new HandlerException(Constant.Message.EMAIL_NOT_EXIST) ;
             }
         }catch(MessagingException e){
             throw new HandlerException(Constant.Message.SEND_MAIL_ERROR);
