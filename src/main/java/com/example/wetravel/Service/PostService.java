@@ -14,11 +14,12 @@ public interface PostService {
 
     Boolean deletePost(Long postId) throws HandlerException;
 
-    Page<PostDTO> getListPost(Integer checkReport , Long accountId , Integer isBlock , Integer isPublic , List<Long> topicList , Integer page , Integer size) throws HandlerException;
+    Page<PostDTO> getListPost(Integer checkReport ,String title , Long accountId , Integer isBlock , Integer isPublic , List<Long> topicList , Integer page , Integer size) throws HandlerException;
 
     CommentDTO createComment(CommentDTO commentDTO) throws HandlerException;
 
-    ReportPostRequestDTO createReportPost(ReportPostRequestDTO reportPostRequestDTO) throws HandlerException;
+    Page<CommentDTO> getListCommentByPost(Long postId , Integer page , Integer size) throws HandlerException;
 
+    ReportPostRequestDTO createReportPost(ReportPostRequestDTO reportPostRequestDTO) throws HandlerException;
 
 }

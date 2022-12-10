@@ -56,6 +56,7 @@ public class PostServiceImpl implements PostService {
         post.setIsPublic(postDTO.getIsPublic());
         post.setIsBlock(false);
         postRepository.save(post);
+        postDTO.setPostId(post.getPostId());
         postDTO.setTimePost(timePost);
         postDTO.setIsBlock(false);
         return postDTO;
@@ -72,20 +73,21 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getListPost(Integer checkReport ,Long accountId, Integer isBlock, Integer isPublic, List<Long> topicList , Integer page , Integer size) throws HandlerException {
+    public Page<PostDTO> getListPost(Integer checkReport ,String title , Long accountId, Integer isBlock, Integer isPublic, List<Long> topicList , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
         if(topicList.isEmpty()){
             topicList.add(-1L);
         }
-        List<Post> postList = new ArrayList<>();
+        List<Post> postList;
         if(checkReport == 0){
-            postList = postRepository.getListPost(accountId , isBlock , isPublic , topicList ,pageable);
+            postList = postRepository.getListPost( "%" +title+"%" ,accountId , isBlock , isPublic , topicList ,pageable);
         }else{
-            postList = postRepository.getListPostReport(accountId , isBlock , isPublic , topicList ,pageable);
+            postList = postRepository.getListPostReport("%" +title+"%" ,accountId , isBlock , isPublic , topicList ,pageable);
         }
         List<PostDTO> postDTOList = new ArrayList<>();
         for(Post p : postList){
             PostDTO postDTO = new PostDTO();
+            postDTO.setPostId(p.getPostId());
             postDTO.setTopicId(p.getTopicId().getTopicId());
             postDTO.setAccountId(p.getAccountId().getAccountId());
             postDTO.setTimePost(p.getTimePost());
@@ -121,6 +123,25 @@ public class PostServiceImpl implements PostService {
         commentDTO.setTimeComment(timeComment);
         commentRepository.save(comment);
         return commentDTO;
+    }
+
+    @Override
+    public Page<CommentDTO> getListCommentByPost(Long postId , Integer page , Integer size) throws HandlerException {
+        List<Comment> commentList = commentRepository.getAllByPostId_PostIdOrderByCreateDateDesc(postId);
+        List<CommentDTO> commentDTOList = new ArrayList<>();
+        for (Comment c : commentList){
+            CommentDTO commentDTO = new CommentDTO();
+            commentDTO.setAccountId(c.getAccountId().getAccountId());
+            commentDTO.setPostId(c.getPostId().getPostId());
+            commentDTO.setParentCommentId(c.getParentCommentId());
+            commentDTO.setContent(c.getContent());
+            commentDTO.setTimeComment(c.getCreateDate());
+            commentDTOList.add(commentDTO);
+        }
+        Pageable pageable = PageRequest.of(page -1 , size);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()) , commentDTOList.size());
+        return new PageImpl<>(commentDTOList.subList(start , end) , pageable , commentDTOList.size());
     }
 
     @Override

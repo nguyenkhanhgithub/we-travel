@@ -41,6 +41,7 @@ public class PostController {
 
     @GetMapping("get-list/post")
     public ResponseEntity<?> getListPost(@RequestParam(defaultValue = "0") Integer checkReport ,
+                                         @RequestParam(defaultValue = "all") String title ,
                                          @RequestParam(defaultValue = "0") Long accountId ,
                                          @RequestParam(defaultValue = "") List<Long> topicList ,
                                          @RequestParam(defaultValue = "-1") Integer isBlock ,
@@ -48,7 +49,7 @@ public class PostController {
                                          @RequestParam(defaultValue = "1") Integer page ,
                                          @RequestParam(defaultValue = "1") Integer size){
         try {
-            Page<PostDTO> result =  postService.getListPost(checkReport ,accountId, isBlock, isPublic, topicList, page, size);
+            Page<PostDTO> result =  postService.getListPost(checkReport , title,accountId, isBlock, isPublic, topicList, page, size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
@@ -59,6 +60,16 @@ public class PostController {
     public ResponseEntity<?> createComment(@RequestBody CommentDTO commentDTO){
         try {
             CommentDTO result =  postService.createComment(commentDTO);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("get-list/comment/by-post")
+    public ResponseEntity<?> createComment(@RequestParam Long postId , @RequestParam(defaultValue = "1") Integer page , @RequestParam(defaultValue = "1") Integer size){
+        try {
+            Page<CommentDTO> result =  postService.getListCommentByPost(postId , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.CREATE_SUCCESS) , HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

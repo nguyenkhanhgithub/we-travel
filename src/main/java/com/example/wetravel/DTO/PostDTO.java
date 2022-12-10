@@ -14,6 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 public class PostDTO {
+    private Long postId;
+
     private Long topicId;
 
     private Long accountId;

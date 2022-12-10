@@ -52,9 +52,10 @@ public class FeedbackController {
     }
 
     @GetMapping(value = "/get-list-feedback/by-tour")
-    public ResponseEntity<?> getListFeedbackByTour(@RequestParam Long tourId , @RequestParam(defaultValue = "-1") Integer isBlock, @RequestParam Integer page , @RequestParam Integer size){
+    public ResponseEntity<?> getListFeedbackByTour(@RequestParam(defaultValue = "-1") Long tourId , @RequestParam(defaultValue = "-1") Long bookingId
+            , @RequestParam(defaultValue = "-1") Integer isBlock, @RequestParam(defaultValue = "1") Integer page , @RequestParam(defaultValue = "-1") Integer size){
         try{
-            Page<FeedbackDTO> result = feedbackService.getListFeedback(tourId , isBlock , page , size);
+            Page<FeedbackDTO> result = feedbackService.getListFeedback(tourId , bookingId , isBlock , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , false , e.getMessage()), HttpStatus.BAD_REQUEST);
