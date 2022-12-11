@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +15,10 @@ import java.time.LocalDateTime;
 public class CommentDTO {
     private Long accountId;
 
+    private String firstName;
+
+    private String lastName;
+
     private LocalDateTime timeComment;
 
     private String content;
@@ -21,4 +26,6 @@ public class CommentDTO {
     private Long parentCommentId;
 
     private Long postId;
+
+    private List<CommentDTO> commentDTOList;
 }

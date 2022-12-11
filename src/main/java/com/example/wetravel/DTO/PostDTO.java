@@ -20,6 +20,10 @@ public class PostDTO {
 
     private Long accountId;
 
+    private String firstName;
+
+    private String lastName;
+
     private LocalDateTime timePost;
 
     private String title;
@@ -33,4 +37,6 @@ public class PostDTO {
     private Boolean isBlock;
 
     private List<ReportPostDTO> reportPostDTOList;
+
+    private List<CommentDTO> commentDTOList;
 }

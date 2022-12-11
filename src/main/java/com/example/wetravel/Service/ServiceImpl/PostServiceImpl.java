@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -31,6 +32,12 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PartnerRepository partnerRepository;
 
     @Autowired
     CommentRepository commentRepository;
@@ -89,7 +96,19 @@ public class PostServiceImpl implements PostService {
             PostDTO postDTO = new PostDTO();
             postDTO.setPostId(p.getPostId());
             postDTO.setTopicId(p.getTopicId().getTopicId());
-            postDTO.setAccountId(p.getAccountId().getAccountId());
+            Account account = p.getAccountId();
+            postDTO.setAccountId(account.getAccountId());
+            if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Customer)){
+                User user = userRepository.getByAccountId_AccountId(account.getAccountId());
+                postDTO.setFirstName(user.getFirstName());
+                postDTO.setLastName(user.getLastName());
+            }else if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Partner)){
+                Partner partner = partnerRepository.getPartnerByAccountId_AccountId(account.getAccountId());
+                postDTO.setFirstName(partner.getFirstName());
+                postDTO.setLastName(partner.getLastName());
+            } else {
+                postDTO.setFirstName("Admin");
+            }
             postDTO.setTimePost(p.getTimePost());
             postDTO.setTitle(p.getTitle());
             postDTO.setDescription(p.getDescription());
@@ -103,6 +122,39 @@ public class PostServiceImpl implements PostService {
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()) , postDTOList.size());
         return new PageImpl<>(postDTOList.subList(start , end) , pageable , postDTOList.size());
+    }
+
+    @Override
+    public PostDTO getDetailPost(Long postId) throws HandlerException {
+        Post post = postRepository.getById(postId);
+        if(!postRepository.existsPostByPostId(postId)){
+            throw new HandlerException(Constant.Message.NOT_FOUND);
+        }
+        PostDTO postDTO = new PostDTO();
+        postDTO.setPostId(post.getPostId());
+        postDTO.setTopicId(post.getTopicId().getTopicId());
+        Account account = post.getAccountId();
+        postDTO.setAccountId(account.getAccountId());
+        if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Customer)){
+            User user = userRepository.getByAccountId_AccountId(account.getAccountId());
+            postDTO.setFirstName(user.getFirstName());
+            postDTO.setLastName(user.getLastName());
+        }else if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Partner)){
+            Partner partner = partnerRepository.getPartnerByAccountId_AccountId(account.getAccountId());
+            postDTO.setFirstName(partner.getFirstName());
+            postDTO.setLastName(partner.getLastName());
+        } else {
+            postDTO.setFirstName("Admin");
+        }
+        postDTO.setTimePost(post.getTimePost());
+        postDTO.setTitle(post.getTitle());
+        postDTO.setDescription(post.getDescription());
+        postDTO.setContent(post.getContent());
+        postDTO.setIsPublic(post.getIsPublic());
+        postDTO.setIsBlock(post.getIsBlock());
+        List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostDTO();
+        postDTO.setReportPostDTOList(reportPostDTOList);
+        return postDTO;
     }
 
     @Override
@@ -127,21 +179,73 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<CommentDTO> getListCommentByPost(Long postId , Integer page , Integer size) throws HandlerException {
-        List<Comment> commentList = commentRepository.getAllByPostId_PostIdOrderByCreateDateDesc(postId);
+        List<Comment> commentList = commentRepository.getAllByPostId_PostIdAndParentCommentIdNullOrderByCreateDateDesc(postId);
         List<CommentDTO> commentDTOList = new ArrayList<>();
         for (Comment c : commentList){
             CommentDTO commentDTO = new CommentDTO();
-            commentDTO.setAccountId(c.getAccountId().getAccountId());
+            Account account = c.getAccountId();
+            commentDTO.setAccountId(account.getAccountId());
+            if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Customer)){
+                User user = userRepository.getByAccountId_AccountId(account.getAccountId());
+                commentDTO.setFirstName(user.getFirstName());
+                commentDTO.setLastName(user.getLastName());
+            }else if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Partner)){
+                Partner partner = partnerRepository.getPartnerByAccountId_AccountId(account.getAccountId());
+                commentDTO.setFirstName(partner.getFirstName());
+                commentDTO.setLastName(partner.getLastName());
+            } else {
+                commentDTO.setFirstName("Admin");
+            }
             commentDTO.setPostId(c.getPostId().getPostId());
             commentDTO.setParentCommentId(c.getParentCommentId());
             commentDTO.setContent(c.getContent());
             commentDTO.setTimeComment(c.getCreateDate());
+            if(commentRepository.existsCommentByParentCommentId(c.getCommentId())){
+                List<CommentDTO> listComment = new ArrayList<>();
+                listComment = getListReplyComment(listComment, c.getCommentId());
+                commentDTO.setCommentDTOList(listComment);
+            }else{
+                commentDTO.setCommentDTOList(null);
+            }
             commentDTOList.add(commentDTO);
         }
         Pageable pageable = PageRequest.of(page -1 , size);
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()) , commentDTOList.size());
         return new PageImpl<>(commentDTOList.subList(start , end) , pageable , commentDTOList.size());
+    }
+
+    public List<CommentDTO> getListReplyComment(List<CommentDTO> commentDTOList ,Long commentId){
+        List<Comment> commentList = commentRepository.getAllByParentCommentId(commentId);
+        for(Comment c : commentList){
+            CommentDTO commentDTO = new CommentDTO();
+            Account account = c.getAccountId();
+            commentDTO.setAccountId(account.getAccountId());
+            if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Customer)){
+                User user = userRepository.getByAccountId_AccountId(account.getAccountId());
+                commentDTO.setFirstName(user.getFirstName());
+                commentDTO.setLastName(user.getLastName());
+            }else if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Partner)){
+                Partner partner = partnerRepository.getPartnerByAccountId_AccountId(account.getAccountId());
+                commentDTO.setFirstName(partner.getFirstName());
+                commentDTO.setLastName(partner.getLastName());
+            } else {
+                commentDTO.setFirstName("Admin");
+            }
+            commentDTO.setPostId(c.getPostId().getPostId());
+            commentDTO.setParentCommentId(c.getParentCommentId());
+            commentDTO.setContent(c.getContent());
+            commentDTO.setTimeComment(c.getCreateDate());
+            if(commentRepository.existsCommentByParentCommentId(c.getCommentId())){
+                List<CommentDTO> listComment = new ArrayList<>();
+                listComment = getListReplyComment(listComment, c.getCommentId());
+                commentDTO.setCommentDTOList(listComment);
+            }else{
+                commentDTO.setCommentDTOList(null);
+            }
+            commentDTOList.add(commentDTO);
+        }
+        return commentDTOList;
     }
 
     @Override

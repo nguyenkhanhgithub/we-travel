@@ -16,6 +16,8 @@ public interface PostService {
 
     Page<PostDTO> getListPost(Integer checkReport ,String title , Long accountId , Integer isBlock , Integer isPublic , List<Long> topicList , Integer page , Integer size) throws HandlerException;
 
+    PostDTO getDetailPost(Long postId) throws HandlerException;
+
     CommentDTO createComment(CommentDTO commentDTO) throws HandlerException;
 
     Page<CommentDTO> getListCommentByPost(Long postId , Integer page , Integer size) throws HandlerException;

@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment , Long> {
-    List<Comment> getAllByPostId_PostIdOrderByCreateDateDesc(Long postId);
+    Boolean existsCommentByParentCommentId(Long commentId);
+    List<Comment> getAllByParentCommentId(Long commentId);
+    List<Comment> getAllByPostId_PostIdAndParentCommentIdNullOrderByCreateDateDesc(Long postId);
 }
