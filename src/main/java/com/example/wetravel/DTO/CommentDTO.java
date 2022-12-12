@@ -13,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class CommentDTO {
+    private Long commentId;
+
     private Long accountId;
 
     private String firstName;

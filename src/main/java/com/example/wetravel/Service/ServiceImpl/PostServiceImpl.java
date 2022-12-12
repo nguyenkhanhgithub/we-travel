@@ -183,6 +183,7 @@ public class PostServiceImpl implements PostService {
         List<CommentDTO> commentDTOList = new ArrayList<>();
         for (Comment c : commentList){
             CommentDTO commentDTO = new CommentDTO();
+            commentDTO.setCommentId(c.getCommentId());
             Account account = c.getAccountId();
             commentDTO.setAccountId(account.getAccountId());
             if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Customer)){
@@ -219,6 +220,7 @@ public class PostServiceImpl implements PostService {
         List<Comment> commentList = commentRepository.getAllByParentCommentId(commentId);
         for(Comment c : commentList){
             CommentDTO commentDTO = new CommentDTO();
+            commentDTO.setCommentId(c.getCommentId());
             Account account = c.getAccountId();
             commentDTO.setAccountId(account.getAccountId());
             if(Objects.equals(account.getRoleId().getRoleId(), Constant.Role.Customer)){
