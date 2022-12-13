@@ -12,5 +12,9 @@ import java.util.List;
 public interface ReportPostRepository extends JpaRepository<ReportPost , Long> {
     @Query("select rp.postId.postId as postId , rp.accountId.accountId as accountId ," +
             "rp.reasonReportPostId.reasonReportPostId as reasonReportPostId , rp.createDate as createDate from ReportPost rp ")
-    List<ReportPostDTO> getListReportPostDTO();
+    List<ReportPostDTO> getListReportPost();
+
+    @Query("select rp.postId.postId as postId , rp.accountId.accountId as accountId ," +
+            "rp.reasonReportPostId.reasonReportPostId as reasonReportPostId , rp.createDate as createDate from ReportPost rp where rp.postId.postId = :postId ")
+    List<ReportPostDTO> getListReportPostByPostId(Long postId);
 }

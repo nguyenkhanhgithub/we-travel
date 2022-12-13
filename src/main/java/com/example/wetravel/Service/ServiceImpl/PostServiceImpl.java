@@ -115,7 +115,7 @@ public class PostServiceImpl implements PostService {
             postDTO.setContent(p.getContent());
             postDTO.setIsPublic(p.getIsPublic());
             postDTO.setIsBlock(p.getIsBlock());
-            List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostDTO();
+            List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostByPostId(p.getPostId());
             postDTO.setReportPostDTOList(reportPostDTOList);
             postDTOList.add(postDTO);
         }
@@ -152,7 +152,7 @@ public class PostServiceImpl implements PostService {
         postDTO.setContent(post.getContent());
         postDTO.setIsPublic(post.getIsPublic());
         postDTO.setIsBlock(post.getIsBlock());
-        List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostDTO();
+        List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostByPostId(postId);
         postDTO.setReportPostDTOList(reportPostDTOList);
         return postDTO;
     }
