@@ -174,6 +174,7 @@ public class PostServiceImpl implements PostService {
         comment.setPostId(post);
         commentDTO.setTimeComment(timeComment);
         commentRepository.save(comment);
+        commentDTO.setCommentId(comment.getCommentId());
         return commentDTO;
     }
 
