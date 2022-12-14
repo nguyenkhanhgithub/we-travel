@@ -460,7 +460,6 @@ public class ServiceServiceImpl implements ServiceService {
         List<UtilitiesServiceDTO> utilitiesServiceDTOList = accommodationDTO.getUtilitiesServiceDTOList();
         Service serviceUpdate = updateService(serviceDTO,utilitiesServiceDTOList,serviceId);
         Accommodation accommodationUpdate = accommodationRepository.getByServiceId(serviceId);
-        accommodationUpdate.setAccommodationType(accommodationDTO.getAccommodationType());
         accommodationUpdate.setRate(accommodationUpdate.getRate());
         accommodationUpdate.setNumberFloors(accommodationDTO.getNumberFloors());
         accommodationUpdate.setDescription(accommodationUpdate.getDescription());
@@ -502,7 +501,6 @@ public class ServiceServiceImpl implements ServiceService {
         List<UtilitiesServiceDTO> utilitiesServiceDTOList = restaurantDTO.getUtilitiesServiceDTOList();
         Service serviceUpdate = updateService(serviceDTO ,utilitiesServiceDTOList , serviceId);
         Restaurant restaurantUpdate = restaurantRepository.getRestaurantByServiceId(serviceId);
-        restaurantUpdate.setRestaurantServiceType(restaurantDTO.getRestaurantServiceType());
         restaurantUpdate.setRate(restaurantDTO.getRate());
         restaurantUpdate.setTimeOpen(restaurantDTO.getTimeOpen());
         restaurantUpdate.setTimeClose(restaurantDTO.getTimeClose());
@@ -540,7 +538,6 @@ public class ServiceServiceImpl implements ServiceService {
         List<UtilitiesServiceDTO> utilitiesServiceDTOList = entertainmentDTO.getUtilitiesServiceDTOList();
         Service serviceUpdate = updateService(serviceDTO , utilitiesServiceDTOList , serviceId);
         Entertainment entertainment = entertainmentRepository.getEntertainmentByServiceId(serviceId);
-        entertainment.setEntertainmentType(entertainmentDTO.getEntertainmentType());
         entertainment.setDowOpen(entertainmentDTO.getDowOpen());
         entertainment.setTimeOpen(entertainmentDTO.getTimeOpen());
         entertainment.setTimeClose(entertainmentDTO.getTimeClose());
