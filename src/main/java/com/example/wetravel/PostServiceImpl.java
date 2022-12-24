@@ -316,4 +316,14 @@ public class PostServiceImpl implements PostService {
         reportPostRequestDTO.setCreateDate(timeCreate);
         return reportPostRequestDTO;
     }
+
+    @Override
+    public Boolean deleteReportPost(Long postId) throws HandlerException{
+        Post post = postRepository.getById(postId);
+        if(postRepository.existsPostByPostId(postId)){
+            throw new HandlerException(Constant.Message.NOT_FOUND);
+        }
+        postRepository.delete(post);
+        return true;
+    }
 }

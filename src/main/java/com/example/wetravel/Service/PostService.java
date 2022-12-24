@@ -26,4 +26,6 @@ public interface PostService {
 
     ReportPostRequestDTO createReportPost(ReportPostRequestDTO reportPostRequestDTO) throws HandlerException;
 
+    Boolean deleteReportPost(Long postId) throws HandlerException;
+
 }
