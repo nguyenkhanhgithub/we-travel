@@ -12,6 +12,8 @@ import java.util.List;
 public interface PostService {
     PostDTO createPost(PostDTO postDTO) throws HandlerException;
 
+    PostDTO updatePost(Long postId , PostDTO postDTO) throws HandlerException;
+
     Boolean deletePost(Long postId) throws HandlerException;
 
     Page<PostDTO> getListPost(Integer checkReport ,String title , Long accountId , Integer isBlock , Integer isPublic , List<Long> topicList , Integer page , Integer size) throws HandlerException;

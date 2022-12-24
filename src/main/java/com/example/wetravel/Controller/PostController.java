@@ -29,6 +29,16 @@ public class PostController {
         }
     }
 
+    @PutMapping("update/post/{postId}")
+    public ResponseEntity<?> updatePost(@PathVariable Long postId , @RequestBody PostDTO postDTO){
+        try {
+            PostDTO result =  postService.updatePost(postId , postDTO);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.UPDATE_SUCCESS) , HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @DeleteMapping("delete/post/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId){
         try {

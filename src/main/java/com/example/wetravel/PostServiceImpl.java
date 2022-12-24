@@ -70,6 +70,19 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostDTO updatePost(Long postId, PostDTO postDTO) throws HandlerException {
+        Post post = postRepository.getById(postId);
+        if(!postRepository.existsPostByPostId(postId)){
+            throw new HandlerException(Constant.Message.NOT_FOUND);
+        }
+        post.setTitle(postDTO.getTitle());
+        post.setDescription(postDTO.getDescription());
+        post.setContent(postDTO.getContent());
+        postRepository.save(post);
+        return postDTO;
+    }
+
+    @Override
     public Boolean deletePost(Long postId) throws HandlerException {
         if(!postRepository.existsPostByPostId(postId)){
             throw new HandlerException(Constant.Message.NOT_FOUND);
