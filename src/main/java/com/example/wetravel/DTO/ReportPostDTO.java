@@ -7,15 +7,20 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+public class ReportPostDTO {
+    private Long postId;
 
-public interface ReportPostDTO {
-    Long getPostId();
+    private Long accountId;
 
-    Long getAccountId();
+    private String firstName;
 
-    Long getReasonReportPostId();
+    private String lastName;
 
-    LocalDate getCreateDate();
+    private Long reasonReportPostId;
 
-    LocalDate setCreateDate(LocalDate localDate);
+    private LocalDate createDate;
 }

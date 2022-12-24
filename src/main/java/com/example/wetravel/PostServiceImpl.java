@@ -128,8 +128,28 @@ public class PostServiceImpl implements PostService {
             postDTO.setContent(p.getContent());
             postDTO.setIsPublic(p.getIsPublic());
             postDTO.setIsBlock(p.getIsBlock());
-            List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostByPostId(p.getPostId());
-            postDTO.setReportPostDTOList(reportPostDTOList);
+            List<Object> reportPostDTOList = reportPostRepository.getListReportPostByPostId(p.getPostId());
+            List<ReportPostDTO> reportPostDTOS = new ArrayList<>();
+            for(Object o : reportPostDTOList){
+                Object[] objects = (Object[]) o;
+                ReportPostDTO reportPostDTO = new ReportPostDTO();
+                reportPostDTO.setPostId((Long) objects[0]);
+                reportPostDTO.setReasonReportPostId((Long) objects[2]);
+                Long accId = (Long) objects[1];
+                reportPostDTO.setAccountId(accId);
+                Account accountReport = accountRepository.getById(accId);
+                if(Objects.equals(accountReport.getRoleId().getRoleId(), Constant.Role.Customer)){
+                    User user = userRepository.getByAccountId_AccountId(accId);
+                    reportPostDTO.setFirstName(user.getFirstName());
+                    reportPostDTO.setLastName(user.getLastName());
+                }else if(Objects.equals(accountReport.getRoleId().getRoleId(), Constant.Role.Partner)){
+                    Partner partner = partnerRepository.getPartnerByAccountId_AccountId(accId);
+                    reportPostDTO.setFirstName(partner.getFirstName());
+                    reportPostDTO.setLastName(partner.getLastName());
+                }
+                reportPostDTOS.add(reportPostDTO);
+            }
+            postDTO.setReportPostDTOList(reportPostDTOS);
             postDTOList.add(postDTO);
         }
         int start = (int) pageable.getOffset();
@@ -165,8 +185,28 @@ public class PostServiceImpl implements PostService {
         postDTO.setContent(post.getContent());
         postDTO.setIsPublic(post.getIsPublic());
         postDTO.setIsBlock(post.getIsBlock());
-        List<ReportPostDTO> reportPostDTOList = reportPostRepository.getListReportPostByPostId(postId);
-        postDTO.setReportPostDTOList(reportPostDTOList);
+        List<Object> reportPostDTOList = reportPostRepository.getListReportPostByPostId(postId);
+        List<ReportPostDTO> reportPostDTOS = new ArrayList<>();
+        for(Object o : reportPostDTOList){
+            Object[] objects = (Object[]) o;
+            ReportPostDTO reportPostDTO = new ReportPostDTO();
+            reportPostDTO.setPostId((Long) objects[0]);
+            reportPostDTO.setReasonReportPostId((Long) objects[2]);
+            Long accId = (Long) objects[1];
+            reportPostDTO.setAccountId(accId);
+            Account accountReport = accountRepository.getById(accId);
+            if(Objects.equals(accountReport.getRoleId().getRoleId(), Constant.Role.Customer)){
+                User user = userRepository.getByAccountId_AccountId(accId);
+                reportPostDTO.setFirstName(user.getFirstName());
+                reportPostDTO.setLastName(user.getLastName());
+            }else if(Objects.equals(accountReport.getRoleId().getRoleId(), Constant.Role.Partner)){
+                Partner partner = partnerRepository.getPartnerByAccountId_AccountId(accId);
+                reportPostDTO.setFirstName(partner.getFirstName());
+                reportPostDTO.setLastName(partner.getLastName());
+            }
+            reportPostDTOS.add(reportPostDTO);
+        }
+        postDTO.setReportPostDTOList(reportPostDTOS);
         return postDTO;
     }
 
