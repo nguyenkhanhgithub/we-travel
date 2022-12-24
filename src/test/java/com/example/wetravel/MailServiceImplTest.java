@@ -1,6 +1,7 @@
 package com.example.wetravel;
 
 import com.example.wetravel.DTO.DataMailDTO;
+import com.example.wetravel.Service.ServiceImpl.MailServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mail.MailException;

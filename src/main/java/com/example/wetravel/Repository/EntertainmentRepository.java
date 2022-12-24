@@ -12,4 +12,7 @@ public interface EntertainmentRepository extends JpaRepository<Entertainment , L
 
     @Query("select e.entertainmentType from Entertainment e where e.serviceId.serviceId = :serviceId")
     String getTypeByServiceId(Long serviceId);
+
+    @Query("select e.description from Entertainment e where e.serviceId.serviceId = :serviceId")
+    String getDescriptionByServiceId(Long serviceId);
 }

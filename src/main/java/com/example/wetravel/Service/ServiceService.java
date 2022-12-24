@@ -16,11 +16,18 @@ public interface ServiceService {
                                               Integer isActive , Integer isBlock , Integer status , Integer page , Integer size) throws HandlerException;
 
     Page<ServiceDTO> getListServiceByPartnerId(Long partnerId , Integer page , Integer size) throws HandlerException;
+
     AccommodationDTO getDetailAccommodation(Long serviceId) throws HandlerException;
 
     RestaurantDTO getDetailRestaurant(Long serviceId) throws HandlerException;
 
     EntertainmentDTO getDetailEntertainment(Long serviceId) throws HandlerException;
+
+    List<AccommodationDTO> getListAccommodation(String city) throws HandlerException;
+
+    List<RestaurantDTO> getListRestaurant(String address) throws HandlerException;
+
+    List<EntertainmentDTO> getListEntertainment(String address) throws HandlerException;
 
     AccommodationDTO createAccommodation(AccommodationDTO accommodationDTO) throws HandlerException;
 

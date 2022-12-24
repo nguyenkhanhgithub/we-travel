@@ -12,4 +12,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant , Long> {
 
     @Query("select r.restaurantServiceType from Restaurant r where r.serviceId.serviceId = :serviceId")
     String getTypeByServiceId(Long serviceId);
+
+    @Query("select r.description from Restaurant r where r.serviceId.serviceId = :serviceId")
+    String getDescriptionByServiceId(Long serviceId);
 }

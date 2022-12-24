@@ -3,6 +3,7 @@ package com.example.wetravel;
 import com.example.wetravel.DTO.PartnerDTO;
 import com.example.wetravel.Exception.HandlerException;
 import com.example.wetravel.Repository.PartnerRepository;
+import com.example.wetravel.Service.ServiceImpl.PartnerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;

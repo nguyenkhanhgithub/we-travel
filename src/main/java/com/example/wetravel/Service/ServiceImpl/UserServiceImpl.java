@@ -1,4 +1,4 @@
-package com.example.wetravel;
+package com.example.wetravel.Service.ServiceImpl;
 
 import com.example.wetravel.DTO.UserDTO;
 import com.example.wetravel.Exception.HandlerException;

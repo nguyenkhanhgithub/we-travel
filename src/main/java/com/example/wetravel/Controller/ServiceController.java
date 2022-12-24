@@ -57,6 +57,16 @@ public class ServiceController {
         }
     }
 
+    @GetMapping("service/list/accommodation")
+    public ResponseEntity<?> getListAccommodation(@RequestParam String city){
+        try{
+            List<AccommodationDTO> result = serviceService.getListAccommodation(city);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch (HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("service/detail")
     public ResponseEntity<?> getDetail(@RequestParam Long serviceId){
         try{

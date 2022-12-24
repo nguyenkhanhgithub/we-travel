@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.mail.MessagingException;
 
+import com.example.wetravel.Service.ServiceImpl.ClientServiceImpl;
 import org.junit.jupiter.api.Disabled;
 
 import org.junit.jupiter.api.Test;

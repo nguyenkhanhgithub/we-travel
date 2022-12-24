@@ -39,5 +39,7 @@ public class ServiceDTO {
 
     private String typeOfServiceCategory;
 
+    private String description;
+
     private String partnerEmail;
 }

@@ -30,6 +30,15 @@ public class TourSchedule implements Serializable {
     @Column(name = "to_place")
     private String toPlace;
 
+    @Column(name = "accommodation_service")
+    private String accommodationService;
+
+    @Column(name = "restaurant_service")
+    private String restaurantService;
+
+    @Column(name = "entertainment_service")
+    private String entertainmentService;
+
     @ManyToOne
     @JoinColumn(name = "tour_id" , referencedColumnName = "tour_id")
     private Tour tourId;

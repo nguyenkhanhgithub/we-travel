@@ -8,6 +8,7 @@ import com.example.wetravel.Entity.User;
 import com.example.wetravel.Exception.HandlerException;
 import com.example.wetravel.Repository.AccountRepository;
 import com.example.wetravel.Repository.AlertRepository;
+import com.example.wetravel.Service.ServiceImpl.AlertServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

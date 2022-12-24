@@ -124,10 +124,13 @@ public class ServiceServiceImpl implements ServiceService {
             serviceDTO.setServiceCategory(serviceCateId);
             if(serviceCateId == 1){
                 serviceDTO.setTypeOfServiceCategory(accommodationRepository.getTypeByServiceId(serviceId));
+                serviceDTO.setDescription(accommodationRepository.getDescriptionByServiceId(serviceId));
             }else if(serviceCateId == 2){
                 serviceDTO.setTypeOfServiceCategory(entertainmentRepository.getTypeByServiceId(serviceId));
+                serviceDTO.setDescription(entertainmentRepository.getDescriptionByServiceId(serviceId));
             }else {
                 serviceDTO.setTypeOfServiceCategory(restaurantRepository.getTypeByServiceId(serviceId));
+                serviceDTO.setDescription(restaurantRepository.getDescriptionByServiceId(serviceId));
             }
             serviceDTO.setPartnerEmail(s.getPartnerId().getEmail());
             serviceDTOList.add(serviceDTO);
@@ -282,6 +285,46 @@ public class ServiceServiceImpl implements ServiceService {
         }
         result.setUtilitiesServiceDTOList(utilitiesServiceDTOList);
         return result;
+    }
+
+    @Override
+    public List<AccommodationDTO> getListAccommodation(String city) throws HandlerException {
+        List<Accommodation> accommodationList = accommodationRepository.getListAccommodationByCity(city);
+        List<AccommodationDTO> accommodationDTOList = new ArrayList<>();
+        for(Accommodation a : accommodationList){
+            Service s = serviceRepository.getById(a.getServiceId().getServiceId());
+            ServiceDTO serviceDTO = new ServiceDTO();
+            serviceDTO.setServiceId(a.getServiceId().getServiceId());
+            serviceDTO.setServiceName(s.getServiceName());
+            serviceDTO.setFax(s.getFax());
+            serviceDTO.setPhone(s.getPhone());
+            serviceDTO.setEmail(s.getEmail());
+            serviceDTO.setAddress(s.getAddress());
+            serviceDTO.setCity(s.getCity());
+            serviceDTO.setLink(s.getLink());
+            serviceDTO.setStatus(s.getStatus());
+            serviceDTO.setTaxCode(s.getTaxCode());
+            serviceDTO.setIsActive(s.getIsActive());
+            serviceDTO.setIsBlock(s.getIsBlock());
+            AccommodationDTO accommodationDTO = new AccommodationDTO();
+            accommodationDTO.setServiceDTO(serviceDTO);
+            accommodationDTO.setAccommodationType(a.getAccommodationType());
+            accommodationDTO.setRate(a.getRate());
+            accommodationDTO.setNumberFloors(a.getNumberFloors());
+            accommodationDTO.setDescription(a.getDescription());
+            accommodationDTOList.add(accommodationDTO);
+        }
+        return accommodationDTOList;
+    }
+
+    @Override
+    public List<RestaurantDTO> getListRestaurant(String address) throws HandlerException {
+        return null;
+    }
+
+    @Override
+    public List<EntertainmentDTO> getListEntertainment(String address) throws HandlerException {
+        return null;
     }
 
     public Service addService(ServiceDTO serviceDTO) throws HandlerException{
