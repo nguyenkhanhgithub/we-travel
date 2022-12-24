@@ -442,6 +442,7 @@ public class ServiceServiceImpl implements ServiceService {
         serviceUpdate.setAddress(serviceDTO.getAddress());
         serviceUpdate.setCity(serviceDTO.getCity());
         serviceUpdate.setLink(serviceDTO.getLink());
+        serviceUpdate.setStatus(serviceDTO.getStatus());
         List<UtilitiesService> utilitiesServiceList = utilitiesServiceRepository.getListUtilitiesServiceByServiceId(serviceId);
         utilitiesServiceRepository.deleteAll(utilitiesServiceList);
         for(UtilitiesServiceDTO u : utilitiesServiceDTOList){
@@ -460,9 +461,9 @@ public class ServiceServiceImpl implements ServiceService {
         List<UtilitiesServiceDTO> utilitiesServiceDTOList = accommodationDTO.getUtilitiesServiceDTOList();
         Service serviceUpdate = updateService(serviceDTO,utilitiesServiceDTOList,serviceId);
         Accommodation accommodationUpdate = accommodationRepository.getByServiceId(serviceId);
-        accommodationUpdate.setRate(accommodationUpdate.getRate());
+        accommodationUpdate.setRate(accommodationDTO.getRate());
         accommodationUpdate.setNumberFloors(accommodationDTO.getNumberFloors());
-        accommodationUpdate.setDescription(accommodationUpdate.getDescription());
+        accommodationUpdate.setDescription(accommodationDTO.getDescription());
         accommodationUpdate.setServiceId(serviceUpdate);
         List<Room> roomList = roomRepository.getListRoomByAccommodationId(accommodationUpdate.getAccommodationId());
         roomRepository.deleteAll(roomList);
@@ -485,6 +486,7 @@ public class ServiceServiceImpl implements ServiceService {
         serviceDTO.setPartnerEmail(serviceUpdate.getPartnerId().getEmail());
         serviceDTO.setIsBlock(serviceUpdate.getIsBlock());
         serviceDTO.setIsActive(serviceUpdate.getIsActive());
+        serviceDTO.setStatus(serviceUpdate.getStatus());
         accommodationDTO.setServiceDTO(serviceDTO);
         for(UtilitiesServiceDTO us : utilitiesServiceDTOList){
             UtilitiesSubcategory utilitiesSubcategory =
