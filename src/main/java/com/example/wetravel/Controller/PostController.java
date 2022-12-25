@@ -49,6 +49,16 @@ public class PostController {
         }
     }
 
+    @PutMapping("block/post/{postId}")
+    public ResponseEntity<?> blockPost(@PathVariable Long postId){
+        try {
+            Boolean result =  postService.blockPost(postId);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("get-list/post")
     public ResponseEntity<?> getListPost(@RequestParam(defaultValue = "0") Integer checkReport ,
                                          @RequestParam(defaultValue = "all") String title ,

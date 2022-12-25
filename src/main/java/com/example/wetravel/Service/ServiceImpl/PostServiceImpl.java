@@ -96,6 +96,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Boolean blockPost(Long postId) throws HandlerException {
+        if(!postRepository.existsPostByPostId(postId)){
+            throw new HandlerException(Constant.Message.NOT_FOUND);
+        }
+        Post post = postRepository.getById(postId);
+        post.setIsBlock(true);
+        List<ReportPost> reportPostList = reportPostRepository.getAllByPostId_PostId(postId);
+        reportPostRepository.deleteAll(reportPostList);
+        return true;
+    }
+
+    @Override
     public Page<PostDTO> getListPost(Integer checkReport ,String title , Long accountId, Integer isBlock, Integer isPublic, List<Long> topicList , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
         if(topicList.isEmpty()){

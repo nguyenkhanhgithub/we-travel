@@ -17,4 +17,6 @@ public interface ReportPostRepository extends JpaRepository<ReportPost , Long> {
     @Query("select rp.postId.postId, rp.accountId.accountId , rp.reasonReportPostId.reasonReportPostId\n" +
             " , rp.createDate from ReportPost rp where rp.postId.postId = :postId ")
     List<Object> getListReportPostByPostId(Long postId);
+
+    List<ReportPost> getAllByPostId_PostId(Long postId);
 }

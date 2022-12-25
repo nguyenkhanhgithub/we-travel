@@ -16,6 +16,8 @@ public interface PostService {
 
     Boolean deletePost(Long postId) throws HandlerException;
 
+    Boolean blockPost(Long postId) throws HandlerException;
+
     Page<PostDTO> getListPost(Integer checkReport ,String title , Long accountId , Integer isBlock , Integer isPublic , List<Long> topicList , Integer page , Integer size) throws HandlerException;
 
     PostDTO getDetailPost(Long postId) throws HandlerException;
