@@ -138,6 +138,7 @@ public class PostServiceImpl implements PostService {
                 ReportPostDTO reportPostDTO = new ReportPostDTO();
                 reportPostDTO.setPostId((Long) objects[0]);
                 reportPostDTO.setReasonReportPostId((Long) objects[2]);
+                reportPostDTO.setCreateDate((LocalDate) objects[3]);
                 Long accId = (Long) objects[1];
                 reportPostDTO.setAccountId(accId);
                 Account accountReport = accountRepository.getById(accId);

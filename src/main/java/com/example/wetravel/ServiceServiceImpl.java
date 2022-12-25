@@ -51,11 +51,14 @@ public class ServiceServiceImpl implements ServiceService {
     TypeOfCuisineServiceRepository typeOfCuisineServiceRepository;
 
     @Override
-    public Page<ServiceDTO> getAllServiceByCondition(String emailPartner , String serviceName , Long serviceCategoryId ,Integer isActive ,
-                                                     Integer isBlock , Integer status , Integer page , Integer size) throws HandlerException {
+    public Page<ServiceDTO> getAllServiceByCondition(Long accountId , String city , String serviceName , Long serviceCategoryId ,Integer isActive ,
+                                                     Integer isBlock , Integer status , List<Long> serviceIdList , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
-        List<Service> serviceList = serviceRepository.getListServiceByCondition("%" + emailPartner + "%","%"+serviceName+"%",
-                serviceCategoryId, isActive, isBlock , status);
+        if(serviceIdList.isEmpty()){
+            serviceIdList.add(1L);
+        }
+        List<Service> serviceList = serviceRepository.getListServiceByCondition(accountId, "%"+city+"%" , "%"+serviceName+"%",
+                serviceCategoryId, isActive, isBlock , status , serviceIdList);
 
         if(serviceList.isEmpty()){
             throw new HandlerException("Service not found!");

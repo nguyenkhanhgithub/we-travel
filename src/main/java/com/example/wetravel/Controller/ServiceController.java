@@ -30,26 +30,29 @@ public class ServiceController {
     ServiceRepository serviceRepository;
 
     @GetMapping("service")
-    public ResponseEntity<?> getListServicePartner(@RequestParam(defaultValue = "all") String emailPartner ,
-                                                   @RequestParam(defaultValue = "all") String serviceName ,
-                                                   @RequestParam(defaultValue = "0") Long serviceCategoryId ,
-                                                   @RequestParam(defaultValue = "-1") Integer isActive ,
-                                                   @RequestParam(defaultValue = "-1") Integer isBlock ,
+    public ResponseEntity<?> getListServicePartner(@RequestParam(defaultValue = "-1") Long accountId,
+                                                   @RequestParam(defaultValue = "all") String city,
+                                                   @RequestParam(defaultValue = "all") String serviceName,
+                                                   @RequestParam(defaultValue = "0") Long serviceCategoryId,
+                                                   @RequestParam(defaultValue = "-1") Integer isActive,
+                                                   @RequestParam(defaultValue = "-1") Integer isBlock,
                                                    @RequestParam(defaultValue = "-1") Integer status,
-                                                   @RequestParam(defaultValue = "1") Integer page ,
-                                                   @RequestParam(defaultValue = "1") Integer size){
-        try{
-            Page<ServiceDTO> result = serviceService.getAllServiceByCondition(emailPartner,serviceName , serviceCategoryId, isActive, isBlock , status , page , size);
-            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
-        }catch (HandlerException e){
-            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+                                                   @RequestParam List<Long> serviceIdList,
+                                                   @RequestParam(defaultValue = "1") Integer page,
+                                                   @RequestParam(defaultValue = "1") Integer size) {
+        try {
+            Page<ServiceDTO> result = serviceService.getAllServiceByCondition(accountId, city, serviceName, serviceCategoryId,
+                    isActive, isBlock, status, serviceIdList , page, size);
+            return new ResponseEntity<>(new BaseResponse(200, result, Constant.Message.SUCCESS), HttpStatus.OK);
+        } catch (HandlerException e) {
+            return new ResponseEntity<>(new BaseResponse(400, null, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("service/list/partner")
-    public ResponseEntity<?> getListServicePartner(@RequestParam Long partnerId , @RequestParam Integer page,
-                                                    @RequestParam Integer size){
-        try{
+    public ResponseEntity<?> getListServicePartner(@RequestParam Long partnerId, @RequestParam Integer page,
+                                                   @RequestParam Integer size) {
+        try {
             Page<ServiceDTO> result = serviceService.getListServiceByPartnerId(partnerId , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (HandlerException e){
