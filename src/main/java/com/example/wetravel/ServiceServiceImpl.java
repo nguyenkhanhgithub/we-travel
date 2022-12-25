@@ -318,13 +318,98 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<RestaurantDTO> getListRestaurant(String address) throws HandlerException {
-        return null;
+    public List<RestaurantDTO> getListRestaurant(String city) throws HandlerException {
+        List<Restaurant> restaurantList = restaurantRepository.getListRestaurantByCity(city);
+        List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
+        for(Restaurant r : restaurantList){
+            Service service = serviceRepository.getById(r.getServiceId().getServiceId());
+            ServiceDTO serviceDTO = new ServiceDTO();
+            serviceDTO.setServiceId(service.getServiceId());
+            serviceDTO.setServiceName(service.getServiceName());
+            serviceDTO.setFax(service.getFax());
+            serviceDTO.setPhone(service.getPhone());
+            serviceDTO.setEmail(service.getEmail());
+            serviceDTO.setAddress(service.getAddress());
+            serviceDTO.setCity(service.getCity());
+            serviceDTO.setLink(service.getLink());
+            serviceDTO.setStatus(service.getStatus());
+            serviceDTO.setTaxCode(service.getTaxCode());
+            serviceDTO.setIsActive(service.getIsActive());
+            serviceDTO.setIsBlock(service.getIsBlock());
+            serviceDTO.setServiceCategory(service.getServiceCategoryId().getServiceCategoryId());
+            serviceDTO.setPartnerEmail(service.getPartnerId().getEmail());
+            RestaurantDTO restaurantDTO = new RestaurantDTO();
+            restaurantDTO.setServiceDTO(serviceDTO);
+            restaurantDTO.setRestaurantServiceType(r.getRestaurantServiceType());
+            restaurantDTO.setTimeClose(r.getTimeClose());
+            restaurantDTO.setTimeOpen(r.getTimeOpen());
+            restaurantDTO.setDescription(r.getDescription());
+            restaurantDTO.setRate(r.getRate());
+            List<TypeOfCuisineService> typeOfCuisineServiceList =
+                    typeOfCuisineServiceRepository.getListTypeCuisineServiceByRestaurantId(r.getRestaurantId());
+            List<TypeCuisineServiceDTO> typeCuisineServiceDTOList = new ArrayList<>();
+            for(TypeOfCuisineService t : typeOfCuisineServiceList){
+                TypeCuisineServiceDTO typeCuisineServiceDTO = new TypeCuisineServiceDTO();
+                typeCuisineServiceDTO.setTypeCuisineId(t.getTypeCuisineId().getTypeCuisineId());
+                typeCuisineServiceDTOList.add(typeCuisineServiceDTO);
+            }
+            restaurantDTO.setTypeCuisineServiceDTOList(typeCuisineServiceDTOList);
+            List<UtilitiesService> utilitiesServiceList = utilitiesServiceRepository.getListUtilitiesServiceByServiceId(r.getServiceId().getServiceId());
+            List<UtilitiesServiceDTO> utilitiesServiceDTOList = new ArrayList<>();
+            for(UtilitiesService u : utilitiesServiceList){
+                UtilitiesServiceDTO utilitiesServiceDTO = new UtilitiesServiceDTO();
+                utilitiesServiceDTO.setUtilitiesSubcategoryId(u.getUtilitiesSubcategoryId().getUtilitiesSubcategoryId());
+                utilitiesServiceDTO.setUtilitiesCategoryId(u.getUtilitiesSubcategoryId().getUtilitiesCategoryId().getUtilitiesCategoryId());
+                utilitiesServiceDTOList.add(utilitiesServiceDTO);
+            }
+            restaurantDTO.setUtilitiesServiceDTOList(utilitiesServiceDTOList);
+            restaurantDTOList.add(restaurantDTO);
+        }
+        return restaurantDTOList;
     }
 
     @Override
-    public List<EntertainmentDTO> getListEntertainment(String address) throws HandlerException {
-        return null;
+    public List<EntertainmentDTO> getListEntertainment(String city) throws HandlerException {
+        List<Entertainment> entertainmentList = entertainmentRepository.getListEntertainmentByCity(city);
+        List<EntertainmentDTO> entertainmentDTOList = new ArrayList<>();
+        for(Entertainment e : entertainmentList){
+            Service service = serviceRepository.getById(e.getServiceId().getServiceId());
+            ServiceDTO serviceDTO = new ServiceDTO();
+            serviceDTO.setServiceId(service.getServiceId());
+            serviceDTO.setServiceName(service.getServiceName());
+            serviceDTO.setFax(service.getFax());
+            serviceDTO.setPhone(service.getPhone());
+            serviceDTO.setEmail(service.getEmail());
+            serviceDTO.setAddress(service.getAddress());
+            serviceDTO.setCity(service.getCity());
+            serviceDTO.setLink(service.getLink());
+            serviceDTO.setStatus(service.getStatus());
+            serviceDTO.setTaxCode(service.getTaxCode());
+            serviceDTO.setIsActive(service.getIsActive());
+            serviceDTO.setIsBlock(service.getIsBlock());
+            serviceDTO.setServiceCategory(service.getServiceCategoryId().getServiceCategoryId());
+            serviceDTO.setPartnerEmail(service.getPartnerId().getEmail());
+            EntertainmentDTO entertainmentDTO = new EntertainmentDTO();
+            entertainmentDTO.setServiceDTO(serviceDTO);
+            entertainmentDTO.setEntertainmentType(e.getEntertainmentType());
+            entertainmentDTO.setDowOpen(e.getDowOpen());
+            entertainmentDTO.setTimeClose(e.getTimeClose());
+            entertainmentDTO.setTimeOpen(e.getTimeOpen());
+            entertainmentDTO.setPriceTicketAdult(e.getPriceTicketAdult());
+            entertainmentDTO.setPriceTicketChildren(e.getPriceTicketChildren());
+            entertainmentDTO.setDescription(e.getDescription());
+            List<UtilitiesService> utilitiesServiceList = utilitiesServiceRepository.getListUtilitiesServiceByServiceId(e.getServiceId().getServiceId());
+            List<UtilitiesServiceDTO> utilitiesServiceDTOList = new ArrayList<>();
+            for(UtilitiesService u : utilitiesServiceList){
+                UtilitiesServiceDTO utilitiesServiceDTO = new UtilitiesServiceDTO();
+                utilitiesServiceDTO.setUtilitiesSubcategoryId(u.getUtilitiesSubcategoryId().getUtilitiesSubcategoryId());
+                utilitiesServiceDTO.setUtilitiesCategoryId(u.getUtilitiesSubcategoryId().getUtilitiesCategoryId().getUtilitiesCategoryId());
+                utilitiesServiceDTOList.add(utilitiesServiceDTO);
+            }
+            entertainmentDTO.setUtilitiesServiceDTOList(utilitiesServiceDTOList);
+            entertainmentDTOList.add(entertainmentDTO);
+        }
+        return entertainmentDTOList;
     }
 
     public Service addService(ServiceDTO serviceDTO) throws HandlerException{

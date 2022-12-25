@@ -75,9 +75,12 @@ public class PostServiceImpl implements PostService {
         if(!postRepository.existsPostByPostId(postId)){
             throw new HandlerException(Constant.Message.NOT_FOUND);
         }
+        Topic topic = topicRepository.getById(postDTO.getTopicId());
+        post.setTopicId(topic);
         post.setTitle(postDTO.getTitle());
         post.setDescription(postDTO.getDescription());
         post.setContent(postDTO.getContent());
+        post.setIsPublic(postDTO.getIsPublic());
         postRepository.save(post);
         return postDTO;
     }

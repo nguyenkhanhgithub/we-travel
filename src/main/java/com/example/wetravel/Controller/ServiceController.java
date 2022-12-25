@@ -67,6 +67,26 @@ public class ServiceController {
         }
     }
 
+    @GetMapping("service/list/restaurant")
+    public ResponseEntity<?> getListRestaurant(@RequestParam String city){
+        try{
+            List<RestaurantDTO> result = serviceService.getListRestaurant(city);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch (HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("service/list/entertainment")
+    public ResponseEntity<?> getListEntertainment(@RequestParam String city){
+        try{
+            List<EntertainmentDTO> result = serviceService.getListEntertainment(city);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch (HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("service/detail")
     public ResponseEntity<?> getDetail(@RequestParam Long serviceId){
         try{

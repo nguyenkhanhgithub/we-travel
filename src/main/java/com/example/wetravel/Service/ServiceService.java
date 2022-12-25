@@ -25,9 +25,9 @@ public interface ServiceService {
 
     List<AccommodationDTO> getListAccommodation(String city) throws HandlerException;
 
-    List<RestaurantDTO> getListRestaurant(String address) throws HandlerException;
+    List<RestaurantDTO> getListRestaurant(String city) throws HandlerException;
 
-    List<EntertainmentDTO> getListEntertainment(String address) throws HandlerException;
+    List<EntertainmentDTO> getListEntertainment(String city) throws HandlerException;
 
     AccommodationDTO createAccommodation(AccommodationDTO accommodationDTO) throws HandlerException;
 
