@@ -84,10 +84,13 @@ public class ServiceServiceImpl implements ServiceService {
             serviceDTO.setServiceCategory(serviceCateId);
             if(serviceCateId == 1){
                 serviceDTO.setTypeOfServiceCategory(accommodationRepository.getTypeByServiceId(serviceId));
+                serviceDTO.setDescription(accommodationRepository.getDescriptionByServiceId(serviceId));
             }else if(serviceCateId == 2){
                 serviceDTO.setTypeOfServiceCategory(entertainmentRepository.getTypeByServiceId(serviceId));
+                serviceDTO.setDescription(entertainmentRepository.getDescriptionByServiceId(serviceId));
             }else {
                 serviceDTO.setTypeOfServiceCategory(restaurantRepository.getTypeByServiceId(serviceId));
+                serviceDTO.setDescription(restaurantRepository.getDescriptionByServiceId(serviceId));
             }
             serviceDTO.setPartnerEmail(s.getPartnerId().getEmail());
             serviceDTOList.add(serviceDTO);
