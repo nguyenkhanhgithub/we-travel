@@ -25,27 +25,35 @@ import java.util.Objects;
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
+    public
     PostRepository postRepository;
 
     @Autowired
+    public
     TopicRepository topicRepository;
 
     @Autowired
+    public
     AccountRepository accountRepository;
 
     @Autowired
+    public
     UserRepository userRepository;
 
     @Autowired
+    public
     PartnerRepository partnerRepository;
 
     @Autowired
+    public
     CommentRepository commentRepository;
 
     @Autowired
+    public
     ReportPostRepository reportPostRepository;
 
     @Autowired
+    public
     ReasonReportPostRepository reasonReportPostRepository;
 
     @Override

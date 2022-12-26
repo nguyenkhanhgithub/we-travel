@@ -13,10 +13,11 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     User getByAccountId_AccountId(Long accountId);
     Boolean existsByAccountId_AccountId(Long accountId);
-    @Query(value = "SELECT u.accountId.accountId as accountId , u.accountId.isBlock as isBlock , u.accountId.email as email , u.firstName as firstName , u.lastName as lastName , u.gender as gender ," +
+    @Query(value = "SELECT u.accountId.accountId as accountId , u.accountId.isBlock as isBlock , u.accountId.email as email , u.firstName as firstName , " +
+            "u.lastName as lastName , u.gender as gender ," +
             " u.address as address , u.city as city , u.birthDate as birthDate , u.phone as phone ," +
-            " u.accountId.roleId.roleId as roleId FROM User u")
-    Page<UserDTO> getListUser(Pageable pageable);
+            " u.accountId.roleId.roleId as roleId FROM User u join u.accountId a WHERE a.email like :email")
+    Page<UserDTO> getListUser(String email , Pageable pageable);
 
     @Query(value = "SELECT u.accountId.accountId as accountId , u.accountId.isBlock as isBlock , u.accountId.email as email, u.firstName as firstName " +
             ", u.lastName as lastName , u.gender as gender ,u.address as address , u.city as city , u.birthDate as birthDate , u.phone as phone ," +

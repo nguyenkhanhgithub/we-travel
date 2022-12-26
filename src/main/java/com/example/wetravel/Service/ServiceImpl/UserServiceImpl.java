@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
+    public
     UserRepository userRepository;
 
     @Override
-    public Page<UserDTO> getListUser(Integer page, Integer size) throws HandlerException{
+    public Page<UserDTO> getListUser(String email, Integer page, Integer size) throws HandlerException{
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<UserDTO> userList = userRepository.getListUser(pageable);
+        Page<UserDTO> userList = userRepository.getListUser("%" + email + "%" ,pageable);
         if(userList.isEmpty()){
             throw new HandlerException("User Empty!");
         }

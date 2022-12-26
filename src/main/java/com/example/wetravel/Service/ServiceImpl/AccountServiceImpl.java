@@ -19,33 +19,43 @@ import java.util.Map;
 @Service
 public class AccountServiceImpl implements AccountService {
     @Autowired
+    public
     AccountRepository accountRepository;
 
     @Autowired
+    public
     RoleRepository roleRepository;
 
     @Autowired
+    public
     UserRepository userRepository;
 
     @Autowired
+    public
     PartnerRepository partnerRepository;
 
     @Autowired
+    public
     CompanyPartnerRepository companyPartnerRepository;
 
     @Autowired
+    public
     ServiceCategoryRepository serviceCategoryRepository;
 
     @Autowired
+    public
     ServiceRepository serviceRepository;
 
     @Autowired
+    public
     UserBookingRepository userBookingRepository;
 
     @Autowired
+    public
     PasswordEncoder passwordEncoder;
 
     @Autowired
+    public
     JwtUtil jwtUtil;
 
     @Override

@@ -18,9 +18,11 @@ import java.util.List;
 @Service
 public class AlertServiceImpl implements AlertService {
     @Autowired
+    public
     AccountRepository accountRepository;
 
     @Autowired
+    public
     AlertRepository alertRepository;
 
     @Override

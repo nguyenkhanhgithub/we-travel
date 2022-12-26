@@ -5,7 +5,7 @@ import com.example.wetravel.Exception.HandlerException;
 import org.springframework.data.domain.Page;
 
 public interface UserService {
-    Page<UserDTO> getListUser(Integer page , Integer size) throws HandlerException;
+    Page<UserDTO> getListUser(String email , Integer page , Integer size) throws HandlerException;
 
     UserDTO getDetailUser(Long accountId) throws HandlerException;
 }

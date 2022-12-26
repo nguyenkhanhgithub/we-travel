@@ -55,7 +55,7 @@ public class ServiceServiceImpl implements ServiceService {
                                                      Integer isBlock , Integer status , List<Long> serviceIdList , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1 , size);
         if(serviceIdList.isEmpty()){
-            serviceIdList.add(1L);
+            serviceIdList.add(-1L);
         }
         List<Service> serviceList = serviceRepository.getListServiceByCondition(accountId, "%"+city+"%" , "%"+serviceName+"%",
                 serviceCategoryId, isActive, isBlock , status , serviceIdList);

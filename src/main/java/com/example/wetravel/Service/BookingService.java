@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 public interface BookingService {
     Page<UserBookingDTO> getListBooking(Long accountId , Long tourId , String startDate , Integer page , Integer size) throws HandlerException;
+
     UserBookingDTO createBooking(UserBookingDTO userBookingDTO) throws HandlerException;
 
     Boolean updateStatus(Long userBookingId , Integer status) throws HandlerException;

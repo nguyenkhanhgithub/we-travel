@@ -17,9 +17,11 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class MailServiceImpl implements MailService {
     @Autowired
+    public
     JavaMailSender getMailSender;
 
     @Autowired
+    public
     SpringTemplateEngine templateEngine;
 
     @Override

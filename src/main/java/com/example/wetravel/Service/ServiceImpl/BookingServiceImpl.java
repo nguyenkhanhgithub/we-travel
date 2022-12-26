@@ -22,18 +22,23 @@ import java.util.List;
 @Service
 public class BookingServiceImpl implements BookingService {
     @Autowired
+    public
     UserBookingRepository userBookingRepository;
 
     @Autowired
+    public
     TourRepository tourRepository;
 
     @Autowired
+    public
     AccountRepository accountRepository;
 
     @Autowired
+    public
     ReasonCancelRepository reasonCancelRepository;
 
     @Autowired
+    public
     RequestCancelRepository requestCancelRepository;
 
     @Override

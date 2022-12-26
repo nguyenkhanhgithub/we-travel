@@ -70,11 +70,12 @@ public class AccountController {
 
     @GetMapping("get/list-partner")
     public ResponseEntity<?> getListPartner(@RequestParam(defaultValue = "all") String emailPartner,
+                                            @RequestParam(defaultValue = "all") String companyName,
                                             @RequestParam(defaultValue = "-1") Integer serviceCategoryId ,
                                             @RequestParam(defaultValue = "-1") Integer isBlock ,
                                             @RequestParam Integer page , @RequestParam Integer size){
         try{
-            Page<PartnerDTO> result = partnerService.getListPartner(emailPartner ,serviceCategoryId ,isBlock ,page , size);
+            Page<PartnerDTO> result = partnerService.getListPartner(emailPartner , companyName ,serviceCategoryId ,isBlock ,page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
@@ -92,9 +93,9 @@ public class AccountController {
     }
 
     @GetMapping("get/list-user")
-    public ResponseEntity<?> getListUser(@RequestParam Integer page , @RequestParam Integer size){
+    public ResponseEntity<?> getListUser(@RequestParam String email , @RequestParam Integer page , @RequestParam Integer size){
         try{
-            Page<UserDTO> result = userService.getListUser(page , size);
+            Page<UserDTO> result = userService.getListUser(email , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

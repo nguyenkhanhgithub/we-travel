@@ -31,11 +31,11 @@ class UserServiceImplTest {
     @Test
     void testGetListUser() throws Exception {
         // Setup
-        when(userServiceImplUnderTest.userRepository.getListUser(any(Pageable.class)))
+        when(userServiceImplUnderTest.userRepository.getListUser("" ,any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Arrays.asList()));
 
         // Run the test
-        final Page<UserDTO> result = userServiceImplUnderTest.getListUser(0, 0);
+        final Page<UserDTO> result = userServiceImplUnderTest.getListUser("",0, 0);
 
         // Verify the results
     }
@@ -43,11 +43,11 @@ class UserServiceImplTest {
     @Test
     void testGetListUser_UserRepositoryReturnsNoItems() throws Exception {
         // Setup
-        when(userServiceImplUnderTest.userRepository.getListUser(any(Pageable.class)))
+        when(userServiceImplUnderTest.userRepository.getListUser("",any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Collections.emptyList()));
 
         // Run the test
-        final Page<UserDTO> result = userServiceImplUnderTest.getListUser(0, 0);
+        final Page<UserDTO> result = userServiceImplUnderTest.getListUser("",0, 0);
 
         // Verify the results
     }
@@ -55,11 +55,11 @@ class UserServiceImplTest {
     @Test
     void testGetListUser_ThrowsHandlerException() {
         // Setup
-        when(userServiceImplUnderTest.userRepository.getListUser(any(Pageable.class)))
+        when(userServiceImplUnderTest.userRepository.getListUser("" , any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Arrays.asList()));
 
         // Run the test
-        assertThatThrownBy(() -> userServiceImplUnderTest.getListUser(0, 0)).isInstanceOf(HandlerException.class);
+        assertThatThrownBy(() -> userServiceImplUnderTest.getListUser("", 0, 0)).isInstanceOf(HandlerException.class);
     }
 
     @Test

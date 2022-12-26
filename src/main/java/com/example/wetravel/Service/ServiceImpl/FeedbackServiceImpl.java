@@ -19,27 +19,35 @@ import java.util.Objects;
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
+    public
     FeedbackRepository feedbackRepository;
 
     @Autowired
+    public
     AccountRepository accountRepository;
 
     @Autowired
+    public
     TourRepository tourRepository;
 
     @Autowired
+    public
     UserBookingRepository userBookingRepository;
 
     @Autowired
+    public
     ReportFeedbackRepository reportFeedbackRepository;
 
     @Autowired
+    public
     ReasonReportFeedbackRepository reasonReportFeedbackRepository;
 
     @Autowired
+    public
     UserRepository userRepository;
 
     @Autowired
+    public
     PartnerRepository partnerRepository;
 
     @Override
@@ -153,7 +161,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                     reportFeedbackDTO.setLastName(rf.getAccountId().getPartner().getLastName());
                 }
                 reportFeedbackDTO.setFeedbackId(rf.getFeedbackId().getFeedbackId());
-                reportFeedbackDTO.setReasonReportFeedbackId(rf.getReportFeedbackId());
+                reportFeedbackDTO.setReasonReportFeedbackId(rf.getReasonReportFeedbackId().getReasonReportFeedbackId());
                 reportFeedbackDTO.setCreateDate(rf.getCreateDate());
                 reportFeedbackDTOList.add(reportFeedbackDTO);
             }

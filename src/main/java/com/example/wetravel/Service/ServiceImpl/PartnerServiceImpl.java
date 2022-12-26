@@ -14,12 +14,13 @@ import org.springframework.stereotype.Service;
 public class PartnerServiceImpl implements PartnerService {
 
     @Autowired
+    public
     PartnerRepository partnerRepository;
 
     @Override
-    public Page<PartnerDTO> getListPartner(String emailPartner , Integer serviceCategoryId , Integer isBlock , Integer page , Integer size) throws HandlerException {
+    public Page<PartnerDTO> getListPartner(String emailPartner , String companyName , Integer serviceCategoryId , Integer isBlock , Integer page , Integer size) throws HandlerException {
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<PartnerDTO> partnerList = partnerRepository.getAllPartner(emailPartner ,"all", isBlock , serviceCategoryId ,pageable);
+        Page<PartnerDTO> partnerList = partnerRepository.getAllPartner(emailPartner , companyName ,"all", isBlock , serviceCategoryId ,pageable);
         if(partnerList.isEmpty()){
             throw new HandlerException("Partner not found!");
         }

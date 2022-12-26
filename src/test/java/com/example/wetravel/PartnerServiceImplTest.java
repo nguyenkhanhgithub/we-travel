@@ -32,11 +32,11 @@ class PartnerServiceImplTest {
     @Test
     void testGetListPartner() throws Exception {
         // Setup
-        when(partnerServiceImplUnderTest.partnerRepository.getAllPartner(eq("emailPartner"), eq("all"), eq(0), eq(0),
+        when(partnerServiceImplUnderTest.partnerRepository.getAllPartner(eq("emailPartner") , "", eq("all"), eq(0), eq(0),
                 any(Pageable.class))).thenReturn(new PageImpl<>(Arrays.asList()));
 
         // Run the test
-        final Page<PartnerDTO> result = partnerServiceImplUnderTest.getListPartner("emailPartner", 0, 0, 0, 0);
+        final Page<PartnerDTO> result = partnerServiceImplUnderTest.getListPartner("emailPartner", "", 0, 0, 0, 0);
 
         // Verify the results
     }
@@ -44,11 +44,11 @@ class PartnerServiceImplTest {
     @Test
     void testGetListPartner_PartnerRepositoryReturnsNoItems() throws Exception {
         // Setup
-        when(partnerServiceImplUnderTest.partnerRepository.getAllPartner(eq("emailPartner"), eq("all"), eq(0), eq(0),
+        when(partnerServiceImplUnderTest.partnerRepository.getAllPartner(eq("emailPartner") , "", eq("all"), eq(0), eq(0),
                 any(Pageable.class))).thenReturn(new PageImpl<>(Collections.emptyList()));
 
         // Run the test
-        final Page<PartnerDTO> result = partnerServiceImplUnderTest.getListPartner("emailPartner", 0, 0, 0, 0);
+        final Page<PartnerDTO> result = partnerServiceImplUnderTest.getListPartner("emailPartner","" ,  0, 0, 0, 0);
 
         // Verify the results
     }
@@ -56,11 +56,11 @@ class PartnerServiceImplTest {
     @Test
     void testGetListPartner_ThrowsHandlerException() {
         // Setup
-        when(partnerServiceImplUnderTest.partnerRepository.getAllPartner(eq("emailPartner"), eq("all"), eq(0), eq(0),
+        when(partnerServiceImplUnderTest.partnerRepository.getAllPartner(eq("emailPartner") , "", eq("all"), eq(0), eq(0),
                 any(Pageable.class))).thenReturn(new PageImpl<>(Arrays.asList()));
 
         // Run the test
-        assertThatThrownBy(() -> partnerServiceImplUnderTest.getListPartner("emailPartner", 0, 0, 0, 0))
+        assertThatThrownBy(() -> partnerServiceImplUnderTest.getListPartner("emailPartner" , "", 0, 0, 0, 0))
                 .isInstanceOf(HandlerException.class);
     }
 
