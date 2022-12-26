@@ -188,6 +188,9 @@ public class TourServiceImpl implements TourService {
             tourScheduleDTO.setTourScheduleName(ts.getTourScheduleName());
             tourScheduleDTO.setContent(ts.getContent());
             tourScheduleDTO.setToPlace(ts.getToPlace());
+            tourScheduleDTO.setAccommodationService(ts.getAccommodationService());
+            tourScheduleDTO.setRestaurantService(ts.getRestaurantService());
+            tourScheduleDTO.setEntertainmentService(ts.getEntertainmentService());
             tourScheduleDTOList.add(tourScheduleDTO);
         }
         tourDTO.setTourScheduleDTOList(tourScheduleDTOList);
@@ -258,6 +261,9 @@ public class TourServiceImpl implements TourService {
             tourSchedule.setContent(ts.getContent());
             tourSchedule.setToPlace(ts.getToPlace());
             tourSchedule.setTourId(tour);
+            tourSchedule.setAccommodationService(ts.getAccommodationService());
+            tourSchedule.setRestaurantService(ts.getRestaurantService());
+            tourSchedule.setEntertainmentService(ts.getEntertainmentService());
             tourScheduleRepository.save(tourSchedule);
         }
         tourDTO.setTourId(tour.getTourId());
@@ -327,6 +333,9 @@ public class TourServiceImpl implements TourService {
             tourSchedule.setContent(ts.getContent());
             tourSchedule.setToPlace(ts.getToPlace());
             tourSchedule.setTourId(tour);
+            tourSchedule.setAccommodationService(ts.getAccommodationService());
+            tourSchedule.setRestaurantService(ts.getRestaurantService());
+            tourSchedule.setEntertainmentService(ts.getEntertainmentService());
             tourScheduleRepository.save(tourSchedule);
         }
         return tourDTO;

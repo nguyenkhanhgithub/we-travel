@@ -17,4 +17,10 @@ public class TourScheduleDTO {
     private String content;
 
     private String toPlace;
+
+    private String accommodationService;
+
+    private String restaurantService;
+
+    private String entertainmentService;
 }
