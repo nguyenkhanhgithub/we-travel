@@ -1,12 +1,41 @@
 package com.example.wetravel.Controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.wetravel.Constant.BaseResponse;
+import com.example.wetravel.Constant.Constant;
+import com.example.wetravel.DTO.BookingMonthDTO;
+import com.example.wetravel.Exception.HandlerException;
+import com.example.wetravel.Service.DashboardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("wetravel/")
 @CrossOrigin
 public class DashboardController {
+    @Autowired
+    DashboardService dashboardService;
 
+    @GetMapping("calculate/booking-month")
+    public ResponseEntity<?> calculateBookingMonth() throws HandlerException {
+        try {
+            BookingMonthDTO result = dashboardService.calculateBookingMonth();
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch(HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("calculate/booking-by-many-month")
+    public ResponseEntity<?> calculateBookingByManyMonth() throws HandlerException {
+        try {
+            List<BookingMonthDTO> result = dashboardService.calculateBookingByMonth();
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch(HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
 }

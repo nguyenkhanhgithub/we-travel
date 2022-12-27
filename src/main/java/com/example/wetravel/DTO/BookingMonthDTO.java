@@ -5,14 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class BookingMonthDTO {
-    private Long thisMonth;
+    private String monthYear;
 
-    private Long nextMonth;
+    private Integer thisMonth;
 
-    private Long afterNextMonth;
+    private Integer nextMonth;
+
+    private Integer afterNextMonth;
 }
