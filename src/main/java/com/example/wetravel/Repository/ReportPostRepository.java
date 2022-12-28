@@ -19,4 +19,8 @@ public interface ReportPostRepository extends JpaRepository<ReportPost , Long> {
     List<Object> getListReportPostByPostId(Long postId);
 
     List<ReportPost> getAllByPostId_PostId(Long postId);
+
+    List<ReportPost> getReportPostByPostId_PostId(Long postId);
+
+    Boolean existsByPostId_PostId(Long postId);
 }

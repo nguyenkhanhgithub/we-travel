@@ -343,11 +343,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Boolean deleteReportPost(Long postId) throws HandlerException{
-        Post post = postRepository.getById(postId);
-        if(postRepository.existsPostByPostId(postId)){
+        List<ReportPost> reportPostList = reportPostRepository.getReportPostByPostId_PostId(postId);
+        if(!reportPostRepository.existsByPostId_PostId(postId)){
             throw new HandlerException(Constant.Message.NOT_FOUND);
         }
-        postRepository.delete(post);
+        reportPostRepository.deleteAll(reportPostList);
         return true;
     }
 }

@@ -16,7 +16,7 @@ public class BookingMonthDTO {
 
     private Integer thisMonth;
 
-    private Integer nextMonth;
+    private Integer lastMonth;
 
-    private Integer afterNextMonth;
+    private Integer beforeLastMonth;
 }

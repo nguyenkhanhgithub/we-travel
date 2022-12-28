@@ -106,7 +106,7 @@ public class PostController {
         }
     }
 
-    @DeleteMapping("delete/report-post")
+    @DeleteMapping("delete/report-post/{postId}")
     public ResponseEntity<?> deleteReportPost(@PathVariable Long postId){
         try {
             Boolean result = postService.deleteReportPost(postId);

@@ -93,7 +93,7 @@ public class AccountController {
     }
 
     @GetMapping("get/list-user")
-    public ResponseEntity<?> getListUser(@RequestParam String email , @RequestParam Integer page , @RequestParam Integer size){
+    public ResponseEntity<?> getListUser(@RequestParam(defaultValue = "all") String email , @RequestParam Integer page , @RequestParam Integer size){
         try{
             Page<UserDTO> result = userService.getListUser(email , page , size);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);

@@ -8,5 +8,5 @@ import java.util.List;
 public interface DashboardService {
     BookingMonthDTO calculateBookingMonth() throws HandlerException;
 
-    List<BookingMonthDTO> calculateBookingByMonth() throws HandlerException;
+    List<BookingMonthDTO> calculateBookingByMonth(String monthYear , Integer numberMonth) throws HandlerException;
 }

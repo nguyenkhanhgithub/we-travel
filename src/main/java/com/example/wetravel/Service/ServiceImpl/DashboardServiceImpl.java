@@ -28,35 +28,36 @@ public class DashboardServiceImpl implements DashboardService {
 
         BookingMonthDTO bookingMonthDTO;
         Integer countBookingThisMonth = bookingMonthRepository.countBookingByDayMonthYear(day , month , year);
-        Integer countBookingNextMonth = 0;
+        Integer countBookingLastMonth = 0;
 
         if(month == 1){
             Integer lastDay = cal.getMaximum(12);
-            countBookingNextMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay , 12 , year - 1);
+            countBookingLastMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay , 12 , year - 1);
         }else{
             Integer lastDay = cal.getMaximum(month - 1);
-            countBookingNextMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay , month - 1 , year);
+            countBookingLastMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay , month - 1 , year);
         }
-        Integer countBookingNextAfterMonth = 0;
+        Integer countBookingBeforeLastMonth = 0;
         if(month == 2){
             Integer lastDay = cal.getMaximum(12);
-            countBookingNextAfterMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay ,12 , year - 1);
+            countBookingBeforeLastMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay ,12 , year - 1);
         }else if(month == 1){
             Integer lastDay = cal.getMaximum(11);
-            countBookingNextAfterMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay ,11 , year - 1);
+            countBookingBeforeLastMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay ,11 , year - 1);
         }else{
             Integer lastDay = cal.getMaximum(month-2);
-            countBookingNextAfterMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay , month - 2 , year);
+            countBookingBeforeLastMonth = bookingMonthRepository.countBookingByDayMonthYear(lastDay , month - 2 , year);
         }
-        bookingMonthDTO = new BookingMonthDTO(null ,countBookingThisMonth , countBookingNextMonth , countBookingNextAfterMonth);
+        bookingMonthDTO = new BookingMonthDTO(null ,countBookingThisMonth , countBookingLastMonth , countBookingBeforeLastMonth);
         return bookingMonthDTO;
     }
 
     @Override
-    public List<BookingMonthDTO> calculateBookingByMonth() throws HandlerException {
-        LocalDate now = LocalDate.now();
-        int month = 1;
-        int year = now.getYear();
+    public List<BookingMonthDTO> calculateBookingByMonth(String monthYear , Integer numberMonth) throws HandlerException {
+        //LocalDate now = LocalDate.now();
+        Integer month = Integer.valueOf(monthYear.split("/")[0]);
+        Integer year = Integer.valueOf(monthYear.split("/")[1]);
+
         List<BookingMonthDTO> bookingMonthDTOList = new ArrayList<>();
         int count = 0;
         int booking = 0;
@@ -74,12 +75,10 @@ public class DashboardServiceImpl implements DashboardService {
             bookingMonthDTO.setMonthYear(i + "/" + year);
             bookingMonthDTO.setThisMonth(booking);
             bookingMonthDTOList.add(bookingMonthDTO);
-            if(count == 7){
+            if(count == numberMonth){
                 break;
             }
         }
         return bookingMonthDTOList;
     }
-
-
 }

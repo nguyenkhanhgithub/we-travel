@@ -30,9 +30,9 @@ public class DashboardController {
     }
 
     @GetMapping("calculate/booking-by-many-month")
-    public ResponseEntity<?> calculateBookingByManyMonth() throws HandlerException {
+    public ResponseEntity<?> calculateBookingByBookingDate(@RequestParam String monthYear , @RequestParam Integer numberOfMonth) throws HandlerException {
         try {
-            List<BookingMonthDTO> result = dashboardService.calculateBookingByMonth();
+            List<BookingMonthDTO> result = dashboardService.calculateBookingByMonth(monthYear , numberOfMonth);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch(HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
