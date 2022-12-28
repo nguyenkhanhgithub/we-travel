@@ -29,10 +29,20 @@ public class DashboardController {
         }
     }
 
-    @GetMapping("calculate/booking-by-many-month")
+    @GetMapping("calculate/booking-by-booking-date")
     public ResponseEntity<?> calculateBookingByBookingDate(@RequestParam String monthYear , @RequestParam Integer numberOfMonth) throws HandlerException {
         try {
-            List<BookingMonthDTO> result = dashboardService.calculateBookingByMonth(monthYear , numberOfMonth);
+            List<BookingMonthDTO> result = dashboardService.calculateBookingByBookingDate(monthYear , numberOfMonth);
+            return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
+        }catch(HandlerException e){
+            return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("calculate/booking-by-start-date")
+    public ResponseEntity<?> calculateBookingByStartDate(@RequestParam String monthYear , @RequestParam Integer numberOfMonth) throws HandlerException {
+        try {
+            List<BookingMonthDTO> result = dashboardService.calculateBookingByStartDate(monthYear , numberOfMonth);
             return new ResponseEntity<>(new BaseResponse(200 , result , Constant.Message.SUCCESS) , HttpStatus.OK);
         }catch(HandlerException e){
             return new ResponseEntity<>(new BaseResponse(400 , null , e.getMessage()) , HttpStatus.BAD_REQUEST);

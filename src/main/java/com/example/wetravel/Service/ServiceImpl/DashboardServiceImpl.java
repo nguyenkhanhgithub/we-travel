@@ -53,7 +53,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public List<BookingMonthDTO> calculateBookingByMonth(String monthYear , Integer numberMonth) throws HandlerException {
+    public List<BookingMonthDTO> calculateBookingByBookingDate(String monthYear , Integer numberMonth) throws HandlerException {
         //LocalDate now = LocalDate.now();
         Integer month = Integer.valueOf(monthYear.split("/")[0]);
         Integer year = Integer.valueOf(monthYear.split("/")[1]);
@@ -61,16 +61,47 @@ public class DashboardServiceImpl implements DashboardService {
         List<BookingMonthDTO> bookingMonthDTOList = new ArrayList<>();
         int count = 0;
         int booking = 0;
-        for(int i = month-1 ; i >= 0 ; i--){
+        for(int i = month ; i >= 0 ; i--){
             BookingMonthDTO bookingMonthDTO = new BookingMonthDTO();
             if(i == 0){
                 count++;
                 month = 12;
                 i = month;
-                booking = bookingMonthRepository.countBookingByMonthYear(month , year);
+                year--;
+                booking = bookingMonthRepository.countBookingByBookingDate(month , year);
             }else{
                 count++;
-                booking = bookingMonthRepository.countBookingByMonthYear(i , year);
+                booking = bookingMonthRepository.countBookingByBookingDate(i , year);
+            }
+            bookingMonthDTO.setMonthYear(i + "/" + year);
+            bookingMonthDTO.setThisMonth(booking);
+            bookingMonthDTOList.add(bookingMonthDTO);
+            if(count == numberMonth){
+                break;
+            }
+        }
+        return bookingMonthDTOList;
+    }
+
+    @Override
+    public List<BookingMonthDTO> calculateBookingByStartDate(String monthYear, Integer numberMonth) throws HandlerException {
+        Integer month = Integer.valueOf(monthYear.split("/")[0]);
+        Integer year = Integer.valueOf(monthYear.split("/")[1]);
+
+        List<BookingMonthDTO> bookingMonthDTOList = new ArrayList<>();
+        int count = 0;
+        int booking = 0;
+        for(int i = month ; i >= 0 ; i--){
+            BookingMonthDTO bookingMonthDTO = new BookingMonthDTO();
+            if(i == 0){
+                count++;
+                month = 12;
+                i = month;
+                year--;
+                booking = bookingMonthRepository.countBookingByStartDate(month , year);
+            }else{
+                count++;
+                booking = bookingMonthRepository.countBookingByStartDate(i , year);
             }
             bookingMonthDTO.setMonthYear(i + "/" + year);
             bookingMonthDTO.setThisMonth(booking);

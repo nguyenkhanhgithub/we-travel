@@ -11,5 +11,8 @@ public interface BookingMonthRepository extends JpaRepository<BookingMonth , Lon
     Integer countBookingByDayMonthYear(Integer day , Integer month , Integer year);
 
     @Query(value = "select count(*) from user_booking where month(booking_date) = :month and year(booking_date) = :year" , nativeQuery = true)
-    Integer countBookingByMonthYear(Integer month , Integer year);
+    Integer countBookingByBookingDate(Integer month , Integer year);
+
+    @Query(value = "select count(*) from user_booking where month(start_date) = :month and year(start_date) = :year" , nativeQuery = true)
+    Integer countBookingByStartDate(Integer month , Integer year);
 }
