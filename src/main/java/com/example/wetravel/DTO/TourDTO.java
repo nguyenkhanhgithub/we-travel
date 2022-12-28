@@ -50,6 +50,8 @@ public class TourDTO {
 
     private Integer minToStart;
 
+    private Integer maxToStart;
+
     private Float priceAdult;
 
     private Float priceChildren;

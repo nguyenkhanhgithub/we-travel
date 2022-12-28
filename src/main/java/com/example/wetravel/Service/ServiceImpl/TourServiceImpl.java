@@ -74,6 +74,7 @@ public class TourServiceImpl implements TourService {
             tourDTO.setMinChildren(t.getMinChildren());
             tourDTO.setMaxChildren(t.getMaxChildren());
             tourDTO.setMinToStart(t.getMinToStart());
+            tourDTO.setMaxToStart(t.getMaxToStart());
             tourDTO.setPriceAdult(t.getPriceAdult());
             tourDTO.setPriceChildren(t.getPriceChildren());
             tourDTO.setTotalPrice(t.getTotalPrice());
@@ -122,6 +123,7 @@ public class TourServiceImpl implements TourService {
         tourDTO.setTotalPrice(tour.getTotalPrice());
         tourDTO.setDeposit(tour.getDeposit());
         tourDTO.setMinToStart(tour.getMinToStart());
+        tourDTO.setMaxToStart(tour.getMaxToStart());
         tourDTO.setNote(tour.getNote());
         tourDTO.setTourCategoryId(tour.getTourCategoryId().getTourCategoryId());
         try{
@@ -218,6 +220,7 @@ public class TourServiceImpl implements TourService {
         tour.setMinChildren(tourDTO.getMinChildren());
         tour.setMaxChildren(tourDTO.getMaxChildren());
         tour.setMinToStart(tourDTO.getMinToStart());
+        tour.setMaxToStart(tourDTO.getMaxToStart());
         tour.setNote(tourDTO.getNote());
         tour.setPriceAdult(tourDTO.getPriceAdult());
         tour.setPriceChildren(tourDTO.getPriceChildren());
@@ -293,6 +296,7 @@ public class TourServiceImpl implements TourService {
         tour.setMinChildren(tourDTO.getMinChildren());
         tour.setMaxChildren(tourDTO.getMaxChildren());
         tour.setMinToStart(tourDTO.getMinToStart());
+        tour.setMaxToStart(tourDTO.getMaxToStart());
         tour.setNote(tourDTO.getNote());
         tour.setPriceAdult(tourDTO.getPriceAdult());
         tour.setPriceChildren(tourDTO.getPriceChildren());

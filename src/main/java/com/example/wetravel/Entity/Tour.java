@@ -65,6 +65,9 @@ public class Tour implements Serializable {
     @Column(name = "min_to_start")
     private Integer minToStart;
 
+    @Column(name = "max_to_start")
+    private Integer maxToStart;
+
     @Column(name = "adult_price")
     private Float priceAdult;
 
