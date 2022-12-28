@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserDTO> getListUser(String email, Integer page, Integer size) throws HandlerException{
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<UserDTO> userList = userRepository.getListUser("%" + email + "%" ,pageable);
+        Page<UserDTO> userList = userRepository.getListUser("%" + email + "%"  ,"all",pageable);
         if(userList.isEmpty()){
             throw new HandlerException("User Empty!");
         }

@@ -31,7 +31,7 @@ class UserServiceImplTest {
     @Test
     void testGetListUser() throws Exception {
         // Setup
-        when(userServiceImplUnderTest.userRepository.getListUser("" ,any(Pageable.class)))
+        when(userServiceImplUnderTest.userRepository.getListUser(""  , "",any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Arrays.asList()));
 
         // Run the test
@@ -43,7 +43,7 @@ class UserServiceImplTest {
     @Test
     void testGetListUser_UserRepositoryReturnsNoItems() throws Exception {
         // Setup
-        when(userServiceImplUnderTest.userRepository.getListUser("",any(Pageable.class)))
+        when(userServiceImplUnderTest.userRepository.getListUser("", "",any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Collections.emptyList()));
 
         // Run the test
@@ -55,7 +55,7 @@ class UserServiceImplTest {
     @Test
     void testGetListUser_ThrowsHandlerException() {
         // Setup
-        when(userServiceImplUnderTest.userRepository.getListUser("" , any(Pageable.class)))
+        when(userServiceImplUnderTest.userRepository.getListUser("" , "" , any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Arrays.asList()));
 
         // Run the test
